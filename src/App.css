@@ -1,0 +1,47 @@
+
+.app {
+    height: 100vh;
+}
+
+.week{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* justify-items: stretch; */
+    padding: calc(0.2vw + 2px) 5px;
+    background-color: rgb(205, 208, 224);
+    height: 100%;
+}
+
+.day {
+    background-color: white;
+    padding: 2px Calc(1px + 0.05vw) ;
+    border: gray 1px solid;
+    height: 100%;
+    /* margin: calc(0.1vw + 1px); */
+    /* overflow: hidden; */ 
+}
+
+.dayTitle{
+    padding: 5px 5px 0px;
+    color: teal;
+}
+
+.task {
+    background-color: rgb(65, 140, 238);
+    margin: 5px 4px;
+    padding: 10px 10px 1px;
+    border-radius: 2px;
+}
+
+#h5 .task {
+    color: red;
+}
+
+.taskTitle {
+    text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
+    font-style: oblique;
+    padding: 0em;
+    margin: 0em;
+    display: block;
+    font-size: 1em;
+}

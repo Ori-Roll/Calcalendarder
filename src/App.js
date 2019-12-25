@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
+import Week from './components/Week.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
+    <div className="app">
+      {/* <header className="App-header"></header> */}
+      <Week/>
     </div>
   );
 }
