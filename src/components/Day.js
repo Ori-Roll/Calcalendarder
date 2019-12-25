@@ -8,12 +8,12 @@ function Day(props) {
     let dayContent = [<p className="task">task1</p>, <p  className="task">task2</p>, <p  className="task">task3</p>]
 
     const {taskData} = useContext(AppContext);
-    console.log(taskData);
+    /* console.log(taskData); */
     return (
         <div className="day">
             {dayTitle}
-            <Task/>
-            <Task/>
+            <Task taskData = {taskData[0]} />
+            <Task taskData = {taskData[1]} />
             <Task/>
         </div>
     );
