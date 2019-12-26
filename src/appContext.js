@@ -13,9 +13,10 @@ function AppContextProvider (props) {
 
 
     const [taskData, setTaskData] = useState(tasks);
+    const [currentDate, setCurrentDate] = useState(new Date());
 
     return (
-        <AppContext.Provider value={{taskData}}>
+        <AppContext.Provider value={{taskData, currentDate}}>
             {props.children}
         </AppContext.Provider>
     );
