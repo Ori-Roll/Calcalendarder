@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 import Week from './components/Week.js';
+import NavBar from './components/NavBar.js';
 
 function App() {
   return (
     <div className="app">
-      {/* <header className="App-header"></header> */}
+      <NavBar/>
       <Week/>
     </div>
   );
