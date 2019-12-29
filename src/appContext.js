@@ -7,8 +7,8 @@ function AppContextProvider (props) {
 
     //Temp to replace database
     const tasks = [
-        {id : "1", time: new Date('2018-11-28T01:00:00').getTime(), title: "Miss. T", detail: "This is very important" }
-    , {id : "2", time: new Date().getTime(), title: "Today", detail: "stuff 2 do" }
+        {id : "1", time: new Date('2018-11-28T01:00:00').getTime(), title: "Miss. T", description: "This is very important" }
+    , {id : "2", time: new Date().getTime(), title: "Today----------- stuff stuff sjlf dfjgfsdgjkdfgkjh", description: "stuff 2 do" }
     ];
 
 

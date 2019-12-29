@@ -4,11 +4,13 @@ import {AppContext} from 'C:/Users/Denise/Desktop/Ori - WEB/TaskCalendar/V_0.0.0
 
 function Day(props) {
 
-    let dayTitle = <p className="dayTitle">This is the day</p>
-    let dayContent = [<p className="task">task1</p>, <p  className="task">task2</p>, <p  className="task">task3</p>]
 
     const {taskData} = useContext(AppContext);
-    /* console.log(taskData); */
+    
+    let dayTitle = <p className="dayTitle">This is the day</p>
+    
+    let dayContent = [<p className="task">task1</p>, <p  className="task">task2</p>, <p  className="task">task3</p>]
+
     return (
         <div className="day">
             {dayTitle}

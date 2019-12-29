@@ -1,6 +1,7 @@
 
 .app {
     height: 100vh;
+    min-width: 0;
 }
 
 .week{
@@ -10,6 +11,7 @@
     padding: calc(0.2vw + 2px) 5px;
     background-color: rgb(205, 208, 224);
     height: 100%;
+    min-width: 0;
 }
 
 .day {
@@ -19,18 +21,27 @@
     height: 100%;
     /* margin: calc(0.1vw + 1px); */
     /* overflow: hidden; */ 
+    min-width: 0;
 }
 
 .dayTitle{
     padding: 5px 5px 0px;
     color: teal;
+    min-width: 0;
 }
 
 .task {
+    box-sizing: initial;
+    display: grid;
+    grid-template-columns: 66% 34%;
+/*     grid-template-rows:  1fr 3fr;*/
+    grid-template-areas:    "task-title task-time"
+                            "task-description task-description";
     background-color: rgb(65, 140, 238);
     margin: 5px 4px;
     padding: 10px 10px 1px;
     border-radius: 2px;
+    min-width: 0;
 }
 
 #h5 .task {
@@ -44,9 +55,43 @@
     margin: 0em;
     display: block;
     font-size: 1em;
+    grid-area: task-title;
+}
+
+.task-time {
+    text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
+    font-style: oblique;
+    padding: 0.05em 0.4em;
+    margin: 0em;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+    grid-area: task-time;
+}
+
+.task-description{
+    grid-area: task-description;
+    font-size: 0.8em;
+}
+
+@media only screen and (max-width: 800px) {
+    .task-description{ font-size: 0.7em;
+                        }
+    .task-time {display: none;}
+    .taskTitle{
+        font-size: 0.7em;
+        font-style: normal;}
+    /* .task{
+        grid-template-areas:"text-title text-title"
+                            "text-description text-description";} */
+    .task {
+        margin: 1px 0;
+        padding: 0.4em 0.4em;
+    }
 }
 
 .nav-bar {
     width: 100%;
     background-color: brown;
+    display: inline-block;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const defaultData = {id : 0, time : "" , title: "empty t", detail: "empty d"}; 
+const defaultData = {id : 0, time : "" , title: "empty t", description: "empty d"}; 
 
 function Task(props) {
 
@@ -18,10 +18,8 @@ function Task(props) {
     return (
         <div className="task">
             <h5 className="taskTitle">{data.title}</h5>
-            <p className="taskTime">{taskTime}</p>
-            <p>
-                {data.detail}
-            </p>
+            <p className="task-time">{taskTime}</p>
+            <p className="task-description">{data.description}</p>
         </div>
     ); 
 };
