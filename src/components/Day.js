@@ -4,11 +4,15 @@ import {AppContext, getTasks} from 'C:/Users/Denise/Desktop/Ori - WEB/TaskCalend
 
 function Day(props) {
 
-    const dayDate = props.dayDate;
+    const dayDate = new Date(props.dayDate);
+    const dayNumber = dayDate.getDate().toString();
+    const dayName = ["SUN" , "MON" , "TUR" , "WED" , "THE" , " FRI", "SAT"][dayDate.getDay()];
+
+    /* const dayDate1 = new Date(dayDate);
+    console.log(dayDate1) */
     const {getTasks} = useContext(AppContext);
     let dayTasks = getTasks();
-
-    const dayTitle = <p className="dayTitle">{dayDate}</p>
+    const dayTitle = <p className="dayTitle">{dayNumber+" ("+dayName+")"}</p>
 
     return (
         <div className="day">

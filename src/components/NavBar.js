@@ -11,7 +11,7 @@ function NavBar(){
     return (
         <header className="nav-bar">
             <nav>
-                <ul className="a-a">
+                <ul>
                     <li>1-----1</li>
                     <li>2-----2</li>
                     <li>3-----3</li>

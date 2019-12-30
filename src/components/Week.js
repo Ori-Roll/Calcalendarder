@@ -11,13 +11,13 @@ function Week (props) {
 
     return (       
             <div className="week">
-                <Day date/>
-                <Day/>
-                <Day/>
-                <Day/>
-                <Day/>
-                <Day/>
-                <Day/>
+                <Day dayDate = {"2019-12-30"}/>
+                <Day dayDate = {"2019-12-31"}/>
+                <Day dayDate = {"2020-01-01"}/>
+                <Day dayDate = {"2020-01-02"}/>
+                <Day dayDate = {"2020-01-03"}/>
+                <Day dayDate = {"2020-01-04"}/>
+                <Day dayDate = {"2020-01-05"}/>
             </div>
     );
 };
