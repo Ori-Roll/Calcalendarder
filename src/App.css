@@ -1,4 +1,8 @@
-
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 .app {
     display: grid;
@@ -6,7 +10,7 @@
     grid-template-columns: 200px 1fr;
     grid-template-areas:    "nav-bar nav-bar"
                             "side-bar week";
-    height: 100vh;
+    height: 60vh;
     min-width: 0;
 }
 
@@ -114,12 +118,23 @@
 
 .nav-bar {
     grid-area: nav-bar;
-    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: brown;
-    display: inline-block;
+    padding: 0em;
 }
 
 .side-bar {
     grid-area: side-bar;
-    background-color: khaki;
+    background-color: rgb(136, 125, 27);
+}
+
+.a-a {
+    display: inline-block;
+    
+}
+.li {
+    display: inline-block;
+    width: 50px;
 }

@@ -1,15 +1,18 @@
 import React from "react";
 
 function SideBar(props) {
-
+    console.log("sidebar!!!");
+    console.log("sidebar!!!");
+    console.log("sidebar!!!");
+    console.log("sidebar!!!");
+    console.log("sidebar!!!");
+    console.log("sidebar!!!");
+    console.log("sidebar!!!");
+    console.log("sidebar!!!");
     return (
-        <div className="side-bar">
-            <h1>SideBar</h1>
-            <p>This i sthe sidebart</p>
+        <div className="side-bar">;klfds ;lfkdsjglkfds glkfd jglkfds glkfds;lk;gf slgfksd;
         </div>
     );
-
 };
-
 
 export default SideBar;

@@ -6,11 +6,17 @@ function NavBar(){
     const {currentDate} = useContext(AppContext);
 
     console.log(currentDate);
+    
 
     return (
         <header className="nav-bar">
-            <h1 className="logo">TC</h1>
-            <button/>
+            <nav>
+                <ul className="a-a">
+                    <li>1-----1</li>
+                    <li>2-----2</li>
+                    <li>3-----3</li>
+                </ul>
+            </nav>
         </header>
     );
 };

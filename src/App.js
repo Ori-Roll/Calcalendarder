@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Week from './components/Week.js';
-import SideBar from './components/NavBar.js';
+import SideBar from './components/SideBar.js';
 import NavBar from './components/NavBar.js';
 
 function App() {
