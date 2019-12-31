@@ -8,7 +8,7 @@ function Day(props) {
     const dayNumber = dayDate.getDate().toString();
     const dayShortName = [ "SUN" , "MON" , "TUE" , "WED" , "THU" , "FRI" , "SAT" ][dayDate.getDay()];
     const dayStartTime = dayDate.getTime();
-    const dayEndTime = dayDate.setHours(23, 59, 59, 99);   /* console.log("nextDay - "+new Date(dayEndTime)); */
+    const dayEndTime = dayDate.setHours(23, 59, 59, 999);   /* console.log("nextDay - "+new Date(dayEndTime)); */
 
     const {getTasks} = useContext(AppContext);
     let dayTasks = getTasks(dayStartTime, dayEndTime);
@@ -18,7 +18,7 @@ const dayTitle = <div className="dayTitle"><h4>{dayNumber}</h4><p>{"("+dayShortN
     return (
         <div className="day">
             {dayTitle}
-            { dayTasks.map( item => <Task taskData = {item}/>  ) }
+            {dayTasks.map( item => <Task key={item.key} taskData = {item}/>  ) }
         </div>
     );
 };

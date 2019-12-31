@@ -161,11 +161,17 @@
 
 .task-form {
     position: absolute;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 2fr 2fr 1fr;
+    grid-template-areas:    "task-form-title task-form-title task-form-title"
+                            "task-form-discription task-form-discription task-form-discription"
+                            "task-form-time task-form-submit task-form-cancel";
     left: 400px;
     top: 200px;
     background-color: rgb(195, 195, 195);
-    width: 300px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     padding: 20px;
 }
 .task-form * {
@@ -177,12 +183,32 @@
     margin: 0 0 5px;
     padding: 10px;
     width: 100%;
+    display: inline-block;
     border-style: none;
     background-color: rgb(204, 204, 204);
-    display: inline-block;
     word-break: break-word;
 }
 
 .task-form ::placeholder {
     color: rgb(93, 93, 93)5, 95, 95);
+}
+
+.task-form-title {
+    grid-area: task-form-title;
+}
+.task-form-discription {
+    grid-area: task-form-discription;
+}
+
+.task-form-time {
+    grid-area: task-form-time;
+}
+
+.task-form-submit {
+    grid-area: task-form-submit ;
+    background: none;
+}
+.task-form-cancel {
+    grid-area: task-form-cancel;
+    background: none;
 }

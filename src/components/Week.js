@@ -10,9 +10,14 @@ function Week (props) {
     const weeksDays = [currentDate.getDay() ]
     const [forms, setForms] = useState();
 
+    function submitForm(forms){
+        console.log("submit this: "+forms);
+        setForms();
+    }
+
     function weekHandleClick(){
-        setForms( () => <TaskForm/>);
-        console.log (forms);
+        forms ? submitForm(forms) : setForms( () => <TaskForm/>);
+        console.log ("new form: "+forms);
     }
 
     return (       
