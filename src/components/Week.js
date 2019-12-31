@@ -1,4 +1,4 @@
-import React, {useContext, useState } from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import Day from './Day.js';
 
 import {AppContext} from 'C:/Users/Denise/Desktop/Ori - WEB/TaskCalendar/V_0.0.0/task-calendar/src/appContext.js';
@@ -10,12 +10,15 @@ function Week (props) {
     const weeksDays = [currentDate.getDay() ]
     const [forms, setForms] = useState();
 
+    /* useEffect( () => {
+        window.addEventListener("mousemove", setMousePos({}))
+    ) */
+
     function submitForm(forms){
         console.log("submit this: "+forms);
-        setForms();
     }
 
-    function weekHandleClick(){
+    function weekHandleClick(event){
         forms ? submitForm(forms) : setForms( () => <TaskForm/>);
         console.log ("new form: "+forms);
     }
