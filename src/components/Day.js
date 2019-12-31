@@ -4,22 +4,21 @@ import {AppContext, getTasks} from 'C:/Users/Denise/Desktop/Ori - WEB/TaskCalend
 
 function Day(props) {
 
-    const dayDate = new Date(props.dayDate);
+    const {dayDate} = props;
     const dayNumber = dayDate.getDate().toString();
-    const dayName = ["SUN" , "MON" , "TUR" , "WED" , "THE" , " FRI", "SAT"][dayDate.getDay()];
+    const dayShortName = [ "SUN" , "MON" , "TUE" , "WED" , "THU" , "FRI" , "SAT" ][dayDate.getDay()];
+    const dayStartTime = dayDate.getTime();
+    const dayEndTime = dayDate.setHours(23, 59, 59, 99);   /* console.log("nextDay - "+new Date(dayEndTime)); */
 
-    /* const dayDate1 = new Date(dayDate);
-    console.log(dayDate1) */
     const {getTasks} = useContext(AppContext);
-    let dayTasks = getTasks();
-    const dayTitle = <p className="dayTitle">{dayNumber+" ("+dayName+")"}</p>
+    let dayTasks = getTasks(dayStartTime, dayEndTime);
+
+const dayTitle = <div className="dayTitle"><h4>{dayNumber}</h4><p>{"("+dayShortName+")"}</p></div>
 
     return (
         <div className="day">
             {dayTitle}
-            <Task taskData = {dayTasks[0]} />
-            <Task taskData = {dayTasks[0]} />
-            <Task/>
+            { dayTasks.map( item => <Task taskData = {item}/>  ) }
         </div>
     );
 };
