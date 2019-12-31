@@ -3,11 +3,11 @@ import React from "react";
 function MenuBtn(){
 
     function menuBtnHandler(){
-        console.log("menuBtnClick !");
+        console.log("menuBtnClick!");
     };
 
     return (
-        <button className="menu-btn" onClick={menuBtnHandler}></button>
+        <button className="menu-btn" onClick={menuBtnHandler}>Menu</button>
     );
 };
 
