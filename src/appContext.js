@@ -34,8 +34,8 @@ function AppContextProvider (props) {
         if (startTime) {startAt = startTime} else {return taskData};
         if (endTime) {endAt = endTime} 
         const taskSet = tasks.filter( item => item.time > startAt && item.time < endAt   ); 
-        console.log("startAt: "+startAt+" , endAt: "+endAt);
-        console.log(taskSet);
+        /* console.log("startAt: "+startAt+" , endAt: "+endAt);
+        console.log(taskSet); */
 
         return taskSet;        
     }

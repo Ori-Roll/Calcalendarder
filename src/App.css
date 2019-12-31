@@ -30,7 +30,7 @@
 }
 
 .day {
-    background-color: white;
+    background-color: rgb(221, 221, 221);
     padding: 2px Calc(1px + 0.05vw) ;
     /* border: rgb(230, 230, 230) 1px solid; */
     height: 100%;
@@ -123,7 +123,7 @@
         font-size: Calc(3 + 1.8vw);
         margin: 1px 0;
     }
-    
+
 }
 
 @media only screen and (max-width: 1100px) {
@@ -157,4 +157,32 @@
     padding: 5px 20px;
     border-radius: 10px;
     margin: 0 0 0 50px
+}
+
+.task-form {
+    position: absolute;
+    left: 400px;
+    top: 200px;
+    background-color: rgb(195, 195, 195);
+    width: 300px;
+    height: 200px;
+    padding: 20px;
+}
+.task-form * {
+    border-style: none;
+    padding: 10px;
+}
+
+.task-form input {
+    margin: 0 0 5px;
+    padding: 10px;
+    width: 100%;
+    border-style: none;
+    background-color: rgb(204, 204, 204);
+    display: inline-block;
+    word-break: break-word;
+}
+
+.task-form ::placeholder {
+    color: rgb(93, 93, 93)5, 95, 95);
 }
