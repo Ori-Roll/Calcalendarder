@@ -1,23 +1,27 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext} from 'react';
 import Day from './Day.js';
 
-import {AppContext} from 'C:/Users/Denise/Desktop/Ori - WEB/TaskCalendar/V_0.0.0/task-calendar/src/appContext.js';
+// import {AppContext} from '../appContext.js';
 
-function Week (props) {
+const days = [
+    new Date("2019-12-30 00:00:00"),
+    new Date("2019-12-31 00:00:00"),
+    new Date("2020-01-01 00:00:00"),
+    new Date("2020-01-02 00:00:00"),
+    new Date("2020-01-03 00:00:00"),
+    new Date("2020-01-04 00:00:00"),
+    new Date("2020-01-05 00:00:00"),
+];
 
-    const {currentDate} = useContext(AppContext);
-    const weeksDays = [currentDate.getDay() ]
+function Week () {
+
+    /* const {currentDate} = useContext(AppContext);
+    const weeksDays = [currentDate.getDay() ] */
 
     return (       
-            <div className="week">
-                <Day dayDate = {new Date("2019-12-30 00:00:00")}/>
-                <Day dayDate = {new Date("2019-12-31 00:00:00")}/>
-                <Day dayDate = {new Date("2020-01-01 00:00:00")}/>
-                <Day dayDate = {new Date("2020-01-02 00:00:00")}/>
-                <Day dayDate = {new Date("2020-01-03 00:00:00")}/>
-                <Day dayDate = {new Date("2020-01-04 00:00:00")}/>
-                <Day dayDate = {new Date("2020-01-05 00:00:00")}/>
-            </div>
+        <div className="week">
+            {days.map(date => <Day dayDate={date} key={date} />)}
+        </div>
     );
 };
 

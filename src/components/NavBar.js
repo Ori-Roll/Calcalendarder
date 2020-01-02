@@ -7,7 +7,7 @@ function NavBar(props){
     
     const {currentDate} = useContext(AppContext);
 
-    console.log(currentDate);
+    console.log("NavBar says: today is "+currentDate);
     
     return (
         <header className="nav-bar">

@@ -17,34 +17,53 @@ function AppContextProvider (props) {
         {key: "8", time: new Date('2020-01-02T07:00:00').getTime(), title: "Today 8", description: "stuff 2 do  - 8" },
         {key: "9", time: new Date('2020-01-02T08:00:00').getTime(), title: "Today 9", description: "stuff 2 do  - 9" },
         {key: "10", time: new Date('2020-01-02T00:00:00').getTime(), title: "Miss. T", description: "This is verykjf hasdjfh ksd hfkjsdah" },
-        {key: "12", time: new Date('2020-01-02T01:00:00').getTime(), title: "Today 12  2 2 2 2 2", description: "stuff 2 do" },
-        {key: "13", time: new Date('2020-01-02T02:00:00').getTime(), title: "Today 13", description: "stuff 2 do  - 13 and Stuffffffff" },
-        {key: "14", time: new Date('2020-01-03T03:00:00').getTime(), title: "Today 14", description: "stuff 2 do  - 14 ldfsk d;slaf ;ld sf;ljds jdh fkjs dhkfjdsh fkjdsh fkjdshf ;lkdsjhfds;" },
-        {key: "15", time: new Date('2020-01-04T04:00:00').getTime(), title: "Today 15", description: "stuff 2 do  - 15 dsi ujhdf kjhds as bewqgfpqndbclz,3wb qpo ihbp flzb" },
-        {key: "16", time: new Date('2020-01-04T05:00:00').getTime(), title: "Today 16", description: "stuff 2 do  - 16" },
-        {key: "17", time: new Date('2020-01-05T06:00:00').getTime(), title: "Today 17", description: "stuff 2 do  - 17" },
-        {key: "18", time: new Date('2020-01-06T07:00:00').getTime(), title: "Today 18", description: "stuff 2 do  - 18" },
-        {key: "19", time: new Date('2020-01-06T08:00:00').getTime(), title: "Today 19", description: "stuff 2 do  - 19" },
+        {key: "11", time: new Date('2020-01-02T01:00:00').getTime(), title: "Today 12  2 2 2 2 2", description: "stuff 2 do" },
+        {key: "12", time: new Date('2020-01-02T02:00:00').getTime(), title: "Today 13", description: "stuff 2 do  - 13 and Stuffffffff" },
+        {key: "13", time: new Date('2020-01-03T03:00:00').getTime(), title: "Today 14", description: "stuff 2 do  - 14 ldfsk d;slaf ;ld sf;ljds jdh fkjs dhkfjdsh fkjdsh fkjdshf ;lkdsjhfds;" },
+        {key: "14", time: new Date('2020-01-04T04:00:00').getTime(), title: "Today 15", description: "stuff 2 do  - 15 dsi ujhdf kjhds as bewqgfpqndbclz,3wb qpo ihbp flzb" },
+        {key: "15", time: new Date('2020-01-04T05:00:00').getTime(), title: "Today 16", description: "stuff 2 do  - 16" },
+        {key: "16", time: new Date('2020-01-05T06:00:00').getTime(), title: "Today 17", description: "stuff 2 do  - 17" },
+        {key: "17", time: new Date('2020-01-06T07:00:00').getTime(), title: "Today 18", description: "stuff 2 do  - 18" },
+        {key: "18", time: new Date('2020-01-06T08:00:00').getTime(), title: "Today 19", description: "stuff 2 do  - 19" },
     ];
 
-    function getTasks(startTime, endTime) {
+    /* function getTasks(startTime, endTime) {
         let startAt;
         let endAt;
 
         if (startTime) {startAt = startTime} else {return taskData};
         if (endTime) {endAt = endTime} 
         const taskSet = tasks.filter( item => item.time > startAt && item.time < endAt   ); 
-        /* console.log("startAt: "+startAt+" , endAt: "+endAt);
-        console.log(taskSet); */
 
         return taskSet;        
-    }
+    } */
 
     const [taskData, setTaskData] = useState(tasks);
     const [currentDate, setCurrentDate] = useState(new Date('2019-12-30'));
 
+    function setNewTask(newTask){
+        let newTaskData = [];
+        newTaskData = taskData;
+        for(let i = 0; i < tasks.length; ){
+
+            if (tasks[i].time < newTask.time) {i++} 
+
+            else if (tasks[i].time >= newTask.time) {
+                newTaskData.splice(i+1, 0, newTask); 
+                break; }
+
+            else if (i === tasks.length-1) {
+                newTaskData.push(newTask);
+
+            };
+        }; 
+        
+        setTaskData(newTaskData);
+        console.log("setNewTask GO!, taskData: ",taskData);
+    };
+
     return (
-        <AppContext.Provider value={{taskData, currentDate, getTasks}}>
+        <AppContext.Provider value={{taskData, currentDate, setNewTask}}>
             {props.children}
         </AppContext.Provider>
     );

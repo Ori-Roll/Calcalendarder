@@ -1,81 +1,89 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
-function TaskForm(props){
+function TaskForm ({ time, setNewTask }){
 
+    const [taskTime, setTaskTime] = useState(time);
+    const [taskTitle, setTaskTitle] = useState("");
+    const [taskDescription, setTaskDescription] = useState("");
     const [taskColor, setTaskColor] = useState("#0000FF");
 
-    const [taskInfo, setTaskInfo] = useState({ key: "new0", time: props.time, title: "", description: "", color: "#60808c" });
+    function getRandomString() {
+        return Math.random().toString(36).replace(/[^a-z]+/g, '');
+    }
 
-    /* {key: "2", time: new Date('2019-12-30T01:00:00').getTime(), title: "Today 2  2 2 2 2 2", description: "stuff 2 do" }, */
+    function inputChangeHandler(e, stateSetter){
+        stateSetter(e.target.value);
+    }
 
+    function submitHandler(e) {
+        e.preventDefault();
 
-    function inputChangeHandler(e){
-        console.log("task info is: ",taskInfo);
-        console.log ("e = ", e)
-        const name = e.target.name;
-        const value = e.target.value;
-        
-        console.log("!!!!!!  "+ taskInfo.title)
-        setTaskInfo(
-            (prevData) => {
-                return {...prevData, 
-                        [name]: value
-                };
-            }
-        )
-        
-    };
-
-    function colorChangeHandler(e) {
-        setTaskColor(e.target.value);
-        
-        console.log("handle THIS COLOR!!!"+taskColor);
-    };
-
+        setNewTask({
+            key: getRandomString(),
+            time: taskTime,
+            title: taskTitle,
+            discription: taskDescription,
+            color: taskColor
+        });
+        console.log("Form says: new task is: "+taskTime+taskTitle+taskDescription+taskColor);
+    }
 
     return (
             <form className = "task-form">
-                <input  type = "text-area" 
-                        id = "task-title" 
-                        name = "title" 
-                        placeholder = "What's your task?" 
-                        className = "task-form-title" 
-                        value = {taskInfo.title} 
-                        onChange = {inputChangeHandler}>
-                </input>
-                
-                <input  type = "text-area" 
-                        id = "task-discription" 
-                        name = "discription" 
-                        placeholder = "Task discription?" 
-                        className = "task-form-discription">
-                </input>
-                
-                <input  type = "time"
-                        id = "task-time" 
-                        name = "task-time" 
-                        value = "12:00" 
-                        onChange = {console.log("time, ... what is... time")}
-                        className = "task-form-time">  
-                </input>
-                
-                <label  type = "label"
-                        htmlFor = "form-color">Color:</label>
+                <input
+                    type="text-area" 
+                    id="task-title" 
+                    name="title" 
+                    placeholder="What's your task?" 
+                    className ="task-form-title" 
+                    value = {taskTitle} 
+                    onChange = {(e) => {inputChangeHandler(e, setTaskTitle)}}
+                />
 
-                <input  type = "color" 
-                        id = "task-form-color" 
-                        name = "form-color" 
-                        value = {taskColor} 
-                        onChange = {colorChangeHandler} 
-                        className = "task-form-color">
+                <input
+                    type="text-area" 
+                    id="task-discription" 
+                    name="discription" 
+                    placeholder="Task discription?" 
+                    className="task-form-discription"
+                    value={taskDescription}
+                    onChange={(e) => {inputChangeHandler(e, setTaskDescription)}}
+                />
+
+                <input
+                    type="time"
+                    id="task-time" 
+                    name="task-time" 
+                    value={taskTime}
+                    onChange={(e) => {inputChangeHandler(e, setTaskTime)}}
+                    className="task-form-time">  
                 </input>
                 
-                <button type = "submit" className = "task-form-submit">
-                    <h1>&#10004;</h1>
+                <label
+                    type="label"
+                    htmlFor="form-color">
+                        Color:
+                </label>
+
+                <input
+                    type="color" 
+                    id="task-form-color" 
+                    name="form-color" 
+                    value={taskColor} 
+                    onChange={(e) => {inputChangeHandler(e, setTaskColor)}} 
+                    className="task-form-color">
+                </input>
+                
+                <button 
+                    type="submit" 
+                    className="task-form-submit"
+                    onClick={submitHandler}
+                    >
+                    &#10004;
                 </button>
                 
-                <button type = "cancel" className = "task-form-cancel">
-                    <h1>&#120299;</h1>
+                <button type="button" className="task-form-cancel">
+                    &#120299;
                 </button>
             </form>
     );
