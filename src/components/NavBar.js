@@ -13,6 +13,7 @@ function NavBar(props){
         <header className="nav-bar">
                 <MenuBtn/>
                 <DateSelectDrop/>
+                <h1>calcalendarder</h1>
         </header>
     );
 };

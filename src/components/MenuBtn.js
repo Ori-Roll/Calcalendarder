@@ -7,7 +7,7 @@ function MenuBtn(){
     };
 
     return (
-        <button className="menu-btn" onClick={menuBtnHandler}>Menu</button>
+        <button className="menu-btn" onClick={menuBtnHandler}>&#x2630;</button>
     );
 };
 

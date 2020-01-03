@@ -9,15 +9,19 @@ function Day({ dayDate }) {
     const dayShortName = [ "SUN" , "MON" , "TUE" , "WED" , "THU" , "FRI" , "SAT" ][dayDate.getDay()];
     const dayStartTime = dayDate.getTime();
     const dayEndTime = new Date(dayDate).setHours(23, 59, 59, 999); 
-
+    
     // const [newTaskForm, setNewTaskForm] = useState();
     
     const [showTaskForm, setShowTaskForm] = useState(false);
 
-    const { taskData, setNewTask } = useContext(AppContext);
+    const { taskData, setNewTask, currentDate } = useContext(AppContext);
     
+    const titleStyleChange = (
+        dayDate.getDay()===currentDate.getDay() ? {color: "#f1e5c8", backgroundColor: "#4f6f8e"} : {} )
+    
+
     function setNewTaskHandler(newTaskToSet) {
-        console.log("newTaskToSet", newTaskToSet);
+        console.log("THIS!!!   -   -  - NewTaskToSet", newTaskToSet);
         setShowTaskForm(false);
         setNewTask(newTaskToSet);
     }
@@ -28,25 +32,28 @@ function Day({ dayDate }) {
     }, [taskData.length])
 
     function getTasks(startTime, endTime) {
-        debugger;
-        console.log("------------------------------")
-        console.log("startTime :"+startTime+", endTime:" + endTime+"  Day is: "+dayNumber);
-        console.log("  taskDATA: ",taskData)
+        console.log("START getTask, TASKDATA = ",taskData);
         let taskSetA = []; /* console.log( "new taskSetA: ", taskSetA); */
-        let taskSet = taskData.filter( item =>  {
+        taskSetA = taskData.filter( item =>  {
             return (item.time >= startTime && item.time < endTime) ;
         });  
-        for (let i=0; i<taskData.length; i++){
-            /* if (taskData[i].time >= startTime) {console.log("taskData[i].time >= startTime")}
-            if (taskData[i].time < endTime) {console.log("taskData[i].time >= startTime")}  */
+        console.log("END getTask, TASKDATA = ",taskData);    
+        return taskSetA;   
+        
+        /* console.log("------------------------------")
+        console.log("startTime :"+startTime+", endTime:" + endTime+"  Day is: "+dayNumber);
+        console.log("  taskDATA: ",taskData) */
+        
+        /* for (let i=0; i<taskData.length; i++){
+            if (taskData[i].time >= startTime) {console.log("taskData[i].time >= startTime")}
+            if (taskData[i].time < endTime) {console.log("taskData[i].time >= startTime")} 
             if (taskData[i].time < endTime && taskData[i].time >= startTime) {
                 taskSetA.push(taskData[i]);
                 console.log("data[i] is : "+taskData[i]); 
             }
-        }
+        } */
         /* console.log( "taskData is now: ",taskData);
-        console.log( "taskSetA: ", taskSetA); */
-        return taskSetA;        
+        console.log( "taskSetA: ", taskSetA); */  
     }
 
     const [dayTasks, setDayTasks] = useState(getTasks(dayStartTime, dayEndTime));
@@ -82,7 +89,7 @@ function Day({ dayDate }) {
         setDayTasks(getTasks(dayStartTime, dayEndTime));
     }, [taskData.length]); */
 
-    const dayTitle = <div className="dayTitle"><h4>{dayNumber}</h4><p>{"("+dayShortName+")"}</p></div>
+    const dayTitle = <div className="dayTitle" style={titleStyleChange}><h4 >{dayNumber}</h4><p >{"("+dayShortName+")"}</p></div>
 
     return (
         <>

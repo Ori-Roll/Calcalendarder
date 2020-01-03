@@ -17,17 +17,16 @@ function TaskForm ({ time, setNewTask }){
 
     function submitHandler(e) {
         e.preventDefault();
-
         setNewTask({
             key: getRandomString(),
             time: taskTime,
             title: taskTitle,
-            discription: taskDescription,
+            description: taskDescription,
             color: taskColor
         });
         console.log("Form says: new task is: "+taskTime+taskTitle+taskDescription+taskColor);
     }
-
+    
     return (
             <form className = "task-form">
                 <input
@@ -83,7 +82,7 @@ function TaskForm ({ time, setNewTask }){
                 </button>
                 
                 <button type="button" className="task-form-cancel">
-                    &#120299;
+                    &#x2716;
                 </button>
             </form>
     );
