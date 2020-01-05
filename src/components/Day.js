@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState} from 'react';
 import Task from './Task.js';
 import {AppContext} from 'C:/Users/Denise/Desktop/Ori - WEB/TaskCalendar/V_0.0.0/task-calendar/src/appContext.js';
 import TaskForm from './TaskForm.js';
+import TimeRuler from './TimeRuler.js';
 
 function Day({ dayDate }) {
 
@@ -29,31 +30,17 @@ function Day({ dayDate }) {
     useEffect(() => {
         console.log('taskData set daytaks', taskData);
         setDayTasks(getTasks(dayStartTime, dayEndTime));
-    }, [taskData.length])
+    }, [taskData.length]);
 
     function getTasks(startTime, endTime) {
         console.log("START getTask, TASKDATA = ",taskData);
-        let taskSetA = []; /* console.log( "new taskSetA: ", taskSetA); */
-        taskSetA = taskData.filter( item =>  {
+        console.log("DAY is = ",dayDate);
+        let taskSet = taskData.filter( item =>  {
             return (item.time >= startTime && item.time < endTime) ;
         });  
         console.log("END getTask, TASKDATA = ",taskData);    
-        return taskSetA;   
+        return taskSet;   
         
-        /* console.log("------------------------------")
-        console.log("startTime :"+startTime+", endTime:" + endTime+"  Day is: "+dayNumber);
-        console.log("  taskDATA: ",taskData) */
-        
-        /* for (let i=0; i<taskData.length; i++){
-            if (taskData[i].time >= startTime) {console.log("taskData[i].time >= startTime")}
-            if (taskData[i].time < endTime) {console.log("taskData[i].time >= startTime")} 
-            if (taskData[i].time < endTime && taskData[i].time >= startTime) {
-                taskSetA.push(taskData[i]);
-                console.log("data[i] is : "+taskData[i]); 
-            }
-        } */
-        /* console.log( "taskData is now: ",taskData);
-        console.log( "taskSetA: ", taskSetA); */  
     }
 
     const [dayTasks, setDayTasks] = useState(getTasks(dayStartTime, dayEndTime));
@@ -85,21 +72,39 @@ function Day({ dayDate }) {
         
     }
 
-    /* useEffect(() => {
-        setDayTasks(getTasks(dayStartTime, dayEndTime));
-    }, [taskData.length]); */
-
     const dayTitle = <div className="dayTitle" style={titleStyleChange}><h4 >{dayNumber}</h4><p >{"("+dayShortName+")"}</p></div>
 
     return (
         <>
+        {/* <TimeRuler/> */}
         <div className="day" onClick={clickHandler}/* onPointerDown={pointerDownHandler} onPointerUp={pointerUpHandler} */ >
             {dayTitle}
             {dayTasks.map( item => <Task key={item.key} taskData = {item}/>  ) }
         </div>
+        
         {showTaskForm && <TaskForm time={dayStartTime} setNewTask={setNewTaskHandler} />}
         </>
     );
 };
 
 export default Day;
+
+
+//                                      OLD 
+// --------------------------------------------------------------------------------
+
+        // IN GET TASKS
+        /* console.log("------------------------------")
+        console.log("startTime :"+startTime+", endTime:" + endTime+"  Day is: "+dayNumber);
+        console.log("  taskDATA: ",taskData) */
+        
+        /* for (let i=0; i<taskData.length; i++){
+            if (taskData[i].time >= startTime) {console.log("taskData[i].time >= startTime")}
+            if (taskData[i].time < endTime) {console.log("taskData[i].time >= startTime")} 
+            if (taskData[i].time < endTime && taskData[i].time >= startTime) {
+                taskSetA.push(taskData[i]);
+                console.log("data[i] is : "+taskData[i]); 
+            }
+        } */
+        /* console.log( "taskData is now: ",taskData);
+        console.log( "taskSetA: ", taskSetA); */  
