@@ -84,6 +84,12 @@ function TaskForm ({ time, setNewTask }){
                 <button type="button" className="task-form-cancel">
                     &#x2716;
                 </button>
+                
+                <div className="color-picker">
+                            Select a color
+                            <button type="button" className="color-select-btn" style={{backgroundColor: "green"}} ></button> 
+                            {/* <input type="radio" name="green" checked={false} className="color-radio-btn" style="backgroundColor: green"></input> */}
+                </div>
             </form>
     );
 };
