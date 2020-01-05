@@ -94,7 +94,7 @@ function AppContextProvider (props) {
     };
 
     return (
-        <AppContext.Provider value={{taskData, currentDate, setNewTask}}>
+        <AppContext.Provider value={{taskData, currentDate, setCurrentDate, setNewTask}}>
             {props.children}
         </AppContext.Provider>
     );
