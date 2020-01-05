@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState} from 'react';
 import Task from './Task.js';
-import {AppContext} from 'C:/Users/Denise/Desktop/Ori - WEB/TaskCalendar/V_0.0.0/task-calendar/src/appContext.js';
+import {AppContext} from '../appContext.js';
 import TaskForm from './TaskForm.js';
 import TimeRuler from './TimeRuler.js';
 
