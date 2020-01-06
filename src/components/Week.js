@@ -1,6 +1,6 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import Day from './Day.js';
-import {AppContext} from AppContext;
+import {AppContext} from '../appContext.js';
 
 // import {AppContext} from '../appContext.js';
 
@@ -18,10 +18,11 @@ function Week () {
 
     const {currentDate} = useContext(AppContext);
     
-    function getWeekFirstDay(time) {
-        const day = New Date();
-        day.setTime()
-    }
+    function getWeekFirstDay(date) {
+        let weekFirstDay = new Date( date.setDate( date.getDate() - date.getDay() ));
+    };
+
+    getWeekFirstDay(new Date("2020-03-01 00:00:00"));
 
     /* const {currentDate} = useContext(AppContext);
     const weeksDays = [currentDate.getDay() ] */

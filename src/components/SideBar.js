@@ -28,6 +28,7 @@ function SideBar(props) {
                 tileClassName = {"side-cal-item"}
                 /* onClickDay = {clickDayHandler} */
                 onChange = {clickDayHandler}
+                calendarType = {"Hebrew"}
             />
         </div>
     );
