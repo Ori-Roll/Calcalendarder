@@ -28,7 +28,7 @@ function Day({ dayDate }) {
     }
 
     useEffect(() => {
-        console.log('taskData set daytaks', taskData);
+        console.log('USE EFFECT');
         setDayTasks(getTasks(dayStartTime, dayEndTime));
     }, [taskData.length]);
 
@@ -38,7 +38,7 @@ function Day({ dayDate }) {
         let taskSet = taskData.filter( item =>  {
             return (item.time >= startTime && item.time < endTime) ;
         });  
-        console.log("END getTask, TASKDATA = ",taskData);    
+        /* console.log("END getTask, TASKDATA = ",taskData);     */
         return taskSet;   
         
     }

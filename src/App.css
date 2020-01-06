@@ -6,7 +6,7 @@
 
 .app {
     display: grid;
-    grid-template-rows: 60px 1fr;
+    grid-template-rows: 65px 1fr;
     grid-template-columns: 200px 1fr;
     grid-template-areas:    "nav-bar nav-bar"
                             "side-bar week";
@@ -85,12 +85,10 @@
     grid-template-rows:  auto 1fr;
     grid-template-areas:    "task-title task-time"
                             "task-description task-description";
-    /* margin: 5px 5px; */
+    margin: 0 0 2px 0;
     padding: 10px 10px 8px;
-    
-    /* border-top: rgb(73, 73, 167) 2px solid; */
-    /* box-shadow: inset 0px 50px 0px rgba(185, 185, 214, 0.459); */
     border-top: rgb(228, 228, 238) 1px solid;
+    border-bottom: rgb(228, 228, 238) 1px solid;
     /* border-top:none; */
     min-width: 0;
     max-height: Calc(5vh + 50px);
@@ -138,9 +136,8 @@
     grid-area: nav-bar;
     align-items: center;
     background-color: rgb(255, 255, 255);
-    /* padding: 7px 0 4px; */
-    border-bottom: rgb(209, 209, 209) 1px solid;
-    /* margin: 0 0 10px 0; */
+    border-bottom: rgb(233, 233, 233) 1px solid;
+    margin: 0 0 5px 0;
 }
 
 .nav-bar h1 {
@@ -229,7 +226,7 @@
     min-height: 400px;
     padding: 35px 30px 10px ;
     border: rgb(221, 221, 221) 1px solid;
-    border-radius: 0 0 10px 10px;
+    border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.075) 15px 15px ;
     
     display: grid;
@@ -272,20 +269,31 @@
 
 .color-picker {
     position: absolute;
-    top:380px;
-    width: 300px;
-    height: 200px;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(6, auto);
+    top: 30px;
+    left: 30px;
+    padding: 5px;
     background-color: white;
     border: rgb(221, 221, 221) 1px solid;
     border-radius: 15px;
     z-index: 20;
+    animation: color-picker-pop-in ease-out 0.2s;
 }
 
 .color-select-btn{
-    width: 25px;
-    height: 25px;
+    color: rgb(218, 208, 70);
+    width: 45px;
+    height: 45px;
     border: rgb(221, 221, 221) 1px solid;
-    border-radius: 40px;
+    border-radius: 30px;
+    margin: 5px;
+}
+
+@keyframes color-picker-pop-in {
+    0% {    opacity: 0 }
+    100% {  opacity: 100%}
 }
 
 .task-form-title { grid-area: task-form-title;}
@@ -295,9 +303,9 @@
 .task-form-cancel {grid-area: task-form-cancel; background: none; color: rgb(116, 16, 46)}
 .task-form-color{
     grid-area: task-form-color;
-    width: 5px;
-    height: 40px;
-    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    border-radius: 40px;
 }
 
 
