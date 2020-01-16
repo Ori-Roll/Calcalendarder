@@ -7,7 +7,7 @@ function AppContextProvider (props) {
 
     //Temp to replace database
     const tasks = [
-        /* {key: "1", time: new Date('2018-11-28T00:00:00').getTime(), title: "Miss. T", description: "This is verykjf hasdjfh ksd hfkjsdah" ,color:"red" },
+        {key: "1", time: new Date('2018-11-28T00:00:00').getTime(), title: "Miss. T", description: "This is verykjf hasdjfh ksd hfkjsdah" ,color:"red" },
         {key: "2", time: new Date('2019-12-30T01:00:00').getTime(), title: "Today 2 ldksjf dslkja [ods'l hfnj;ks bnfkljsfgkjlfbngjk]  2 2 2 2 2", description: "stuff 2 do" },
         {key: "3", time: new Date('2019-12-31T02:00:00').getTime(), title: "Today 3 klsjfg hfdkjgh jkfd hgjlkfd", description: "stuff 2 do  - 3" },
         {key: "4", time: new Date('2019-12-31T03:00:00').getTime(), title: "Today 4", description: "stuff 2 do  - 4" },
@@ -24,22 +24,14 @@ function AppContextProvider (props) {
         {key: "15", time: new Date('2020-01-04T05:00:00').getTime(), title: "Today 16", description: "" ,color:"gray"},
         {key: "16", time: new Date('2020-01-05T06:00:00').getTime(), title: "Today 17", description: "" ,color:"purple"},
         {key: "17", time: new Date('2020-01-06T07:00:00').getTime(), title: "Today 18", description: "stuff 2 do  - 18" },
-        {key: "18", time: new Date('2020-01-06T08:00:00').getTime(), title: "Today 19", description: "stuff 2 do  - 19" }, */
+        {key: "18", time: new Date('2020-01-06T08:00:00').getTime(), title: "Today 19", description: "stuff 2 do  - 19" },
     ];
 
-    /* function getTasks(startTime, endTime) {
-        let startAt;
-        let endAt;
-
-        if (startTime) {startAt = startTime} else {return taskData};
-        if (endTime) {endAt = endTime} 
-        const taskSet = tasks.filter( item => item.time > startAt && item.time < endAt   ); 
-
-        return taskSet;        
-    } */
+  
 
     const [taskData, setTaskData] = useState(tasks);
-    const [currentDate, setCurrentDate] = useState(new Date('2019-12-30'));
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [focusDate, setFocusDate] = useState(new Date('2020-01-08T06:00:00'));
 
     function setNewTask(newTask){
         
@@ -65,8 +57,34 @@ function AppContextProvider (props) {
         });
         console.log("setNewTask GO!, taskData: ",taskData);
         
+    };
 
-        /* 
+    return (
+        <AppContext.Provider value={{taskData, currentDate, setCurrentDate, setNewTask, focusDate, setFocusDate}}>
+            {props.children}
+        </AppContext.Provider>
+    );
+};
+
+export {AppContextProvider, AppContext}
+
+
+
+//OLD--------------------------------------------------------------------
+
+  /* function getTasks(startTime, endTime) {
+        let startAt;
+        let endAt;
+
+        if (startTime) {startAt = startTime} else {return taskData};
+        if (endTime) {endAt = endTime} 
+        const taskSet = tasks.filter( item => item.time > startAt && item.time < endAt   ); 
+
+        return taskSet;        
+    } */
+
+
+    /* 
         newTaskData = taskData;
         for(let i = 0; i < tasks.length; i++ ){
 
@@ -90,14 +108,3 @@ function AppContextProvider (props) {
         }; 
         
         setTaskData(newTaskData); */
-        
-    };
-
-    return (
-        <AppContext.Provider value={{taskData, currentDate, setCurrentDate, setNewTask}}>
-            {props.children}
-        </AppContext.Provider>
-    );
-};
-
-export {AppContextProvider, AppContext}

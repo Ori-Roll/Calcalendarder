@@ -43,8 +43,8 @@ function TaskForm ({ time, setNewTask }){
     );
 
     return (
-            <form className = "task-form">
-                <input
+            <form className = "task-form" style={{borderColor: taskColor}}>
+                <textarea
                     type="text-area" 
                     id="task-title" 
                     name="title" 
@@ -56,7 +56,7 @@ function TaskForm ({ time, setNewTask }){
                     ref = {taskTitleRef}
                 />
 
-                <input
+                <textarea
                     type="text-area" 
                     id="task-discription" 
                     name="discription" 
@@ -78,11 +78,11 @@ function TaskForm ({ time, setNewTask }){
                     >  
                 </input>
                 
-                <label
+                {/* <label
                     type="label"
                     htmlFor="form-color">
                         Task Color:
-                </label>
+                </label> */}
 
                 {/* <input
                     type="color" 
@@ -99,6 +99,7 @@ function TaskForm ({ time, setNewTask }){
                     name="form-color"
                     style={{backgroundColor:taskColor}}
                     >
+                        COLOR
                 </div>
 
                 <button 
