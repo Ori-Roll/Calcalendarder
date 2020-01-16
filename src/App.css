@@ -29,10 +29,25 @@
     min-width: 0;
 }
 
+.week-defocus{
+    width: 150%;
+    height: 100%;
+    background-color: rgba(240, 242, 242, 0.63);
+    position: absolute;
+    z-index: 30;
+    animation: defocus-in ease-in-out 0.3s;
+    left:-150px;
+}
+
+@keyframes defocus-in {
+    0% { opacity: 0;}
+    100% { opacity: 100%;}
+}
+
 .day {
     background-color: rgb(255, 255, 255);
     /* padding: 2px Calc(1px + 0.05vw) ; */
-    border-left: rgb(230, 230, 230) 1px solid;
+    border-left: rgb(246, 246, 246) 1px solid;
     height: 100%;
     /* margin: calc(0.1vw + 1px); */
     /* overflow: hidden; */ 
@@ -225,17 +240,17 @@
     left: Calc(50% - 160px);
     top: Calc(50% - 200px);
     animation: form-pop-in ease-out 0.2s  ;
-    z-index: 15;
+    z-index: 100;
     
     background-color: rgb(255, 255, 255);
     width: 320px;
     height: auto;
     min-height: 400px;
     padding: 50px 30px 10px ;
-    border-top: rgb(240, 240, 240) 1px solid;
+    /* border-top: rgb(240, 240, 240) 1px solid; */
     /* border: none; */
     border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.075) 2px 2px 15px;
+    box-shadow: rgba(0, 0, 0, 0.034) 2px 2px 15px;
     
     display: grid;
     grid-template-columns: 1fr 2fr 0.8fr;
@@ -306,8 +321,14 @@
     100% {  opacity: 100%}
 }
 
-.task-form-title { grid-area: task-form-title;}
-.task-form-discription { grid-area: task-form-discription;}
+.task-form-title {  grid-area: task-form-title; 
+                    border-left: 1px solid;
+                    padding: 15px;
+                    margin: 0 0 5px 0}
+.task-form-discription { grid-area: task-form-discription; 
+                         border-left: 1px solid;
+                         padding: 15px;
+                         margin: 5px 0 0 0}
 .task-form-time { grid-area: task-form-time;}
 .task-form-submit {grid-area: task-form-submit; background: none; color: rgb(26, 110, 71);}
 .task-form-cancel {grid-area: task-form-cancel; background: none; color: rgb(116, 16, 46)}
@@ -317,7 +338,7 @@
     height: 40px;
     text-align: center;
     padding: 10px 0 0 0;
-    margin: 26px 0 0 54px;
+    margin: 26px 0px 0 54px;
     color: white;
     
 }

@@ -16,6 +16,8 @@ import {AppContext} from '../appContext.js';
 
 function Week () {
 
+    const [weekDefocus, setWeekDefocus] = useState(false);
+
     const {focusDate} = useContext(AppContext);
     
     function getWeekFirstDay(date) {
@@ -56,7 +58,8 @@ function Week () {
 
     return (       
         <div className="week">
-            {weekDays.map(date => <Day dayDate={date} key={date} />)}
+            {weekDefocus && <div className="week-defocus"/>}
+            {weekDays.map(date => <Day dayDate={date} key={date} weekDefocus={weekDefocus} setWeekDefocus={setWeekDefocus} />)}
         </div>
     );
 };
