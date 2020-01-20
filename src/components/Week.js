@@ -43,7 +43,7 @@ function Week () {
         console.log(dayItem.setDate(3));
         console.log(dayItem.setDate(4)); */
         return new Date(dayItem.setDate( firstDayOfWeek.getDate()+i)) } );
-    console.log("WEEK SAYYYYYYYYYYYY: "+weekDays);
+    
     /* let weekDays = (function(){
         
         console.log("WEEK SAY:  -----   firstDayOfWeek are : "+firstDayOfWeek)

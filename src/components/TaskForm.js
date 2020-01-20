@@ -1,8 +1,8 @@
 import React, {useState, useRef, useEffect} from "react";
 import ColorPicker from "./ColorPicker";
 
-function TaskForm ({ time, setNewTask }){
-
+function TaskForm ({ time, setNewTask, setWeekDefocus}){
+    console.log('TIME', time);
     const [taskTime, setTaskTime] = useState(time);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
@@ -28,7 +28,8 @@ function TaskForm ({ time, setNewTask }){
             description: taskDescription,
             color: taskColor
         });
-        console.log("Form says: new task is: "+taskTime+taskTitle+taskDescription+taskColor);
+        setWeekDefocus(false);
+        console.log("Form says: new task is: " + taskTime + ', ' + taskTitle + ', ' + taskDescription + ', ' + taskColor);
     }
     
     function toggleColorPicker(){
@@ -50,7 +51,7 @@ function TaskForm ({ time, setNewTask }){
                     name="title" 
                     placeholder="What's your task?" 
                     className ="task-form-title" 
-                    style = {{borderColor:taskColor}}
+                    style = {{borderColor: taskColor}}
                     value = {taskTitle} 
                     onChange = {(e) => {inputChangeHandler(e, setTaskTitle)}}
                     ref = {taskTitleRef}
@@ -74,7 +75,7 @@ function TaskForm ({ time, setNewTask }){
                     className="task-form-time"
                     style = {{borderColor:taskColor}}
                     value={taskTime}
-                    onChange={(e) => {inputChangeHandler(e, setTaskTime)}}
+                    /* onChange={(e) => {inputChangeHandler(e, setTaskTime)}} */
                     >  
                 </input>
                 
