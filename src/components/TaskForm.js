@@ -21,9 +21,13 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
 
     function submitHandler(e) {
         e.preventDefault();
+        /* const endDateA = new Date(taskTime).setHours(new Date(taskTime).getHours()+2); */
+        const endDateToSet = new Date(taskTime);
+        endDateToSet.setHours(endDateToSet.getHours()+2)
         setNewTask({
             key: getRandomString(),
             time: taskTime,
+            endDate: endDateToSet,
             title: taskTitle,
             description: taskDescription,
             color: taskColor
