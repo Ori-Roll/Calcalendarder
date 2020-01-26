@@ -43,7 +43,7 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
         setDayTasks(getTasks(dayStartTime, dayEndTime))} ,[]);
 
     function getTasks(startTime, endTime) {
-            let taskSet = taskData.filter( item =>  {
+        let taskSet = taskData.filter( item =>  {
                 return (item.time >= startTime && item.time < endTime) ;
             });  
         return taskSet;   
@@ -51,14 +51,14 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
 
     let pointerDownY, pointerUpY = 0;
 
-    function pointerDownHandler(e){
+    /* function pointerDownHandler(e){
         pointerDownY = e.clientY;
     }
 
     function pointerUpHandler(e){
         pointerUpY = e.clientY;
         pointerDownY === pointerUpY ? clickHandler(e) : console.log("UP on day")
-    }
+    } */
 
     function getRandomString() {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
@@ -112,8 +112,11 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
             {/* <TimeRuler  hoursToDisplay={hoursToDisplay} />*/}
             {dayTitle}
             {dayTasks.map( item => <Task key={item.key} taskData = {item}/>  ) }
+            {timeToolTopIsOn && <div 
+                                    className="timeToolTip" 
+                                    style={{left:timeToolTipPosition.x, top: timeToolTipPosition.y }}
+                                >{newTaskTime.getHours()+":"+newTaskTime.getMinutes()}</div>}
         </div>
-        {timeToolTopIsOn && <div className="timeToolTip" style={{left:timeToolTipPosition.x, top: timeToolTipPosition.y }}>{newTaskTime.getHours()+":"+newTaskTime.getMinutes()}</div>}
         {showTaskForm &&
         <TaskForm 
             time={newTaskTimeSet}
