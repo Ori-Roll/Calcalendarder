@@ -84,7 +84,7 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
     }
 
     function mouseMoveHandler(e){
-        let boundingDayPosition =  dayRef.current.offsetLeft;  
+        /* let boundingDayPosition =  dayRef.current.offsetLeft;   */
         let timeNumValue = (( e.clientY - dayRef.current.offsetTop - 50 ) / 60) +7;
     
         let fixedHour = timeNumValue>7 ? Math.floor(timeNumValue) : 0;
@@ -93,7 +93,7 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
 
         dateToSet.setHours(fixedHour);
         dateToSet.setMinutes(fixedMin);
-        setTimeToolTipPosition({x: boundingDayPosition, y: e.clientY});
+        setTimeToolTipPosition({y: e.clientY-60});
         setNewTaskTime(dateToSet);
     };
 
@@ -112,9 +112,7 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
             {/* <TimeRuler  hoursToDisplay={hoursToDisplay} />*/}
             {dayTitle}
             {dayTasks.map( item => <Task key={item.key} taskData = {item}/>  ) }
-            {timeToolTopIsOn && <div 
-                                    className="timeToolTip" 
-                                    style={{ top: timeToolTipPosition.y }} 
+            {timeToolTopIsOn && <div className="timeToolTip" style={{ top: timeToolTipPosition.y }} 
                                 >{newTaskTime.getHours()+":"+newTaskTime.getMinutes()}</div>}
         </div>
         {showTaskForm &&
