@@ -114,7 +114,7 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
             {dayTasks.map( item => <Task key={item.key} taskData = {item}/>  ) }
             {timeToolTopIsOn && <div 
                                     className="timeToolTip" 
-                                    style={{left:timeToolTipPosition.x, top: timeToolTipPosition.y }}
+                                    style={{ top: timeToolTipPosition.y }} 
                                 >{newTaskTime.getHours()+":"+newTaskTime.getMinutes()}</div>}
         </div>
         {showTaskForm &&
