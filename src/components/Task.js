@@ -7,6 +7,7 @@ function Task(props) {
     let data;
     props.taskData ? data = props.taskData : data = defaultData;
     let theDate = new Date(data.time); 
+    let endDate = new Date(data.endDate)
 
     // This creates time format
     let taskTime = ( ()=> { 
@@ -20,7 +21,7 @@ function Task(props) {
             } else {
                 console.log ( theDate.getHours());
                 console.log ( theDate.getMinutes());
-                return ( ((( theDate.getHours() - 6) * 6) + theDate.getMinutes().toString() ) + "px"  );
+                return ( ((( theDate.getHours() - 6) * 60)  + theDate.getMinutes() ) + "px"  );
             }
         }
     )();
@@ -29,15 +30,19 @@ function Task(props) {
             if (data.endDate === "") {
                 return "60px";
             } else {
-                return ( ( (data.endDate.getHours()-6) * 6) + ( data.endDate.getMinutes() ).toString+"px" );
+                return ( 
+                    ( ( ( (endDate.getHours() - 6) *60) + endDate.getMinutes() ) -
+                    ( ( (theDate.getHours() - 6) * 60)  + theDate.getMinutes() ) ).toString() +"px"
+                );
             }
         }
     )();
-    
+        
+        console.log("taskStart is "+theDate+",  taskEnd is "+endDate);
         console.log("taskBoxStart is "+taskBoxStart+",  taskBoxEnd is "+taskBoxEnd);
 
     return (
-        <div className="task" style={{height: /* taskBoxEnd-taskBoxStart */"60px", top: taskBoxStart}}>
+        <div className="task" style={{height: taskBoxEnd, top: taskBoxStart}}>
             <p className="taskTitle" style={{color: data.color, borderLeftColor: data.color}}>
                 {data.title}
             </p>
@@ -48,3 +53,7 @@ function Task(props) {
 };
 
 export default Task;
+
+
+
+/* ( (theDate.getHours() -6) * 6) + ( theDate.getMinutes() ).toString().padStart(2 , "0") + "px" */

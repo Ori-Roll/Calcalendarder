@@ -27,6 +27,7 @@
     background-color: rgb(255, 255, 255);
     height: 100%;
     min-width: 0;
+    overflow: hidden;
 }
 
 .week-defocus{
@@ -108,6 +109,7 @@
     /* border-bottom: rgb(241, 241, 241) 1px solid; */
     /* border-top:none; */
     min-width: 0;
+    min-height: 23px;
     /* max-height: Calc(5vh + 50px); */
     background-color: rgb(245, 246, 246);
     position: absolute;
@@ -148,6 +150,7 @@
     font-size: 0.8em;
     overflow: hidden;
     padding: 0 0 0 8px;
+    color: rgb(73, 73, 73);
 }
 
 .timeToolTip {
