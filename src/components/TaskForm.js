@@ -9,6 +9,9 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
     const [taskColor, setTaskColor] = useState("#91A79E");
     const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
 
+    const startDate = new Date(taskTime);
+    /* console.log(startDate.getHours().toString().padStart(2 , 0) + ":"+startDate.getMinutes().toString().padStart(2 , 0)); */
+
     const taskTitleRef = useRef();
 
     function getRandomString() {
@@ -72,31 +75,49 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
                     onChange={(e) => {inputChangeHandler(e, setTaskDescription)}}
                 />
 
+                <label
+                    type="label"
+                    htmlFor="task-time"
+                    className="task-form-time-lable"
+                    style={{color: taskColor}}
+                    >
+                    Starts at:
+                </label>
+
                 <input
                     type="time"
                     id="task-time" 
                     name="task-time" 
                     className="task-form-time"
                     style = {{borderColor:taskColor}}
-                    value={taskTime}
+                    min = "07:00"
+                    max = "21:00"
+                    value = {startDate.getHours().toString().padStart(2 , 0) + ":"+startDate.getMinutes().toString().padStart(2 , 0)}
                     /* onChange={(e) => {inputChangeHandler(e, setTaskTime)}} */
                     >  
                 </input>
                 
-                {/* <label
+                <label
                     type="label"
-                    htmlFor="form-color">
-                        Task Color:
-                </label> */}
+                    htmlFor="task-time-end"
+                    className="task-form-end-lable"
+                    style={{color: taskColor}}
+                    >
+                    Ends at:
+                </label>
 
-                {/* <input
-                    type="color" 
-                    id="task-form-color" 
-                    name="form-color" 
-                    value={taskColor} 
-                    onChange={(e) => {inputChangeHandler(e, setTaskColor)}} 
-                    className="task-form-color">
-                </input> */}
+                <input
+                    type="time"
+                    id="task-time-end" 
+                    name="task-time-end" 
+                    className="task-form-time-end"
+                    style = {{borderColor:taskColor}}
+                    min = "07:00"
+                    max = "21:00"
+                    value = "08:00"
+                    /* onChange={(e) => {inputChangeHandler(e, setTaskTime)}} */
+                    >  
+                </input>
                 
                 <div 
                     onClick={toggleColorPicker}
@@ -104,7 +125,7 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
                     name="form-color"
                     style={{backgroundColor:taskColor}}
                     >
-                        COLOR
+                        	C
                 </div>
 
                 <button 
@@ -126,3 +147,21 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
 };
 
 export default TaskForm;
+
+
+
+                {/* <label
+                    type="label"
+                    htmlFor="form-color">
+                        Task Color:
+                </label> */}
+
+                {/* <input
+                    type="color" 
+                    id="task-form-color" 
+                    name="form-color" 
+                    value={taskColor} 
+                    onChange={(e) => {inputChangeHandler(e, setTaskColor)}} 
+                    className="task-form-color">
+                </input> */}
+                

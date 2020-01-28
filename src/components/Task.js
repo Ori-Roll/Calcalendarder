@@ -38,8 +38,9 @@ function Task(props) {
         }
     )();
         
-        console.log("taskStart is "+theDate+",  taskEnd is "+endDate);
-        console.log("taskBoxStart is "+taskBoxStart+",  taskBoxEnd is "+taskBoxEnd);
+        /* console.log("taskStart is "+theDate+",  taskEnd is "+endDate);
+        console.log("taskBoxStart is "+taskBoxStart+",  taskBoxEnd is "+taskBoxEnd); */
+        console.log("taskBoxEnd.replace('px', '') : "+ taskBoxEnd.replace('px', ''));
 
     return (
         <div className="task" style={{height: taskBoxEnd, top: taskBoxStart}}>
@@ -47,7 +48,7 @@ function Task(props) {
                 {data.title}
             </p>
             <p className="task-time">{taskTime}</p>
-            <p className="task-description">{data.description}</p>
+            <p className="task-description" style={ Number(taskBoxEnd.replace('px', '')) < 45 ? {opacity: "0%"} : {} }>{data.description}</p>
         </div>
     ); 
 };
