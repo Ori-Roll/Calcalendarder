@@ -7,7 +7,7 @@ function AppContextProvider (props) {
 
     //Temp to replace database
     const tasks = [
-        {key:  "1", time: new Date('2018-11-28T00:00:00').getTime(), endDate: new Date('2018-11-28T10:20:00'), title: "Miss. T", description: "This is verykjf hasdjfh ksd hfkjsdah" ,color:"red" },
+    /*     {key:  "1", time: new Date('2018-11-28T00:00:00').getTime(), endDate: new Date('2018-11-28T10:20:00'), title: "Miss. T", description: "This is verykjf hasdjfh ksd hfkjsdah" ,color:"red" },
         {key:  "2", time: new Date('2019-12-30T01:00:00').getTime(), endDate: new Date('2019-12-30T11:10:00'), title: "Today 2 ldksjf dslkja [ods'l hfnj;ks bnfkljsfgkjlfbngjk]  2 2 2 2 2", description: "stuff 2 dfadsf asdfdsafdsafo" },
         {key:  "3", time: new Date('2019-12-31T12:00:00').getTime(), endDate: new Date('2019-12-31T12:05:00'), title: "Today 3 klsjfg hfdkjgh jkfd hgjlkfd", description: "stuff 2 dfads fds fa fd o  - 3" },
         {key:  "4", time: new Date('2019-12-31T13:00:00').getTime(), endDate: new Date('2019-12-31T14:55:00'), title: "Today 4", description: "stuff fdsa ff adsf fds 2 do  - 4fdslkj fhsdlf lsd n" },
@@ -24,7 +24,7 @@ function AppContextProvider (props) {
         {key: "15", time: new Date('2020-01-04T15:00:00').getTime(), endDate: new Date('2020-01-01T17:60:00'), title: "Today 16", description: "f asdf dsaf sdag rsdf fsdg gsf dg ag sfdg " ,color:"gray"},
         {key: "16", time: new Date('2020-01-05T16:00:00').getTime(), endDate: new Date('2020-01-01T16:10:00'), title: "Today 17", description: "gs dfg gfsd sdfg gs g sdfg fsdg fdsg gfds fsdfgd " ,color:"purple"},
         {key: "17", time: new Date('2020-01-06T17:00:00').getTime(), endDate: new Date('2020-01-02T17:30:00'), title: "Today 18", description: "stuff 2 do  - 18sgfd fdsg gdfs g fdsg gs gfd " },
-        {key: "18", time: new Date('2020-01-06T18:00:00').getTime(), endDate: new Date('2020-01-02T18:30:00'), title: "Today 19", description: "stuff 2 do  - 19 sfdgg fsfdg dsfg fds ygeraf " },
+        {key: "18", time: new Date('2020-01-06T18:00:00').getTime(), endDate: new Date('2020-01-02T18:30:00'), title: "Today 19", description: "stuff 2 do  - 19 sfdgg fsfdg dsfg fds ygeraf " }, */
     ];
 
     const [taskData, setTaskData] = useState(tasks);

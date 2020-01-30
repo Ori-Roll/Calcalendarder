@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from "react";
 import ColorPicker from "./ColorPicker";
 
 function TaskForm ({ time, setNewTask, setWeekDefocus}){
-    console.log('TIME', time);
+    
     const [taskTime, setTaskTime] = useState(time);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
@@ -10,7 +10,6 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
     const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
 
     const startDate = new Date(taskTime);
-    /* console.log(startDate.getHours().toString().padStart(2 , 0) + ":"+startDate.getMinutes().toString().padStart(2 , 0)); */
 
     const taskTitleRef = useRef();
 
@@ -24,7 +23,6 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
 
     function submitHandler(e) {
         e.preventDefault();
-        /* const endDateA = new Date(taskTime).setHours(new Date(taskTime).getHours()+2); */
         const endDateToSet = new Date(taskTime);
         endDateToSet.setHours(endDateToSet.getHours()+2)
         setNewTask({

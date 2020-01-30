@@ -2,21 +2,19 @@ import React from 'react';
 
 const defaultData = {id: 0, time: "" , endDate: "" , title: "empty t", description: "empty d", color: "gray"}; 
 
-function Task(props) {
+function Task({taskData = defaultData, onTaskClick, ...props}) {
 
-    let data;
-    props.taskData ? data = props.taskData : data = defaultData;
-    let theDate = new Date(data.time); 
-    let endDate = new Date(data.endDate)
+    let theDate = new Date(taskData.time); 
+    let endDate = new Date(taskData.endDate);
 
     // This creates time format
     let taskTime = ( ()=> { 
-        if (data.time === "") {return "no time"};    
+        if (taskData.time === "") {return "no time"};    
         return ( theDate.getHours() + ":" + theDate.getMinutes().toString().padStart(2 , "0") ) 
         } )();
     
     let taskBoxStart = ( () => {
-            if (data.time === "") {
+            if (taskData.time === "") {
                 return 0;
             } else {
                 console.log ( theDate.getHours());
@@ -27,7 +25,7 @@ function Task(props) {
     )();
 
     let taskBoxEnd = ( ()=> {
-            if (data.endDate === "") {
+            if (taskData.endDate === "") {
                 return "60px";
             } else {
                 return ( 
@@ -37,18 +35,23 @@ function Task(props) {
             }
         }
     )();
-        
-        /* console.log("taskStart is "+theDate+",  taskEnd is "+endDate);
-        console.log("taskBoxStart is "+taskBoxStart+",  taskBoxEnd is "+taskBoxEnd); */
-        console.log("taskBoxEnd.replace('px', '') : "+ taskBoxEnd.replace('px', ''));
+
+    const taskClickHandler = (e) => {
+        e.stopPropagation();
+        onTaskClick();
+    }
 
     return (
-        <div className="task" style={{height: taskBoxEnd, top: taskBoxStart}}>
-            <p className="taskTitle" style={{color: data.color, borderLeftColor: data.color}}>
-                {data.title}
+        <div className="task" style={{height: taskBoxEnd, top: taskBoxStart}} onClick={taskClickHandler}>
+            <p className="taskTitle" style={{color: taskData.color, borderLeftColor: taskData.color}}>
+                {taskData.title}
             </p>
-            <p className="task-time">{taskTime}</p>
-            <p className="task-description" style={ Number(taskBoxEnd.replace('px', '')) < 45 ? {opacity: "0%"} : {} }>{data.description}</p>
+            <p className="task-time" style={{color: taskData.color, borderLeftColor: taskData.color}}>
+                {taskTime}
+            </p>
+            <p className="task-description" style={ Number(taskBoxEnd.replace('px', '')) < 45 ? {opacity: "0%"} : {} }>
+                {taskData.description}
+            </p>
         </div>
     ); 
 };
