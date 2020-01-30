@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef} from 'react';
 import { AppContext } from '../appContext.js';
 import Task from './Task.js';
 import TaskForm from './TaskForm.js';
-import TimeRuler from './TimeRuler.js';
+/* import TimeRuler from './TimeRuler.js'; */
 
 let dateToSet = new Date();
 
@@ -17,8 +17,7 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
     const [newTaskTime, setNewTaskTime] = useState(new Date(dayDate));
     const [newTaskTimeSet, setNewTaskTimeSet] = useState(new Date(dayDate));
     const [dayTasks, setDayTasks] = useState([]);
-    /* const hoursToDisplay = [{key: dayNumber*10+1, hour: "06:00", index: 1}, {key: dayNumber*102, hour: "07:00", index: 2}, {key: 3, hour: "08:00", index: 3}, {key: 4, hour: "09:00", index: 4}, {key: 5, hour: "10:00", index: 5}, {key: 6, hour: "11:00", index: 6}, {key: 7, hour: "12:00", index: 7}, {key: 8, hour: "13:00", index: 8}, {key: 9, hour: "14:00", index: 9}, {key: 10, hour: "15:00", index: 10}, {key: 11, hour: "16:00", index: 11},{key: 12, hour: "17:00", index: 12}, {key: 13, hour: "18:00", index: 13}, {key: 14, hour: "19:00", index: 14}, {key: 1, hour: "20:00", index: 15}]; */
-    /* const [changeRulerHourStyle, setChangeRulerHourStyle] = useState({}); */
+    
     const [timeToolTopIsOn, setTimeToolTopIsOn] = useState(false);
     const [timeToolTipPosition, setTimeToolTipPosition] = useState({x:0, y:50});
 
@@ -65,25 +64,15 @@ function Day({ dayDate, weekDefocus, setWeekDefocus }) {
     }
 
     function clickHandler(e){
-        console.log("wat CLICK on day, new task dayTasks = ",dayTasks);
         let posiitonOfCLick = e.clientY-dayRef.current.offsetTop;
-        /* let clickedTime = posiitonOfCLick/60+7; */
-        /* clickedTime.splice(2, 0, " ");  console.log (clickedTime);*/
-        /* setNewTaskTime(clickedTime); */
         const newTime = new Date(dayDate);
         newTime.setHours(dateToSet.getHours());
         newTime.setMinutes(dateToSet.getMinutes());
-        /* newTime.setMinutes(dateToSet.getMinutes()) */
+        
         setNewTaskTimeSet(newTime);
         console.log("setNewTaskTime!!!!!!!!!!!!!!!!!!!!!!!!! " + newTime, typeof(newTime));
         setShowTaskForm(true);
         setWeekDefocus(true);
-        
-        /* const newDayTasks = getTasks(dayStartTime, dayEndTime);
-        setDayTasks(newDayTasks); */
-        /* console.log("clickedTime is: "+clickedTime); */
-        /* setTaskFormFormat( <TaskForm time={dayStartTime} setNewTask={setNewTaskHandler}/> ); */
-        /* setShowTaskForm(true); */
     }
 
     function mouseMoveHandler(e){
@@ -180,3 +169,20 @@ export default Day;
 
         /*     let fixedHour = Math.sign(timeNumValue*60)===1 ? Math.floor(timeNumValue) : 0;
         let fixedMin = Math.sign(timeNumValue*60)===1 ? Math.floor( (timeNumValue - Math.floor(timeNumValue))*60 ) : 0; */
+
+    //------------------------------------------------
+        /* const hoursToDisplay = [{key: dayNumber*10+1, hour: "06:00", index: 1}, {key: dayNumber*102, hour: "07:00", index: 2}, {key: 3, hour: "08:00", index: 3}, {key: 4, hour: "09:00", index: 4}, {key: 5, hour: "10:00", index: 5}, {key: 6, hour: "11:00", index: 6}, {key: 7, hour: "12:00", index: 7}, {key: 8, hour: "13:00", index: 8}, {key: 9, hour: "14:00", index: 9}, {key: 10, hour: "15:00", index: 10}, {key: 11, hour: "16:00", index: 11},{key: 12, hour: "17:00", index: 12}, {key: 13, hour: "18:00", index: 13}, {key: 14, hour: "19:00", index: 14}, {key: 1, hour: "20:00", index: 15}]; */
+    /* const [changeRulerHourStyle, setChangeRulerHourStyle] = useState({}); */
+    
+    // in CLICK HANDLER
+    //---------------------------------------------------------
+    /* const newDayTasks = getTasks(dayStartTime, dayEndTime);
+        setDayTasks(newDayTasks); */
+        /* console.log("clickedTime is: "+clickedTime); */
+        /* setTaskFormFormat( <TaskForm time={dayStartTime} setNewTask={setNewTaskHandler}/> ); */
+        /* setShowTaskForm(true); */
+
+        /* let clickedTime = posiitonOfCLick/60+7; */
+        /* clickedTime.splice(2, 0, " ");  console.log (clickedTime);*/
+        /* setNewTaskTime(clickedTime); */
+        /* newTime.setMinutes(dateToSet.getMinutes()) */

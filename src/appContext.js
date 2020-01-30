@@ -47,14 +47,12 @@ function AppContextProvider (props) {
                 return 0 }
         }
 
-        /* setTaskData( (prevData) => {return (prevData.splice( getTaskPosition(newTask) ,0 , newTask) ) } ) */
         setTaskData((prevData) => {
             prevData.push(newTask);
-            console.log("prevData after push", prevData);
+            /* console.log("prevData after push", prevData); */
             return prevData;
         });
-        console.log("setNewTask GO!, taskData: ",taskData);
-        
+        /* console.log("setNewTask GO!, taskData: ",taskData); */   
     };
 
     return (

@@ -116,10 +116,6 @@
     z-index: 10;
 }
 
-#h5 .task {
-    color: red;
-}
-
 .taskTitle {
     text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
     overflow: hidden;                                                 /* !!!!! need to combine all of these!*/
@@ -214,19 +210,18 @@
 
 @media only screen and (max-width: 900px) {
     .app { grid-template-areas: "nav-bar nav-bar"
-        "week week"     ;}
-    .task-description{ font-size: 0.7em;
-                        }
+                                "week    week"   ;}
+    .task-description{ font-size: 0.7em ;}
     .task-time {display: none;}
     .taskTitle{
         font-size: 0.7em;
         font-style: normal;}
-    /* .task{
-        grid-template-areas:"text-title text-title"
-                            "text-description text-description";} */
+        
     .task {
-        margin: 1px 0;
-        padding: 0.4em 0.4em;
+        /* margin: 1px 0; */
+        padding: 0;
+        /* grid-template-areas:"text-title text-title"
+                            "text-description text-description"; */
     }
     .side-bar{
         display: none;

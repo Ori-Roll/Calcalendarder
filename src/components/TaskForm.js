@@ -93,7 +93,7 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
                     min = "07:00"
                     max = "21:00"
                     value = {startDate.getHours().toString().padStart(2 , 0) + ":"+startDate.getMinutes().toString().padStart(2 , 0)}
-                    /* onChange={(e) => {inputChangeHandler(e, setTaskTime)}} */
+                    onChange={(e) => {inputChangeHandler(e, setTaskTime)}}
                     >  
                 </input>
                 
