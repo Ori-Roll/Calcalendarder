@@ -17,8 +17,6 @@ function Task({taskData = defaultData, onTaskClick, ...props}) {
             if (taskData.time === "") {
                 return 0;
             } else {
-                console.log ( theDate.getHours());
-                console.log ( theDate.getMinutes());
                 return ( ((( theDate.getHours() - 6) * 60)  + theDate.getMinutes() ) + "px"  );
             }
         }

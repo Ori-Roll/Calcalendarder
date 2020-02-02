@@ -1,14 +1,8 @@
 import React from "react";
 
-function ColorPicker(props){
-
-    const {setTaskColor} = props;
-    const {toggleColorPicker} = props;
+function ColorPicker({setTaskColor, toggleColorPicker}){
 
     function colorClickHandler(color){
-        console.log("COLOR PICKER CLICK");
-        console.log("------------------");
-        console.log(color);
         setTaskColor(color);
         toggleColorPicker();
     };
@@ -20,7 +14,6 @@ function ColorPicker(props){
                         "#C7B65F", "#7682B8", "#977E9E", "#7E859E", "#A0CE96",
                         "#4B4F2C", "#703957", "#472C4F", "#2C334F", "#A9A875",
                         "rgb(184, 22, 57)", "rgb(184, 114, 22)", "rgb(218, 208, 70)", "gray", "white"
-
     ]
 
     return (
