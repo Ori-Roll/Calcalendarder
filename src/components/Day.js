@@ -17,9 +17,11 @@ function Day({ dayDate, setWeekDefocus }) {
 
     const [showTaskForm, setShowTaskForm] = useState(false);
     const [newTaskTime, setNewTaskTime] = useState(new Date(dayDate));
-    const [newTaskTimeSet, setNewTaskTimeSet] = useState(new Date(dayDate));
     const [dayTasks, setDayTasks] = useState([]);
     
+    const [initialTask, setInitialTask] = useState({});
+    const [initTaskIsNew, setInitTaskIsNew] = useState(true);
+
     const [timeToolTopIsOn, setTimeToolTopIsOn] = useState(false);
     const [timeToolTipPosition, setTimeToolTipPosition] = useState({x:0, y:50});
 
@@ -48,13 +50,46 @@ function Day({ dayDate, setWeekDefocus }) {
     };
 
     function clickHandler(e){
+        setInitTaskIsNew(true);
+
         const newTime = new Date(dayDate);
+        const newEndDate = new Date(dateToSet);
+
         newTime.setHours(dateToSet.getHours());
         newTime.setMinutes(dateToSet.getMinutes());
-        setNewTaskTimeSet(newTime);
+        newEndDate.setHours(dateToSet.getHours()+2);
+        /* setNewTaskTimeSet(newTime); */
+        const emptyNewTask = {
+            key: new Date().getTime().toString(), 
+            time: newTime , 
+            endDate: newEndDate , 
+            title: "", 
+            description: "" 
+        };
+        
+        setNewTask(emptyNewTask);
+        setInitialTask(emptyNewTask);
+
         setShowTaskForm(true);
         setWeekDefocus(true);
-    }
+    };
+
+    function taskClickHandler(task){
+        setInitTaskIsNew(false);
+
+        const emptyNewTask = {
+            key: new Date().getTime().toString(),
+            time: task.time , 
+            endDate: task.endDate , 
+            title: task.title, 
+            description: task.description
+        };
+        
+        setInitialTask(task);
+
+        setShowTaskForm(true);
+        setWeekDefocus(true);
+    };
 
     function mouseMoveHandler(e){
         let timeNumValue = (( e.clientY - dayRef.current.offsetTop - 55 ) / 60) +7;
@@ -70,14 +105,7 @@ function Day({ dayDate, setWeekDefocus }) {
 
     const dayTitle = <div className="dayTitle" style={titleStyleChange}><h4 >{dayNumber}</h4><p >{"("+dayShortName+")"}</p></div>
 
-    function taskClickHandler(task){
-        alert("clicked item yay!!!");
-
-        //
-
-        setShowTaskForm(true);
-
-    };
+    
 
     return (
         <>
@@ -96,9 +124,11 @@ function Day({ dayDate, setWeekDefocus }) {
         </div>
         {showTaskForm &&
         <TaskForm 
-            time={newTaskTimeSet}
+            initialTask={initialTask}
+            isNew={initTaskIsNew}
             setNewTask={setNewTaskHandler}
             setWeekDefocus={setWeekDefocus}
+            setShowTaskForm={setShowTaskForm}
         />}
         </>
     );

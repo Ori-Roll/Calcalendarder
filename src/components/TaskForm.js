@@ -1,11 +1,12 @@
 import React, {useState, useRef, useEffect} from "react";
 import ColorPicker from "./ColorPicker";
 
-function TaskForm ({ time, setNewTask, setWeekDefocus}){
+function TaskForm ({ setNewTask, setWeekDefocus, isNew, initialTask, setShowTaskForm}){
     
-    const [taskTime, setTaskTime] = useState(time);
-    const [taskTitle, setTaskTitle] = useState("");
-    const [taskDescription, setTaskDescription] = useState("");
+    const [taskTime, setTaskTime] = useState(initialTask.time);
+    const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
+    const [taskTitle, setTaskTitle] = useState(initialTask.title);
+    const [taskDescription, setTaskDescription] = useState(initialTask.description);
     const [taskColor, setTaskColor] = useState("#91A79E");
     const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
 
@@ -23,17 +24,27 @@ function TaskForm ({ time, setNewTask, setWeekDefocus}){
 
     function submitHandler(e) {
         e.preventDefault();
-        const endDateToSet = new Date(taskTime);
-        endDateToSet.setHours(endDateToSet.getHours()+2)
-        setNewTask({
-            key: getRandomString(),
-            time: taskTime,
-            endDate: endDateToSet,
-            title: taskTitle,
-            description: taskDescription,
-            color: taskColor
-        });
+        console.log("initialTask.endDate: ",initialTask.endDate);
+        if (isNew) { 
+            setNewTask({
+                key: getRandomString(),
+                time: taskTime,
+                endDate: taskEndTime,
+                title: taskTitle,
+                description: taskDescription,
+                color: taskColor
+            })
+            console.log("isNew");
+        } else {
+            initialTask.time = taskTime;
+            initialTask.endDate = taskEndTime;
+            initialTask.title = taskTitle;
+            initialTask.description = taskDescription;
+            initialTask.color = taskColor;
+            console.log("isOLD");
+        };
         setWeekDefocus(false);
+        setShowTaskForm(false);
         console.log("Form says: new task is: " + taskTime + ', ' + taskTitle + ', ' + taskDescription + ', ' + taskColor);
     }
     
