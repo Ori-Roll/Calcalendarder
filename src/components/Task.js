@@ -1,20 +1,20 @@
 import React from 'react';
 
-const defaultData = {id: 0, time: "" , endDate: "" , title: "empty t", description: "empty d", color: "gray"}; 
+const defaultData = {key: (Math.random()*100), time: "" , endDate: "" , title: "empty t", description: "empty d", color: "gray"}; 
 
-function Task({taskData = defaultData, onTaskClick, ...props}) {
+function Task({taskProps = defaultData, onTaskClick, taskMouseDownHandler, ...props}) {
 
-    let theDate = new Date(taskData.time); 
-    let endDate = new Date(taskData.endDate);
+    let theDate = new Date(taskProps.time); 
+    let endDate = new Date(taskProps.endDate);
 
     // This creates time format
     let taskTime = ( ()=> { 
-        if (taskData.time === "") {return "no time"};    
+        if (taskProps.time === "") {return "no time"};    
         return ( theDate.getHours() + ":" + theDate.getMinutes().toString().padStart(2 , "0") ) 
         } )();
     
     let taskBoxStart = ( () => {
-            if (taskData.time === "") {
+            if (taskProps.time === "") {
                 return 0;
             } else {
                 return ( ((( theDate.getHours() - 6) * 60)  + theDate.getMinutes() ) + "px"  );
@@ -23,7 +23,7 @@ function Task({taskData = defaultData, onTaskClick, ...props}) {
     )();
 
     let taskBoxEnd = ( ()=> {
-            if (taskData.endDate === "") {
+            if (taskProps.endDate === "") {
                 return "60px";
             } else {
                 return ( 
@@ -40,15 +40,20 @@ function Task({taskData = defaultData, onTaskClick, ...props}) {
     }
 
     return (
-        <div className="task" style={{height: taskBoxEnd, top: taskBoxStart}} onClick={taskClickHandler}>
-            <p className="taskTitle" style={{color: taskData.color, borderLeftColor: taskData.color}}>
-                {taskData.title}
+        <div className="task" 
+                style={{ height: taskBoxEnd, top: taskBoxStart}} 
+                onClick={taskClickHandler} 
+                onMouseDown={(e) => taskMouseDownHandler(taskProps.key, e)}
+                draggable={"true"}
+            >
+            <p className="taskTitle" style={{color: taskProps.color, borderLeftColor: taskProps.color}}>
+                {taskProps.title}
             </p>
-            <p className="task-time" style={{color: taskData.color, borderLeftColor: taskData.color}}>
+            <p className="task-time" style={{color: taskProps.color, borderLeftColor: taskProps.color}}>
                 {taskTime}
             </p>
             <p className="task-description" style={ Number(taskBoxEnd.replace('px', '')) < 45 ? {opacity: "0%"} : {} }>
-                {taskData.description}
+                {taskProps.description}
             </p>
         </div>
     ); 

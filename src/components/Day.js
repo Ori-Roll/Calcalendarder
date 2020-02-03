@@ -8,7 +8,7 @@ let dateToSet = new Date();
 const getDateWithoutTime = (date) => [date.getDate(), date.getMonth(), date.getFullYear()].join(' ');
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
 
-function Day({ dayDate, setWeekDefocus }) {
+function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
 
     const dayNumber = dayDate.getDate().toString();
     const dayShortName = [ "SUN" , "MON" , "TUE" , "WED" , "THU" , "FRI" , "SAT" ][dayDate.getDay()];
@@ -25,7 +25,7 @@ function Day({ dayDate, setWeekDefocus }) {
     const [timeToolTopIsOn, setTimeToolTopIsOn] = useState(false);
     const [timeToolTipPosition, setTimeToolTipPosition] = useState({x:0, y:50});
 
-    const { taskData, setNewTask, currentDate } = useContext(AppContext);
+    const { taskData, setTaskData, setNewTask, currentDate } = useContext(AppContext);
     const dayRef = useRef();
 
     const titleStyleChange = isSameDate(dayDate, currentDate) ? {color: "#f1e5c8", backgroundColor: "#4f6f8e"} : {};
@@ -36,7 +36,7 @@ function Day({ dayDate, setWeekDefocus }) {
     }
 
     useEffect(
-        () => { setDayTasks(getTasks(dayStartTime, dayEndTime)) },
+        () => {setDayTasks(getTasks(dayStartTime, dayEndTime)); console.log(taskData)},
         [taskData.length]
     );
 
@@ -69,24 +69,14 @@ function Day({ dayDate, setWeekDefocus }) {
         
         setNewTask(emptyNewTask);
         setInitialTask(emptyNewTask);
-
+        
         setShowTaskForm(true);
         setWeekDefocus(true);
     };
 
     function taskClickHandler(task){
-        setInitTaskIsNew(false);
-
-        const emptyNewTask = {
-            key: new Date().getTime().toString(),
-            time: task.time , 
-            endDate: task.endDate , 
-            title: task.title, 
-            description: task.description
-        };
-        
+        setInitTaskIsNew(false);        
         setInitialTask(task);
-
         setShowTaskForm(true);
         setWeekDefocus(true);
     };
@@ -103,9 +93,17 @@ function Day({ dayDate, setWeekDefocus }) {
         setNewTaskTime(dateToSet);
     };
 
-    const dayTitle = <div className="dayTitle" style={titleStyleChange}><h4 >{dayNumber}</h4><p >{"("+dayShortName+")"}</p></div>
+    function taskMouseDownHandler(taskKey) {
+        /* e.preventDefault();
+        e.stopPropagation(); */
+        /* setTaskData() */
+        
+        const taskIndex = taskData.findIndex(item => item.key===taskKey);
+        taskData.splice(taskIndex, 1);
+        console.log("taskIndex is: ", taskIndex);
+    };
 
-    
+    const dayTitle = <div className="dayTitle" style={titleStyleChange}><h4 >{dayNumber}</h4><p >{"("+dayShortName+")"}</p></div>
 
     return (
         <>
@@ -118,18 +116,26 @@ function Day({ dayDate, setWeekDefocus }) {
             onMouseLeave={() => {setTimeToolTopIsOn(false)}}
         >
             {dayTitle}
-            {dayTasks.map( item => <Task key={item.key} taskData={item} onTaskClick={() => taskClickHandler(item)} />  ) }
-            {timeToolTopIsOn && <div className="timeToolTip" style={{ top: timeToolTipPosition.y }} 
-                                >{newTaskTime.getHours()+":"+newTaskTime.getMinutes()}</div>}
+            {dayTasks.map( item => 
+                <Task 
+                        taskProps={item} 
+                        onTaskClick={() => taskClickHandler(item)} 
+                        taskMouseDownHandler={taskMouseDownHandler}
+                />  ) }
+            {timeToolTopIsOn && 
+            <div 
+                className="timeToolTip" 
+                style={{ top: timeToolTipPosition.y }}>
+                {newTaskTime.getHours()+":"+newTaskTime.getMinutes()}
+            </div>}
         </div>
         {showTaskForm &&
-        <TaskForm 
-            initialTask={initialTask}
-            isNew={initTaskIsNew}
-            setNewTask={setNewTaskHandler}
-            setWeekDefocus={setWeekDefocus}
-            setShowTaskForm={setShowTaskForm}
-        />}
+            <TaskForm 
+                initialTask={initialTask}
+                isNew={initTaskIsNew}
+                setWeekDefocus={setWeekDefocus}
+                setShowTaskForm={setShowTaskForm}
+            />}
         </>
     );
 };

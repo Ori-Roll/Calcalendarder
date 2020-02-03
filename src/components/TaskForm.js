@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from "react";
 import ColorPicker from "./ColorPicker";
 
-function TaskForm ({ setNewTask, setWeekDefocus, isNew, initialTask, setShowTaskForm}){
+function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
     
     const [taskTime, setTaskTime] = useState(initialTask.time);
     const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
@@ -26,14 +26,11 @@ function TaskForm ({ setNewTask, setWeekDefocus, isNew, initialTask, setShowTask
         e.preventDefault();
         console.log("initialTask.endDate: ",initialTask.endDate);
         if (isNew) { 
-            setNewTask({
-                key: getRandomString(),
-                time: taskTime,
-                endDate: taskEndTime,
-                title: taskTitle,
-                description: taskDescription,
-                color: taskColor
-            })
+            initialTask.time = taskTime;
+            initialTask.endDate = taskEndTime;
+            initialTask.title = taskTitle;
+            initialTask.description = taskDescription;
+            initialTask.color = taskColor;
             console.log("isNew");
         } else {
             initialTask.time = taskTime;

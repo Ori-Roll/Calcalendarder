@@ -40,10 +40,8 @@ function AppContextProvider (props) {
             taskPosition = taskData.indexOf( taskData.find( item => theNewTask.time >= item.time ));
             
             if (taskPosition > 0) { 
-                console.log("taskPosition: " + taskPosition);
                 return taskPosition}
             else { 
-                console.log("taskPosition: 0");
                 return 0 }
         }
 
@@ -56,7 +54,7 @@ function AppContextProvider (props) {
     };
 
     return (
-        <AppContext.Provider value={{taskData, currentDate, setCurrentDate, setNewTask, focusDate, setFocusDate}}>
+        <AppContext.Provider value={{taskData, setTaskData, currentDate, setCurrentDate, setNewTask, focusDate, setFocusDate}}>
             {props.children}
         </AppContext.Provider>
     );
