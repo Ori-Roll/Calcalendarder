@@ -2,7 +2,7 @@ import React from 'react';
 
 const defaultData = {key: (Math.random()*100), time: "" , endDate: "" , title: "empty t", description: "empty d", color: "gray"}; 
 
-function Task({taskProps = defaultData, onTaskClick, taskMouseDownHandler, ...props}) {
+function Task({taskProps = defaultData, onTaskClick, onDragStartHandler, onDragOverHandler, /* taskMouseDownHandler, */ ...props}) {
 
     let theDate = new Date(taskProps.time); 
     let endDate = new Date(taskProps.endDate);
@@ -43,7 +43,9 @@ function Task({taskProps = defaultData, onTaskClick, taskMouseDownHandler, ...pr
         <div className="task" 
                 style={{ height: taskBoxEnd, top: taskBoxStart}} 
                 onClick={taskClickHandler} 
-                onMouseDown={(e) => taskMouseDownHandler(taskProps.key, e)}
+                /* onMouseDown={(e) => taskMouseDownHandler(taskProps.key, e)} */
+                onDragStart={() => onDragStartHandler(taskProps.key)}
+                onDragOver={(e) => onDragOverHandler(e)}
                 draggable={"true"}
             >
             <p className="taskTitle" style={{color: taskProps.color, borderLeftColor: taskProps.color}}>

@@ -20,7 +20,11 @@ function Week () {
     return (       
         <div className="week">
             {weekDefocus && <div className="week-defocus"/>}
-            {weekDays.map((date, index) => <Day dayDate={date} key={date} setWeekDefocus={setWeekDefocus} />)}
+            {weekDays.map((date, index) => <Day 
+                dayDate={date} 
+                key={date} 
+                setWeekDefocus={setWeekDefocus} 
+                />)}
         </div>
     );
 };

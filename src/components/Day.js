@@ -99,8 +99,21 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
         /* setTaskData() */
         
         const taskIndex = taskData.findIndex(item => item.key===taskKey);
-        taskData.splice(taskIndex, 1);
+        /* taskData.splice(taskIndex, 1); */
         console.log("taskIndex is: ", taskIndex);
+    };
+
+    function onDragStartHandler(taskKey){
+        console.log("onDragStartHandler");
+        const taskIndex = taskData.findIndex(item => item.key===taskKey);
+        taskData.splice(taskIndex, 1)
+        /* taskData[taskIndex].style */
+
+    };
+
+    function onDragOverHandler(e){
+        /* e.preventDefault(); */
+        console.log("onDragOverHandler , e: ", e.clientY);
     };
 
     const dayTitle = <div className="dayTitle" style={titleStyleChange}><h4 >{dayNumber}</h4><p >{"("+dayShortName+")"}</p></div>
@@ -120,7 +133,10 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
                 <Task 
                         taskProps={item} 
                         onTaskClick={() => taskClickHandler(item)} 
-                        taskMouseDownHandler={taskMouseDownHandler}
+                        /* taskMouseDownHandler={taskMouseDownHandler} */
+                        onDragStartHandler={onDragStartHandler}
+                        onDragOverHandler={onDragOverHandler}
+                        /* style={{item.style ? "red" : "blue" }} */
                 />  ) }
             {timeToolTopIsOn && 
             <div 
