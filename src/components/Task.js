@@ -44,8 +44,8 @@ function Task({taskProps = defaultData, onTaskClick, onDragStartHandler, onDragO
                 style={{ height: taskBoxEnd, top: taskBoxStart}} 
                 onClick={taskClickHandler} 
                 /* onMouseDown={(e) => taskMouseDownHandler(taskProps.key, e)} */
-                onDragStart={() => onDragStartHandler(taskProps.key)}
-                onDragOver={(e) => onDragOverHandler(e)}
+                onDragStart={(e) => onDragStartHandler(e, taskProps)}
+                /* onDragOverHandler={(e) => onDragOverHandler(e)} */
                 draggable={"true"}
             >
             <p className="taskTitle" style={{color: taskProps.color, borderLeftColor: taskProps.color}}>

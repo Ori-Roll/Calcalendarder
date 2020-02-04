@@ -30,13 +30,15 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
 
     const titleStyleChange = isSameDate(dayDate, currentDate) ? {color: "#f1e5c8", backgroundColor: "#4f6f8e"} : {};
 
+    
+
     function setNewTaskHandler(newTaskToSet) {
         setShowTaskForm(false);
         setNewTask(newTaskToSet);
     }
 
     useEffect(
-        () => {setDayTasks(getTasks(dayStartTime, dayEndTime)); console.log(taskData)},
+        () => {setDayTasks(getTasks(dayStartTime, dayEndTime)); console.log("taskData",taskData)},
         [taskData.length]
     );
 
@@ -93,27 +95,30 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
         setNewTaskTime(dateToSet);
     };
 
-    function taskMouseDownHandler(taskKey) {
-        /* e.preventDefault();
-        e.stopPropagation(); */
-        /* setTaskData() */
-        
-        const taskIndex = taskData.findIndex(item => item.key===taskKey);
-        /* taskData.splice(taskIndex, 1); */
-        console.log("taskIndex is: ", taskIndex);
-    };
-
-    function onDragStartHandler(taskKey){
+    function onDragStartHandler(e, taskProps){
         console.log("onDragStartHandler");
-        const taskIndex = taskData.findIndex(item => item.key===taskKey);
-        taskData.splice(taskIndex, 1)
+        const taskIndex = dayTasks.findIndex(item => item.key===taskProps.key);
+        dayTasks.splice(taskIndex, 1)
+        e.dataTransfer.setData("taskKey", taskProps.key);
         /* taskData[taskIndex].style */
+        console.log(e.dataTransfer.getData("taskKey"));
 
     };
 
     function onDragOverHandler(e){
-        /* e.preventDefault(); */
-        console.log("onDragOverHandler , e: ", e.clientY);
+        e.preventDefault();
+    };
+    
+    function onDropHandler(e){
+        console.log("onDropHandler , e: ", e.clientY);
+        e.preventDefault();
+        const dropedTaskKey = e.dataTransfer.getData("taskKey");
+        const dropedTaskIndex = taskData.findIndex(item => item.key===dropedTaskKey);
+        const dropedTask = taskData[dropedTaskIndex];
+        dropedTask.time.setTime(dayDate.getTime()); 
+        dropedTask.time.setHours(12); 
+        dropedTask.endDate.setTime(dayDate.getTime()); 
+        setDayTasks(getTasks(dayStartTime, dayEndTime));
     };
 
     const dayTitle = <div className="dayTitle" style={titleStyleChange}><h4 >{dayNumber}</h4><p >{"("+dayShortName+")"}</p></div>
@@ -127,16 +132,17 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
             onMouseMove={mouseMoveHandler} 
             onMouseOver={() => {setTimeToolTopIsOn(true)}} 
             onMouseLeave={() => {setTimeToolTopIsOn(false)}}
+            onDragOver={onDragOverHandler}
+            onDrop={onDropHandler}
+            /* onDragEnter={(e) => {e.preventDefault()}} */
+            draggable={"true"}
         >
             {dayTitle}
             {dayTasks.map( item => 
                 <Task 
                         taskProps={item} 
                         onTaskClick={() => taskClickHandler(item)} 
-                        /* taskMouseDownHandler={taskMouseDownHandler} */
                         onDragStartHandler={onDragStartHandler}
-                        onDragOverHandler={onDragOverHandler}
-                        /* style={{item.style ? "red" : "blue" }} */
                 />  ) }
             {timeToolTopIsOn && 
             <div 
@@ -157,3 +163,13 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
 };
 
 export default Day;
+
+    /* taskMouseDownHandler={taskMouseDownHandler} */
+
+    /* function taskMouseDownHandler(taskKey) {
+        e.preventDefault();
+        e.stopPropagation();
+        const taskIndex = taskData.findIndex(item => item.key===taskKey);
+        taskData.splice(taskIndex, 1);
+        console.log("taskIndex is: ", taskIndex);
+    }; */
