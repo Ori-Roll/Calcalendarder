@@ -3,14 +3,14 @@ import ColorPicker from "./ColorPicker";
 
 function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
     
-    const [taskTime, setTaskTime] = useState(initialTask.startDate);
+    const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
     const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
     const [taskTitle, setTaskTitle] = useState(initialTask.title);
     const [taskDescription, setTaskDescription] = useState(initialTask.description);
     const [taskColor, setTaskColor] = useState("#91A79E");
     const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
 
-    const startDate = new Date(taskTime);
+    const startDate = new Date(taskStartTime);
 
     const taskTitleRef = useRef();
 
@@ -26,14 +26,14 @@ function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
         e.preventDefault();
         console.log("initialTask.endDate: ",initialTask.endDate);
         if (isNew) { 
-            initialTask.startDate = taskTime;
+            initialTask.startDate = taskStartTime;
             initialTask.endDate = taskEndTime;
             initialTask.title = taskTitle;
             initialTask.description = taskDescription;
             initialTask.color = taskColor;
             console.log("isNew");
         } else {
-            initialTask.startDate = taskTime;
+            initialTask.startDate = taskStartTime;
             initialTask.endDate = taskEndTime;
             initialTask.title = taskTitle;
             initialTask.description = taskDescription;
@@ -42,7 +42,7 @@ function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
         };
         setWeekDefocus(false);
         setShowTaskForm(false);
-        console.log("Form says: new task is: " + taskTime + ', ' + taskTitle + ', ' + taskDescription + ', ' + taskColor);
+        console.log("Form says: new task is: " + taskStartTime + ', ' + taskTitle + ', ' + taskDescription + ', ' + taskColor);
     }
     
     function toggleColorPicker(){
@@ -99,7 +99,7 @@ function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
                     min = "07:00"
                     max = "21:00"
                     value = {startDate.getHours().toString().padStart(2 , 0) + ":"+startDate.getMinutes().toString().padStart(2 , 0)}
-                    onChange={(e) => {inputChangeHandler(e, setTaskTime)}}
+                    onChange={(e) => {inputChangeHandler(e, setTaskStartTime)}}
                     >  
                 </input>
                 
@@ -121,7 +121,7 @@ function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
                     min = "07:00"
                     max = "21:00"
                     value = "08:00"
-                    /* onChange={(e) => {inputChangeHandler(e, setTaskTime)}} */
+                    /* onChange={(e) => {inputChangeHandler(e, setTaskStartTime)}} */
                     >  
                 </input>
                 
