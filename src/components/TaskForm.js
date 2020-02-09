@@ -3,7 +3,7 @@ import ColorPicker from "./ColorPicker";
 
 function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
     
-    const [taskTime, setTaskTime] = useState(initialTask.time);
+    const [taskTime, setTaskTime] = useState(initialTask.startDate);
     const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
     const [taskTitle, setTaskTitle] = useState(initialTask.title);
     const [taskDescription, setTaskDescription] = useState(initialTask.description);
@@ -26,14 +26,14 @@ function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
         e.preventDefault();
         console.log("initialTask.endDate: ",initialTask.endDate);
         if (isNew) { 
-            initialTask.time = taskTime;
+            initialTask.startDate = taskTime;
             initialTask.endDate = taskEndTime;
             initialTask.title = taskTitle;
             initialTask.description = taskDescription;
             initialTask.color = taskColor;
             console.log("isNew");
         } else {
-            initialTask.time = taskTime;
+            initialTask.startDate = taskTime;
             initialTask.endDate = taskEndTime;
             initialTask.title = taskTitle;
             initialTask.description = taskDescription;

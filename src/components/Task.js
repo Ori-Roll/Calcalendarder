@@ -1,20 +1,20 @@
 import React from 'react';
 
-const defaultData = {key: (Math.random()*100), time: "" , endDate: "" , title: "empty t", description: "empty d", color: "gray"}; 
+const defaultData = {key: (Math.random()*100), startDate: "" , endDate: "" , title: "empty t", description: "empty d", color: "gray"}; 
 
 function Task({taskProps = defaultData, onTaskClick, onDragStartHandler, onDragOverHandler, /* taskMouseDownHandler, */ ...props}) {
 
-    let theDate = new Date(taskProps.time); 
+    let theDate = new Date(taskProps.startDate); 
     let endDate = new Date(taskProps.endDate);
 
-    // This creates time format
+    // This creates startDate format
     let taskTime = ( ()=> { 
-        if (taskProps.time === "") {return "no time"};    
+        if (taskProps.startDate === "") {return "no startDate"};    
         return ( theDate.getHours() + ":" + theDate.getMinutes().toString().padStart(2 , "0") ) 
         } )();
     
     let taskBoxStart = ( () => {
-            if (taskProps.time === "") {
+            if (taskProps.startDate === "") {
                 return 0;
             } else {
                 return ( ((( theDate.getHours() - 6) * 60)  + theDate.getMinutes() ) + "px"  );

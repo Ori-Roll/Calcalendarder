@@ -32,10 +32,10 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
 
     
 
-    function setNewTaskHandler(newTaskToSet) {
+    /* function setNewTaskHandler(newTaskToSet) {
         setShowTaskForm(false);
         setNewTask(newTaskToSet);
-    }
+    } */
 
     useEffect(
         () => {setDayTasks(getTasks(dayStartTime, dayEndTime)); console.log("taskData",taskData)},
@@ -44,9 +44,9 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
 
     useEffect(() => { setDayTasks(getTasks(dayStartTime, dayEndTime)) }, []);
 
-    function getTasks(startTime, endTime) {
+    function getTasks(startDate, endTime) {
         let taskSet = taskData.filter( item =>  {
-                return (item.time >= startTime && item.time < endTime) ;
+                return (item.startDate >= startDate && item.startDate < endTime) ;
             });  
         return taskSet;   
     };
@@ -54,16 +54,16 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
     function clickHandler(e){
         setInitTaskIsNew(true);
 
-        const newTime = new Date(dayDate);
+        const newStartDate = new Date(dayDate);
         const newEndDate = new Date(dateToSet);
 
-        newTime.setHours(dateToSet.getHours());
-        newTime.setMinutes(dateToSet.getMinutes());
+        newStartDate.setHours(dateToSet.getHours());
+        newStartDate.setMinutes(dateToSet.getMinutes());
         newEndDate.setHours(dateToSet.getHours()+2);
         /* setNewTaskTimeSet(newTime); */
         const emptyNewTask = {
             key: new Date().getTime().toString(), 
-            time: newTime , 
+            startDate: newStartDate , 
             endDate: newEndDate , 
             title: "", 
             description: "" 
@@ -82,27 +82,27 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
         setShowTaskForm(true);
         setWeekDefocus(true);
     };
-
-    function mouseMoveHandler(e){
-        let timeNumValue = (( e.clientY - dayRef.current.offsetTop - 55 ) / 60) +7;
-    
+// -------------------------------TO MISC FUNCTIONALITY -----------------------------------------------
+    function getTaskTimeFromEvent(onDayRef, event) {
+        let timeNumValue = (( event.clientY - onDayRef.current.offsetTop - 55 ) / 60) +7 ;
         let fixedHour = timeNumValue>7 ? Math.floor(timeNumValue) : 0;
         let fixedMin = timeNumValue>7 ? Math.floor( (timeNumValue - Math.floor(timeNumValue))*60 ) : 0;
-
-        dateToSet.setHours(fixedHour);
-        dateToSet.setMinutes(fixedMin);
+        return {hours: fixedHour, minutes: fixedMin};
+    };
+//-----------------------------------------------------------------------------------------------------
+    function mouseMoveHandler(e){
+        dateToSet.setHours(getTaskTimeFromEvent(dayRef, e).hours);
+        dateToSet.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes);
         setTimeToolTipPosition({y: e.clientY-65});
         setNewTaskTime(dateToSet);
     };
 
     function onDragStartHandler(e, taskProps){
-        console.log("onDragStartHandler");
+        console.log("onDragStartHandler"+e.clientY);
         const taskIndex = dayTasks.findIndex(item => item.key===taskProps.key);
         dayTasks.splice(taskIndex, 1)
         e.dataTransfer.setData("taskKey", taskProps.key);
         /* taskData[taskIndex].style */
-        console.log(e.dataTransfer.getData("taskKey"));
-
     };
 
     function onDragOverHandler(e){
@@ -115,8 +115,11 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
         const dropedTaskKey = e.dataTransfer.getData("taskKey");
         const dropedTaskIndex = taskData.findIndex(item => item.key===dropedTaskKey);
         const dropedTask = taskData[dropedTaskIndex];
-        dropedTask.time.setTime(dayDate.getTime()); 
-        dropedTask.time.setHours(12); 
+        
+        dropedTask.startDate.setTime(dayDate.getTime()); 
+        dropedTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e).hours); 
+        dropedTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes); 
+        
         dropedTask.endDate.setTime(dayDate.getTime()); 
         setDayTasks(getTasks(dayStartTime, dayEndTime));
     };
