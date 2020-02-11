@@ -2,12 +2,10 @@ import React, { useState } from "react";
 
 const AppContext = React.createContext();
 
-
-function AppContextProvider (props) {
-
-    //Temp to replace database
-    const tasks = [
-        /* {key:  "1", startDate: new Date('2018-11-28T00:00:00'), endDate: new Date('2018-11-28T10:20:00'), title: "Miss. T", description: "This is verykjf hasdjfh ksd hfkjsdah" ,color:"red" },
+function AppContextProvider(props) {
+	//Temp to replace database
+	const tasks = [
+		/* {key:  "1", startDate: new Date('2018-11-28T00:00:00'), endDate: new Date('2018-11-28T10:20:00'), title: "Miss. T", description: "This is verykjf hasdjfh ksd hfkjsdah" ,color:"red" },
         {key:  "2", startDate: new Date('2019-12-30T01:00:00'), endDate: new Date('2019-12-30T11:10:00'), title: "Today 2 ldksjf dslkja [ods'l hfnj;ks bnfkljsfgkjlfbngjk]  2 2 2 2 2", description: "stuff 2 dfadsf asdfdsafdsafo" },
         {key:  "3", startDate: new Date('2019-12-31T12:00:00'), endDate: new Date('2019-12-31T12:05:00'), title: "Today 3 klsjfg hfdkjgh jkfd hgjlkfd", description: "stuff 2 dfads fds fa fd o  - 3" },
         {key:  "4", startDate: new Date('2019-12-31T13:00:00'), endDate: new Date('2019-12-31T14:55:00'), title: "Today 4", description: "stuff fdsa ff adsf fds 2 do  - 4fdslkj fhsdlf lsd n" },
@@ -25,45 +23,54 @@ function AppContextProvider (props) {
         {key: "16", startDate: new Date('2020-01-05T16:00:00'), endDate: new Date('2020-01-01T16:10:00'), title: "Today 17", description: "gs dfg gfsd sdfg gs g sdfg fsdg fdsg gfds fsdfgd " ,color:"purple"},
         {key: "17", startDate: new Date('2020-01-06T17:00:00'), endDate: new Date('2020-01-02T17:30:00'), title: "Today 18", description: "stuff 2 do  - 18sgfd fdsg gdfs g fdsg gs gfd " },
         {key: "18", startDate: new Date('2020-01-06T18:00:00'), endDate: new Date('2020-01-02T18:30:00'), title: "Today 19", description: "stuff 2 do  - 19 sfdgg fsfdg dsfg fds ygeraf " }, */
-    ];
+	];
 
-    const [taskData, setTaskData] = useState(tasks);
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const [focusDate, setFocusDate] = useState(new Date('2020-01-08T06:00:00'));
+	const [taskData, setTaskData] = useState(tasks);
+	const [currentDate, setCurrentDate] = useState(new Date());
+	const [focusDate, setFocusDate] = useState(new Date("2020-01-08T06:00:00"));
 
-    function setNewTask(newTask){
-        
-        function getTaskPosition(theNewTask){
-            let taskPosition = 0;
-                        
-            taskPosition = taskData.indexOf( taskData.find( item => theNewTask.startDate >= item.startDate ));
-            
-            if (taskPosition > 0) { 
-                return taskPosition}
-            else { 
-                return 0 }
-        }
+	function setNewTask(newTask) {
+		function getTaskPosition(theNewTask) {
+			let taskPosition = 0;
 
-        setTaskData((prevData) => {
-            prevData.push(newTask);
-            return prevData;
-        });
-    };
+			taskPosition = taskData.indexOf(
+				taskData.find(item => theNewTask.startDate >= item.startDate)
+			);
 
-    return (
-        <AppContext.Provider value={{taskData, setTaskData, currentDate, setCurrentDate, setNewTask, focusDate, setFocusDate}}>
-            {props.children}
-        </AppContext.Provider>
-    );
-};
+			if (taskPosition > 0) {
+				return taskPosition;
+			} else {
+				return 0;
+			}
+		}
 
-export {AppContextProvider, AppContext}
+		setTaskData(prevData => {
+			prevData.push(newTask);
+			return prevData;
+		});
+	}
 
+	return (
+		<AppContext.Provider
+			value={{
+				taskData,
+				setTaskData,
+				currentDate,
+				setCurrentDate,
+				setNewTask,
+				focusDate,
+				setFocusDate
+			}}>
+			{props.children}
+		</AppContext.Provider>
+	);
+}
 
+export { AppContextProvider, AppContext };
 
 //OLD--------------------------------------------------------------------
 
-  /* function getTasks(startDate, endTime) {
+/* function getTasks(startDate, endTime) {
         let startAt;
         let endAt;
 
@@ -74,8 +81,7 @@ export {AppContextProvider, AppContext}
         return taskSet;        
     } */
 
-
-    /* 
+/* 
         newTaskData = taskData;
         for(let i = 0; i < tasks.length; i++ ){
 

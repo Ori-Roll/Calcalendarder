@@ -1,78 +1,82 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 .app {
-    display: grid;
-    grid-template-rows: 65px 1fr;
-    grid-template-columns: 220px 1fr;
-    grid-template-areas:    "nav-bar nav-bar"
-                            "side-bar week";
-    height: 100vh;
-    min-width: 0;
+	display: grid;
+	grid-template-rows: 65px 1fr;
+	grid-template-columns: 220px 1fr;
+	grid-template-areas:
+		"nav-bar nav-bar"
+		"side-bar week";
+	height: 100vh;
+	min-width: 0;
 }
 
 @media only screen and (max-width: 800px) {
-    
 }
 
-.week{
-    grid-area: week;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    /* justify-items: stretch; */
-    padding: calc(0.1vw + 1px) 5px;
-    background-color: rgb(255, 255, 255);
-    height: 100%;
-    min-width: 0;
-    overflow: hidden;
+.week {
+	grid-area: week;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	/* justify-items: stretch; */
+	padding: calc(0.1vw + 1px) 5px;
+	background-color: rgb(255, 255, 255);
+	height: 100%;
+	min-width: 0;
+	overflow: hidden;
 }
 
-.week-defocus{
-    width: 150%;
-    height: 100%;
-    background-color: rgba(240, 242, 242, 0.63);
-    position: absolute;
-    z-index: 30;
-    animation: defocus-in ease-in-out 0.3s;
-    left:-150px;
+.week-defocus {
+	width: 150%;
+	height: 100%;
+	background-color: rgba(240, 242, 242, 0.63);
+	position: absolute;
+	z-index: 30;
+	animation: defocus-in ease-in-out 0.3s;
+	left: -150px;
 }
 
 @keyframes defocus-in {
-    0% { opacity: 0;}
-    100% { opacity: 100%;}
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 100%;
+	}
 }
 
 .day-container {
-    border-left: rgb(246, 246, 246) 1px solid;
-    min-width: 0;
-    position: relative;
+	border-left: rgb(246, 246, 246) 1px solid;
+	min-width: 0;
+	position: relative;
 }
 
 .day {
-    cursor: copy;
-    background-color: white;
-    height: 100%;
-    z-index: 20;
+	cursor: copy;
+	background-color: white;
+	height: 100%;
+	z-index: 20;
 }
 
-.dayTitle{
-    padding: 5px Calc(1.5vw + 5px) 5px;
-    color: rgb(83, 88, 95);
-    min-width: 0;
-    text-align: center;
-    background-color: rgb(255, 255, 255);
-    border: none;
-    font-size: 1.1em;
-    cursor: none;
-    height: 55px;
-    z-index: 50;
+.dayTitle {
+	padding: 5px Calc(1.5vw + 5px) 5px;
+	color: rgb(83, 88, 95);
+	min-width: 0;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border: none;
+	font-size: 1.1em;
+	cursor: none;
+	height: 55px;
+	z-index: 50;
 }
 
 .dayTitle p {
-    font-size: 0.8em;
+	font-size: 0.8em;
 }
 
 /* 
@@ -98,323 +102,356 @@
 } */
 
 .task {
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 66% 34%;
-    grid-template-rows:  auto 1fr;
-    grid-template-areas:    "task-title task-time"
-                            "task-description task-description";
-    /* margin: 0 0 2px 0; */
-    /* padding: 10px 10px 8px; */
-    border-top: rgb(241, 241, 245) 1px solid;
-    width: 100%;
-    cursor: default;
-    /* border-bottom: rgb(241, 241, 241) 1px solid; */
-    /* border-top:none; */
-    min-width: 0;
-    min-height: 23px;
-    /* max-height: Calc(5vh + 50px); */
-    background-color: rgb(245, 246, 246);
-    position: absolute;
-    z-index: 10;
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: 66% 34%;
+	grid-template-rows: auto 1fr;
+	grid-template-areas:
+		"task-title task-time"
+		"task-description task-description";
+	/* margin: 0 0 2px 0; */
+	/* padding: 10px 10px 8px; */
+	border-top: rgb(241, 241, 245) 1px solid;
+	width: 100%;
+	cursor: default;
+	/* border-bottom: rgb(241, 241, 241) 1px solid; */
+	/* border-top:none; */
+	min-width: 0;
+	min-height: 23px;
+	/* max-height: Calc(5vh + 50px); */
+	background-color: rgb(245, 246, 246);
+	position: absolute;
+	z-index: 10;
 }
 
 .taskTitle {
-    text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
-    overflow: hidden;                                                 /* !!!!! need to combine all of these!*/
-    font-style: italic;
-    padding: 3px 0 0 8px;
-    margin: 0 0 3px 0;
-    font-size: 0.8em;
-    grid-area: task-title;
-    color: rgb(39, 39, 201);
-    border-left: blue 3px solid;
-    /* background-color: rgb(208, 208, 233); */
+	text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
+	overflow: hidden; /* !!!!! need to combine all of these!*/
+	font-style: italic;
+	padding: 3px 0 0 8px;
+	margin: 0 0 3px 0;
+	font-size: 0.8em;
+	grid-area: task-title;
+	color: rgb(39, 39, 201);
+	border-left: blue 3px solid;
+	/* background-color: rgb(208, 208, 233); */
 }
 
 .task-time {
-    text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
-    overflow: hidden;   
-    font-style: oblique;
-    padding: 0.5px 1em;
-    margin: 3px;
-    display: block;
-    font-size: 0.75em;
-    text-align: right;
-    grid-area: task-time;
+	text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
+	overflow: hidden;
+	font-style: oblique;
+	padding: 0.5px 1em;
+	margin: 3px;
+	display: block;
+	font-size: 0.75em;
+	text-align: right;
+	grid-area: task-time;
 }
 
-.task-description{
-    grid-area: task-description;
-    font-size: 0.8em;
-    overflow: hidden;
-    padding: 0 0 0 8px;
-    color: rgb(73, 73, 73);
+.task-description {
+	grid-area: task-description;
+	font-size: 0.8em;
+	overflow: hidden;
+	padding: 0 0 0 8px;
+	color: rgb(73, 73, 73);
 }
 
 .time-tool-tip {
-    position: absolute;
-    width: 100%;
-    height: 60px;
-    z-index: 50;
-    pointer-events: none;
-    padding: 0.2em 0.3em;
-    border-top: rgb(223, 223, 223) 1px solid;
-    text-align: center;
-    color: rgb(118, 131, 136);
-    font-size: 0.9em;
+	position: absolute;
+	width: 100%;
+	height: 60px;
+	z-index: 2;
+	pointer-events: none;
+	padding: 0.2em 0.3em;
+	border-top: rgb(223, 223, 223) 1px solid;
+	text-align: center;
+	color: rgb(118, 131, 136);
+	font-size: 0.9em;
 }
 
 .nav-bar {
-    grid-area: nav-bar;
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    border-bottom: rgb(233, 233, 233) 1px solid;
+	grid-area: nav-bar;
+	align-items: center;
+	background-color: rgb(255, 255, 255);
+	border-bottom: rgb(233, 233, 233) 1px solid;
 }
 
 .nav-bar h1 {
-    font-size: 2.2em;
-    color: rgb(150, 223, 186);
-    color: #2C3D4F;
-    background-color: #EDB19F;
-    display: inline-block;
-    margin: 5px 0 0 20px;
-    /* padding: 2px 0 2px 15px; */
+	font-size: 2.2em;
+	color: rgb(150, 223, 186);
+	color: #2c3d4f;
+	background-color: #edb19f;
+	display: inline-block;
+	margin: 5px 0 0 20px;
+	/* padding: 2px 0 2px 15px; */
 }
 
-
-.menu-btn{
-    width: 45px;
-    height: 45px;
-    border: rgb(221, 221, 221) 1px solid;
-    border-radius: 30px;
-    margin: 0 0 5px 10px;
-    background-color: white;
-    font-size: 1.5em;
+.menu-btn {
+	width: 45px;
+	height: 45px;
+	border: rgb(221, 221, 221) 1px solid;
+	border-radius: 30px;
+	margin: 0 0 5px 10px;
+	background-color: white;
+	font-size: 1.5em;
 }
 
 .date-select-drop {
-    padding: 0 20px 2px;
-    margin: 0 0 0 27px;
-    border: rgb(228, 228, 228) 1px solid;
-    border-radius: 4px;
-    /* border-top: none;
+	padding: 0 20px 2px;
+	margin: 0 0 0 27px;
+	border: rgb(228, 228, 228) 1px solid;
+	border-radius: 4px;
+	/* border-top: none;
     border-bottom: none;
     border-left: none; */
-    background-color: rgb(255, 255, 255);
-    box-shadow: inset rgba(0, 0, 0, 0.034) 3px -3px 5px ;
-    height: 50%;
-    vertical-align: 2px;
+	background-color: rgb(255, 255, 255);
+	box-shadow: inset rgba(0, 0, 0, 0.034) 3px -3px 5px;
+	height: 50%;
+	vertical-align: 2px;
 }
 .date-select-drop h4 {
-    background-color: rgb(116, 16, 46);
+	background-color: rgb(116, 16, 46);
 }
 
-
 @media only screen and (max-width: 900px) {
-    .app { grid-template-areas: "nav-bar nav-bar"
-                                "week    week"   ;}
-    .task-description{ font-size: 0.7em ;}
-    .task-time {display: none;}
-    .taskTitle{
-        font-size: 0.7em;
-        font-style: normal;}
-        
-    .task {
-        /* margin: 1px 0; */
-        padding: 0;
-        /* grid-template-areas:"text-title text-title"
-                            "text-description text-description"; */
-    }
-    .side-bar{
-        display: none;
-    }
-    .dayTitle {
-        font-size: Calc(3 + 1.8vw);
-        margin: 1px 0;
-    }
-    .menu-btn{
-        /* background-color: #C87660;
-        color: white; */
-        border: #2C3D4F 2px solid;
-    }
-    .nav-bar h1 {
-        font-size: 1em;
-        margin: 22px 0 0 0;
-    }
+	.app {
+		grid-template-areas:
+			"nav-bar nav-bar"
+			"week    week";
+	}
+	.task-description {
+		font-size: 0.7em;
+	}
+	.task-time {
+		display: none;
+	}
+	.taskTitle {
+		font-size: 0.7em;
+		font-style: normal;
+	}
 
+	.task {
+		/* margin: 1px 0; */
+		padding: 0;
+		/* grid-template-areas:"text-title text-title"
+                            "text-description text-description"; */
+	}
+	.side-bar {
+		display: none;
+	}
+	.dayTitle {
+		font-size: Calc(3 + 1.8vw);
+		margin: 1px 0;
+	}
+	.menu-btn {
+		/* background-color: #C87660;
+        color: white; */
+		border: #2c3d4f 2px solid;
+	}
+	.nav-bar h1 {
+		font-size: 1em;
+		margin: 22px 0 0 0;
+	}
 }
 
 @media only screen and (max-width: 1100px) {
-    .task-time {
-        display: none;
-    }
+	.task-time {
+		display: none;
+	}
 }
 
 .task-form {
-    position: absolute;
-    left: Calc(50% - 200px);
-    top: Calc(50% - 200px);
-    animation: form-pop-in ease-out 0.2s  ;
-    z-index: 100;
-    
-    background-color: rgb(255, 255, 255);
-    width: 320px;
-    height: auto;
-    min-height: 400px;
-    padding: 50px 30px 10px ;
-    /* border-top: rgb(240, 240, 240) 1px solid; */
-    /* border: none; */
-    border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.034) 2px 2px 15px;
-    
-    display: grid;
-    grid-template-columns: 3fr 3fr 0.8fr;
-    grid-template-rows: 0.6fr 0.6fr 0.3fr 0.3fr 0.5fr;
-    grid-template-areas:    "task-form-title       task-form-title       task-form-title"
-                            "task-form-discription task-form-discription task-form-discription"
-                            "task-form-time-lable  task-form-time        task-form-color"
-                            "task-form-end-lable   task-form-time-end    task-form-color"
-                            "task-form-cancel      .                     task-form-submit";
-    
+	position: absolute;
+	left: Calc(50% - 200px);
+	top: Calc(50% - 200px);
+	animation: form-pop-in ease-out 0.2s;
+	z-index: 100;
+
+	background-color: rgb(255, 255, 255);
+	width: 320px;
+	height: auto;
+	min-height: 400px;
+	padding: 50px 30px 10px;
+	/* border-top: rgb(240, 240, 240) 1px solid; */
+	/* border: none; */
+	border-radius: 2px;
+	box-shadow: rgba(0, 0, 0, 0.034) 2px 2px 15px;
+
+	display: grid;
+	grid-template-columns: 3fr 3fr 0.8fr;
+	grid-template-rows: 0.6fr 0.6fr 0.3fr 0.3fr 0.5fr;
+	grid-template-areas:
+		"task-form-title       task-form-title       task-form-title"
+		"task-form-discription task-form-discription task-form-discription"
+		"task-form-time-lable  task-form-time        task-form-color"
+		"task-form-end-lable   task-form-time-end    task-form-color"
+		"task-form-cancel      .                     task-form-submit";
 }
 
 @keyframes form-pop-in {
-    0% {    opacity: 0;
-            top: Calc(50% - 180px); }
-    100% {  opacity: 100%;
-            top: Calc(50% - 200px); }
+	0% {
+		opacity: 0;
+		top: Calc(50% - 180px);
+	}
+	100% {
+		opacity: 100%;
+		top: Calc(50% - 200px);
+	}
 }
 
 .task-form * {
-    border-style: none;
-    outline: none;
+	border-style: none;
+	outline: none;
 }
 
 .task-form input {
-    /* margin: 0px 0 15px; */
-    display: inline-block;
-    /* background: none; */
-    background-color: white;
-    word-break: break-word;
+	/* margin: 0px 0 15px; */
+	display: inline-block;
+	/* background: none; */
+	background-color: white;
+	word-break: break-word;
 }
 
 .task-form ::placeholder {
-    color: rgb(182, 182, 182);
-    vertical-align: bottom;
-    display: inline-block;
-    /* border-bottom: gray 1px solid; */
+	color: rgb(182, 182, 182);
+	vertical-align: bottom;
+	display: inline-block;
+	/* border-bottom: gray 1px solid; */
 }
 
 .color-picker {
-    position: absolute;
-    display: grid;
-    grid-template-columns: repeat(5, auto);
-    grid-template-rows: repeat(6, auto);
-    top: 26px;
-    left: 18px;
-    padding: 5px;
-    background-color: white;
-    /* border: rgb(221, 221, 221) 1px solid; */
-    border: none;
-    z-index: 20;
-    animation: color-picker-pop-in ease-out 0.2s;
-    cursor: pointer;
+	position: absolute;
+	display: grid;
+	grid-template-columns: repeat(5, auto);
+	grid-template-rows: repeat(6, auto);
+	top: 26px;
+	left: 18px;
+	padding: 5px;
+	background-color: white;
+	/* border: rgb(221, 221, 221) 1px solid; */
+	border: none;
+	z-index: 20;
+	animation: color-picker-pop-in ease-out 0.2s;
+	cursor: pointer;
 }
 
-.color-select-btn{
-    color: rgb(218, 208, 70);
-    width: 45px;
-    height: 45px;
-    border: rgb(221, 221, 221) 1px solid;
-    border-radius: 30px;
-    margin: 5px;
+.color-select-btn {
+	color: rgb(218, 208, 70);
+	width: 45px;
+	height: 45px;
+	border: rgb(221, 221, 221) 1px solid;
+	border-radius: 30px;
+	margin: 5px;
 }
 
 @keyframes color-picker-pop-in {
-    0% {    opacity: 0 }
-    100% {  opacity: 100%}
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 100%;
+	}
 }
 
-.task-form-title {  grid-area: task-form-title; 
-                    border-left: 1px solid;
-                    padding: 15px;
-                    margin: 0 0 5px 0}
-.task-form-discription { grid-area: task-form-discription; 
-                         border-left: 1px solid;
-                         padding: 15px;
-                         margin: 5px 0 0 0}
-.task-form-time-lable { grid-area: task-form-time-lable;
-                        padding: 15px 5px;}
-.task-form-time {grid-area: task-form-time;
-                padding: 0 0 0 20px;}
-.task-form-end-lable {grid-area: task-form-end-lable;
-                      padding: 15px 5px;
-                      width: 75px;
-                    }
-.task-form-time-end { grid-area: task-form-time-end;
-                      padding: 0 0 0 20px;}
-.task-form-submit {grid-area: task-form-submit; background: none; color: rgb(26, 110, 71); cursor: pointer;}
-.task-form-cancel {grid-area: task-form-cancel; background: none; color: rgb(116, 16, 46); cursor: pointer;}
-.task-form-color{
-    grid-area: task-form-color;
-    font-size: 1em;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    padding: 10px 1px 0 0;
-    /* margin: 26px 0px 0 20px; */
-    /* margin: 26px 0 0 0; */
-    /* margin: 30px 20px 50px 30px; */
-    border-radius: 30px;
-    color: white;
-    cursor: pointer;
+.task-form-title {
+	grid-area: task-form-title;
+	border-left: 1px solid;
+	padding: 15px;
+	margin: 0 0 5px 0;
 }
-
-
+.task-form-discription {
+	grid-area: task-form-discription;
+	border-left: 1px solid;
+	padding: 15px;
+	margin: 5px 0 0 0;
+}
+.task-form-time-lable {
+	grid-area: task-form-time-lable;
+	padding: 15px 5px;
+}
+.task-form-time {
+	grid-area: task-form-time;
+	padding: 0 0 0 20px;
+}
+.task-form-end-lable {
+	grid-area: task-form-end-lable;
+	padding: 15px 5px;
+	width: 75px;
+}
+.task-form-time-end {
+	grid-area: task-form-time-end;
+	padding: 0 0 0 20px;
+}
+.task-form-submit {
+	grid-area: task-form-submit;
+	background: none;
+	color: rgb(26, 110, 71);
+	cursor: pointer;
+}
+.task-form-cancel {
+	grid-area: task-form-cancel;
+	background: none;
+	color: rgb(116, 16, 46);
+	cursor: pointer;
+}
+.task-form-color {
+	grid-area: task-form-color;
+	font-size: 1em;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	padding: 10px 1px 0 0;
+	/* margin: 26px 0px 0 20px; */
+	/* margin: 26px 0 0 0; */
+	/* margin: 30px 20px 50px 30px; */
+	border-radius: 30px;
+	color: white;
+	cursor: pointer;
+}
 
 .side-bar {
-    grid-area: side-bar;
-    background-color: rgb(255, 255, 255);
+	grid-area: side-bar;
+	background-color: rgb(255, 255, 255);
 }
 
 .side-cal-item {
-    margin: 0;
-    padding: 0;
-    color: indigo;
-    background-color: khaki;   
+	margin: 0;
+	padding: 0;
+	color: indigo;
+	background-color: khaki;
 }
 
 .react-calendar {
-    border: none;
-    padding: 5px 10px;
-    font-size: 0.9em;
+	border: none;
+	padding: 5px 10px;
+	font-size: 0.9em;
 }
 .react-calendar button {
-    background-color: white;
-    border: none;
-    color: gray;
-    padding: 5px 0px;
-    margin: 2px 0;
+	background-color: white;
+	border: none;
+	color: gray;
+	padding: 5px 0px;
+	margin: 2px 0;
 }
 
 .react-calendar__navigation {
-    padding: 0 20px;
+	padding: 0 20px;
 }
 
-.react-calendar__navigation button{
-    border-radius: 20px;
-    padding: 5px 5px 10px;
+.react-calendar__navigation button {
+	border-radius: 20px;
+	padding: 5px 5px 10px;
 }
 
 .react-calendar__month-view__weekdays {
-    padding: 5px 0;
-    text-align: center;
+	padding: 5px 0;
+	text-align: center;
 }
 
-.react-calendar__month-view__weekdays__weekday abbr[title]{
-    font-size: 0.8em;
-    text-decoration-line: none;
-    color: gray;
-    border: none;
+.react-calendar__month-view__weekdays__weekday abbr[title] {
+	font-size: 0.8em;
+	text-decoration-line: none;
+	color: gray;
+	border: none;
 }
