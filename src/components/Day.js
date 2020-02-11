@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState, useRef} from 'react';
+import PropTypes from 'prop-types';
 import { AppContext } from '../appContext.js';
 import Task from './Task.js';
 import TaskForm from './TaskForm.js';
@@ -8,7 +9,7 @@ let dateToSet = new Date();
 const getDateWithoutTime = (date) => [date.getDate(), date.getMonth(), date.getFullYear()].join(' ');
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
 
-function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
+function Day({ dayDate, setWeekDefocus }) {
 
     const dayNumber = dayDate.getDate().toString();
     const dayShortName = [ "SUN" , "MON" , "TUE" , "WED" , "THU" , "FRI" , "SAT" ][dayDate.getDay()];
@@ -38,7 +39,7 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
     } */
 
     useEffect(
-        () => {setDayTasks(getTasks(dayStartTime, dayEndTime)); console.log("taskData",taskData)},
+        () => {setDayTasks(getTasks(dayStartTime, dayEndTime))},
         [taskData.length]
     );
 
@@ -84,7 +85,7 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
     };
 // -------------------------------TO MISC FUNCTIONALITY -----------------------------------------------
     function getTaskTimeFromEvent(onDayRef, event) {
-        let timeNumValue = (( event.clientY - onDayRef.current.offsetTop - 55 ) / 60) +7 ;
+        let timeNumValue = (( event.clientY - onDayRef.current.offsetTop -6) / 60) +6 ;
         let fixedHour = timeNumValue>7 ? Math.floor(timeNumValue) : 0;
         let fixedMin = timeNumValue>7 ? Math.floor( (timeNumValue - Math.floor(timeNumValue))*60 ) : 0;
         return {hours: fixedHour, minutes: fixedMin};
@@ -110,62 +111,74 @@ function Day({ dayDate, setWeekDefocus, taskMouseDownHandler }) {
     };
     
     function onDropHandler(e){
-        console.log("onDropHandler , e: ", e.clientY);
+        console.log("onDropHandler , e: ", e.dataTransfer.getData("taskKey"));
         e.preventDefault();
         const dropedTaskKey = e.dataTransfer.getData("taskKey");
         const dropedTaskIndex = taskData.findIndex(item => item.key===dropedTaskKey);
         const dropedTask = taskData[dropedTaskIndex];
         
+        const taskHoursTimeDifference = dropedTask.endDate.getHours() - dropedTask.startDate.getHours();
+        const taskMinutesTimeDifferance =  dropedTask.endDate.getMinutes() - dropedTask.startDate.getMinutes();
+
         dropedTask.startDate.setTime(dayDate.getTime()); 
         dropedTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e).hours); 
         dropedTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes); 
         
         dropedTask.endDate.setTime(dayDate.getTime()); 
+        dropedTask.endDate.setHours(dropedTask.startDate.getHours()+taskHoursTimeDifference);
+        dropedTask.endDate.setMinutes(dropedTask.startDate.getMinutes()+taskMinutesTimeDifferance);
+        
         setDayTasks(getTasks(dayStartTime, dayEndTime));
     };
 
     const dayTitle = <div className="dayTitle" style={titleStyleChange}><h4 >{dayNumber}</h4><p >{"("+dayShortName+")"}</p></div>
 
     return (
-        <>
-        <div
-            className="day" 
-            ref={dayRef}
-            onClick={clickHandler}
-            onMouseMove={mouseMoveHandler} 
-            onMouseOver={() => {setTimeToolTopIsOn(true)}} 
-            onMouseLeave={() => {setTimeToolTopIsOn(false)}}
-            onDragOver={onDragOverHandler}
-            onDrop={onDropHandler}
-            /* onDragEnter={(e) => {e.preventDefault()}} */
-            draggable={"true"}
-        >
+        <div className="day-container">
             {dayTitle}
-            {dayTasks.map( item => 
-                <Task 
-                        taskProps={item} 
-                        onTaskClick={() => taskClickHandler(item)} 
-                        onDragStartHandler={onDragStartHandler}
-                />  ) }
-            {timeToolTopIsOn && 
-            <div 
-                className="timeToolTip" 
-                style={{ top: timeToolTipPosition.y }}>
-                {newTaskTime.getHours()+":"+newTaskTime.getMinutes()}
-            </div>}
+            <div
+                className="day" 
+                ref={dayRef}
+                onClick={clickHandler}
+                onMouseMove={mouseMoveHandler} 
+                onMouseOver={() => {setTimeToolTopIsOn(true)}} 
+                onMouseLeave={() => {setTimeToolTopIsOn(false)}}
+                onDragOver={onDragOverHandler}
+                onDrop={onDropHandler}
+            >
+                    {dayTasks.map( item => 
+                        <Task 
+                                taskProps={item} 
+                                onTaskClick={() => taskClickHandler(item)} 
+                                onDragStartHandler={onDragStartHandler}
+                        />  ) }
+                    {timeToolTopIsOn && 
+                    <div 
+                        className="time-tool-tip" 
+                        style={{ top: timeToolTipPosition.y }}>
+                        {newTaskTime.getHours()+":"+newTaskTime.getMinutes()}
+                    </div>}
+            </div>
+            {showTaskForm &&
+                <TaskForm 
+                    initialTask={initialTask}
+                    isNew={initTaskIsNew}
+                    setWeekDefocus={setWeekDefocus}
+                    setShowTaskForm={setShowTaskForm}
+                />}
         </div>
-        {showTaskForm &&
-            <TaskForm 
-                initialTask={initialTask}
-                isNew={initTaskIsNew}
-                setWeekDefocus={setWeekDefocus}
-                setShowTaskForm={setShowTaskForm}
-            />}
-        </>
     );
 };
 
+Day.prototypes = {
+    setWeekDefocus: PropTypes.func,
+    dayDate: PropTypes.object
+};
+
+
 export default Day;
+
+
 
     /* taskMouseDownHandler={taskMouseDownHandler} */
 

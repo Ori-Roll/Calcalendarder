@@ -45,16 +45,17 @@
     100% { opacity: 100%;}
 }
 
-.day {
-    background-color: white;
-    /* padding: 2px Calc(1px + 0.05vw) ; */
+.day-container {
     border-left: rgb(246, 246, 246) 1px solid;
-    height: 100%;
-    /* margin: calc(0.1vw + 1px); */
-    /* overflow: hidden; */ 
     min-width: 0;
     position: relative;
-    cursor: cell;
+}
+
+.day {
+    cursor: copy;
+    background-color: white;
+    height: 100%;
+    z-index: 20;
 }
 
 .dayTitle{
@@ -63,22 +64,22 @@
     min-width: 0;
     text-align: center;
     background-color: rgb(255, 255, 255);
-    /* border: rgb(230, 230, 230) 1px solid;
-    border-right: none;
-    border-left: none; */
     border: none;
     font-size: 1.1em;
+    cursor: none;
+    height: 55px;
+    z-index: 50;
 }
 
 .dayTitle p {
     font-size: 0.8em;
 }
 
+/* 
 .time-ruler {
     position: absolute;
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     height: 100%;
     top: 55px;
     z-index: 5;
@@ -94,7 +95,7 @@
     text-align: right;
     border-bottom: rgb(248, 248, 248) 1px solid;
     opacity: 0;
-}
+} */
 
 .task {
     overflow: hidden;
@@ -151,11 +152,11 @@
     color: rgb(73, 73, 73);
 }
 
-.timeToolTip {
+.time-tool-tip {
     position: absolute;
     width: 100%;
     height: 60px;
-    z-index: 5;
+    z-index: 50;
     pointer-events: none;
     padding: 0.2em 0.3em;
     border-top: rgb(223, 223, 223) 1px solid;

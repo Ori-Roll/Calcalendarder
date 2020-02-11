@@ -121,7 +121,7 @@ function TaskForm ({ setWeekDefocus, isNew, initialTask, setShowTaskForm}){
                     min = "07:00"
                     max = "21:00"
                     value = "08:00"
-                    /* onChange={(e) => {inputChangeHandler(e, setTaskStartTime)}} */
+                    onChange={(e) => {inputChangeHandler(e, setTaskStartTime)}}
                     >  
                 </input>
                 
