@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { AppContext } from "../appContext.js";
 import Task from "./Task.js";
 import TaskForm from "./TaskForm.js";
+import { getTaskTimeFromEvent, def } from "./helpers.js";
 
 let dateToSet = new Date();
 
@@ -36,11 +37,6 @@ function Day({ dayDate, setWeekDefocus }) {
 		? { color: "#f1e5c8", backgroundColor: "#4f6f8e" }
 		: {};
 
-	/* function setNewTaskHandler(newTaskToSet) {
-        setShowTaskForm(false);
-        setNewTask(newTaskToSet);
-    } */
-
 	useEffect(() => {
 		setDayTasks(getTasks(dayStartTime, dayEndTime));
 	}, [taskData.length]);
@@ -58,16 +54,15 @@ function Day({ dayDate, setWeekDefocus }) {
 
 	function clickHandler(e) {
 		setInitTaskIsNew(true);
-
 		const newStartDate = new Date(dayDate);
 		const newEndDate = new Date(dateToSet);
 
 		newStartDate.setHours(dateToSet.getHours());
 		newStartDate.setMinutes(dateToSet.getMinutes());
-		newEndDate.setHours(dateToSet.getHours() + 2);
-		/* setNewTaskTimeSet(newTime); */
+		newEndDate.setHours(dateToSet.getHours() + def.tLength);
+
 		const emptyNewTask = {
-			key: new Date().getTime().toString(),
+			key: new Date().getTime(),
 			startDate: newStartDate,
 			endDate: newEndDate,
 			title: "",
@@ -86,15 +81,7 @@ function Day({ dayDate, setWeekDefocus }) {
 		setShowTaskForm(true);
 		setWeekDefocus(true);
 	}
-	// -------------------------------TO MISC FUNCTIONALITY -----------------------------------------------
-	function getTaskTimeFromEvent(onDayRef, event) {
-		let timeNumValue = (event.clientY - onDayRef.current.offsetTop - 6) / 60 + 6;
-		let fixedHour = timeNumValue > 7 ? Math.floor(timeNumValue) : 0;
-		let fixedMin =
-			timeNumValue > 7 ? Math.floor((timeNumValue - Math.floor(timeNumValue)) * 60) : 0;
-		return { hours: fixedHour, minutes: fixedMin };
-	}
-	//-----------------------------------------------------------------------------------------------------
+
 	function mouseMoveHandler(e) {
 		dateToSet.setHours(getTaskTimeFromEvent(dayRef, e).hours);
 		dateToSet.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes);
@@ -161,6 +148,7 @@ function Day({ dayDate, setWeekDefocus }) {
 				onDrop={onDropHandler}>
 				{dayTasks.map(item => (
 					<Task
+						key={item.key}
 						taskProps={item}
 						onTaskClick={() => taskClickHandler(item)}
 						onDragStartHandler={onDragStartHandler}

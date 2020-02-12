@@ -13,11 +13,11 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
 
 	const taskTitleRef = useRef();
 
-	function getRandomString() {
+	/* function getRandomString() {
 		return Math.random()
 			.toString(36)
 			.replace(/[^a-z]+/g, "");
-	}
+	} */
 
 	function inputChangeHandler(e, stateSetter) {
 		stateSetter(e.target.value);
@@ -50,6 +50,7 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
 
 	useEffect(() => {
 		taskTitleRef.current.focus();
+		console.log("Form useEffect");
 	}, []);
 
 	return (
