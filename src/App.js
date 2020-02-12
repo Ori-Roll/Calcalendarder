@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import Week from "./components/Week.js";
 import SideBar from "./components/SideBar.js";

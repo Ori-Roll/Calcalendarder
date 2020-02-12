@@ -29,7 +29,7 @@ function Day({ dayDate, setWeekDefocus }) {
 		y: 50
 	});
 
-	const { taskData, setTaskData, setNewTask, currentDate } = useContext(AppContext);
+	const { taskData, setNewTask, currentDate } = useContext(AppContext);
 
 	const dayRef = useRef();
 
@@ -62,7 +62,7 @@ function Day({ dayDate, setWeekDefocus }) {
 		newEndDate.setHours(dateToSet.getHours() + def.tLength);
 
 		const emptyNewTask = {
-			key: new Date().getTime(),
+			key: new Date().getTime().toString(),
 			startDate: newStartDate,
 			endDate: newEndDate,
 			title: "",
