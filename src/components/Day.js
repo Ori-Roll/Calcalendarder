@@ -29,7 +29,7 @@ function Day({ dayDate, setWeekDefocus }) {
 		y: 50
 	});
 
-	const { taskData, setNewTask, currentDate } = useContext(AppContext);
+	const { taskData, setNewTask, currentDate, removeTaskWithKey } = useContext(AppContext);
 
 	const dayRef = useRef();
 
@@ -166,6 +166,7 @@ function Day({ dayDate, setWeekDefocus }) {
 					isNew={initTaskIsNew}
 					setWeekDefocus={setWeekDefocus}
 					setShowTaskForm={setShowTaskForm}
+					removeTaskWithKey={removeTaskWithKey}
 				/>
 			)}
 		</div>

@@ -161,6 +161,15 @@ function AppContextProvider(props) {
 		});
 	}
 
+	function removeTaskWithKey(removedTaskKey) {
+		console.log("remove task with key :" + removedTaskKey);
+		taskData.splice(
+			taskData.findIndex(item => item.key === removedTaskKey),
+			1
+		);
+		console.log("taskData is now :", taskData);
+	}
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -170,7 +179,8 @@ function AppContextProvider(props) {
 				setCurrentDate,
 				setNewTask,
 				focusDate,
-				setFocusDate
+				setFocusDate,
+				removeTaskWithKey
 			}}>
 			{props.children}
 		</AppContext.Provider>

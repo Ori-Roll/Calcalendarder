@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import ColorPicker from "./ColorPicker";
 
-function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
+function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeTaskWithKey }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
 	const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
@@ -41,6 +41,14 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
 			initialTask.description = taskDescription;
 			initialTask.color = taskColor;
 			console.log("isOLD");
+		}
+		setWeekDefocus(false);
+		setShowTaskForm(false);
+	}
+
+	function cancelClickHandler() {
+		if (isNew) {
+			removeTaskWithKey(initialTask.key);
 		}
 		setWeekDefocus(false);
 		setShowTaskForm(false);
@@ -150,7 +158,7 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
 				&#10004;
 			</button>
 
-			<button type='button' className='task-form-cancel'>
+			<button type='button' className='task-form-cancel' onClick={cancelClickHandler}>
 				&#x2716;
 			</button>
 
@@ -167,7 +175,8 @@ TaskForm.prototypes = {
 	setWeekDefocus: PropTypes.func,
 	isNew: PropTypes.bool,
 	initialTask: PropTypes.object,
-	setShowTaskForm: PropTypes.func
+	setShowTaskForm: PropTypes.func,
+	removeTaskWithKey: PropTypes.func
 };
 
 export default TaskForm;
