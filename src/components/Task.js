@@ -1,15 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { getDefaultData } from "./helpers.js";
 
-const defaultData = {
-	key: Math.random() * 100,
-	startDate: "",
-	endDate: "",
-	title: "empty t",
-	description: "empty d",
-	color: "gray"
-};
-
-function Task({ taskProps = defaultData, onTaskClick, onDragStartHandler }) {
+function Task({ taskProps = getDefaultData(), onTaskClick, onDragStartHandler }) {
 	let theDate = new Date(taskProps.startDate);
 	let endDate = new Date(taskProps.endDate);
 
@@ -76,5 +69,11 @@ function Task({ taskProps = defaultData, onTaskClick, onDragStartHandler }) {
 		</div>
 	);
 }
+
+Task.prototypes = {
+	taskProps: PropTypes.object,
+	onTaskClick: PropTypes.func,
+	onDragStartHandler: PropTypes.func
+};
 
 export default Task;

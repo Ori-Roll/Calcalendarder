@@ -1,7 +1,18 @@
 const def = {
 	tLength: 1,
-	dayStartHour: 7
+	dayStartHour: 7,
+	startDate: new Date().setHours(10),
+	endDate: new Date().setHours(11),
+	title: "",
+	description: "",
+	color: "gray"
 };
+
+function getDefaultData() {
+	let defaultData = Object.assign({}, def);
+	defaultData.key = new Date().getTime();
+	return defaultData;
+}
 
 function getTaskTimeFromEvent(onDayRef, event) {
 	let timeNumValue = (event.clientY - onDayRef.current.offsetTop - (def.dayStartHour - 1)) / 60 + 6;
@@ -10,4 +21,4 @@ function getTaskTimeFromEvent(onDayRef, event) {
 	return { hours: fixedHour, minutes: fixedMin };
 }
 
-export { getTaskTimeFromEvent, def };
+export { getTaskTimeFromEvent, def, getDefaultData };

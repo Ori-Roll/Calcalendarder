@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 import ColorPicker from "./ColorPicker";
 
 function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
@@ -8,6 +9,7 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
 	const [taskDescription, setTaskDescription] = useState(initialTask.description);
 	const [taskColor, setTaskColor] = useState("#91A79E");
 	const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
+	const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
 
 	const startDate = new Date(taskStartTime);
 
@@ -50,7 +52,18 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
 
 	useEffect(() => {
 		taskTitleRef.current.focus();
-		console.log("Form useEffect");
+
+		setStartTimeDisplay(
+			startDate
+				.getHours()
+				.toString()
+				.padStart(2, 0) +
+				":" +
+				startDate
+					.getMinutes()
+					.toString()
+					.padStart(2, 0)
+		);
 	}, []);
 
 	return (
@@ -98,17 +111,8 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
 				style={{ borderColor: taskColor }}
 				min='07:00'
 				max='21:00'
-				value={
-					startDate
-						.getHours()
-						.toString()
-						.padStart(2, 0) +
-					":" +
-					startDate
-						.getMinutes()
-						.toString()
-						.padStart(2, 0)
-				}
+				autoComplete='true'
+				value={startTimeDisplay}
 				onChange={e => {
 					inputChangeHandler(e, setTaskStartTime);
 				}}></input>
@@ -158,6 +162,13 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm }) {
 		</form>
 	);
 }
+
+TaskForm.prototypes = {
+	setWeekDefocus: PropTypes.func,
+	isNew: PropTypes.bool,
+	initialTask: PropTypes.object,
+	setShowTaskForm: PropTypes.func
+};
 
 export default TaskForm;
 
