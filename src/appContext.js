@@ -163,6 +163,11 @@ function AppContextProvider(props) {
 
 	function removeTaskWithKey(removedTaskKey) {
 		console.log("remove task with key :" + removedTaskKey);
+
+
+		// if findIndex  doesn't find a match it will return -1.
+		// splicing on index -1 will remove the last element in the array.
+		// that is noy wanted 
 		taskData.splice(
 			taskData.findIndex(item => item.key === removedTaskKey),
 			1
