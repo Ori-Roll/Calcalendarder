@@ -14,6 +14,7 @@ function Week() {
 	const firstDayOfWeek = getWeekFirstDay(focusDate);
 	const firstDayOfWeekDate = firstDayOfWeek.getDate();
 
+	// nice
 	const weekDays = new Array(7)
 		.fill(undefined)
 		.map((item, i) => new Date(new Date(firstDayOfWeek).setDate(firstDayOfWeekDate + i)));
@@ -21,7 +22,7 @@ function Week() {
 	return (
 		<div className='week'>
 			{weekDefocus && <div className='week-defocus' />}
-			{weekDays.map((date, index) => (
+			{weekDays.map((date) => (
 				<Day dayDate={date} key={date} setWeekDefocus={setWeekDefocus} />
 			))}
 		</div>

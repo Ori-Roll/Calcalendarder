@@ -4,10 +4,11 @@ import ColorPicker from "./ColorPicker";
 
 function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeTaskWithKey }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
+	// if not using setTaskEndTime than delete it
 	const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
 	const [taskDescription, setTaskDescription] = useState(initialTask.description);
-	const [taskColor, setTaskColor] = useState("#91A79E");
+	const [taskColor, setTaskColor] = useState("#91A79E"); // use in seperate colors.js file and reuse in ColorPicker
 	const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
 	const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
 

@@ -10,9 +10,11 @@ let dateToSet = new Date();
 const getDateWithoutTime = date => [date.getDate(), date.getMonth(), date.getFullYear()].join(" ");
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
 
+const orderedDayShortNames = Object.freeze(["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]);
+
 function Day({ dayDate, setWeekDefocus }) {
 	const dayNumber = dayDate.getDate().toString();
-	const dayShortName = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"][dayDate.getDay()];
+	const dayShortName = orderedDayShortNames[dayDate.getDay()];
 	const dayStartTime = dayDate.getTime();
 	const dayEndTime = new Date(dayDate).setHours(23, 59, 59, 999);
 
@@ -34,7 +36,7 @@ function Day({ dayDate, setWeekDefocus }) {
 	const dayRef = useRef();
 
 	const titleStyleChange = isSameDate(dayDate, currentDate)
-		? { color: "#f1e5c8", backgroundColor: "#4f6f8e" }
+		? { color: "#f1e5c8", backgroundColor: "#4f6f8e" } // move color value to external js file and export constants to be used anywhere in the app (like how ColorPicker.Js also uses #f1e5c8)
 		: {};
 
 	useEffect(() => {
@@ -83,8 +85,9 @@ function Day({ dayDate, setWeekDefocus }) {
 	}
 
 	function mouseMoveHandler(e) {
-		dateToSet.setHours(getTaskTimeFromEvent(dayRef, e).hours);
-		dateToSet.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes);
+		const taskTimeFromEvent = getTaskTimeFromEvent(dayRef, e);
+		dateToSet.setHours(taskTimeFromEvent.hours);
+		dateToSet.setMinutes(taskTimeFromEvent.minutes);
 		setTimeToolTipPosition({ y: e.clientY - 65 });
 		setNewTaskTime(dateToSet);
 	}
@@ -112,10 +115,12 @@ function Day({ dayDate, setWeekDefocus }) {
 		const taskMinutesTimeDifferance =
 			dropedTask.endDate.getMinutes() - dropedTask.startDate.getMinutes();
 
+		// extract the following 3 lines to a function that takes the 'dropedTask.startDate', 'dayDate.getTime()' and the 'getTaskTimeFromEvent(dayRef, e)' as parameters
 		dropedTask.startDate.setTime(dayDate.getTime());
 		dropedTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e).hours);
 		dropedTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes);
 
+		// reuse the the function created in the previouos comment
 		dropedTask.endDate.setTime(dayDate.getTime());
 		dropedTask.endDate.setHours(dropedTask.startDate.getHours() + taskHoursTimeDifference);
 		dropedTask.endDate.setMinutes(dropedTask.startDate.getMinutes() + taskMinutesTimeDifferance);
@@ -156,7 +161,7 @@ function Day({ dayDate, setWeekDefocus }) {
 				))}
 				{timeToolTopIsOn && (
 					<div className='time-tool-tip' style={{ top: timeToolTipPosition.y }}>
-						{newTaskTime.getHours() + ":" + newTaskTime.getMinutes()}
+						{`${newTaskTime.getHours()}:${newTaskTime.getMinutes().toString().padStart(2, "0")}`}
 					</div>
 				)}
 			</div>

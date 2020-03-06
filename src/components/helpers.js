@@ -1,11 +1,12 @@
 const def = {
-	tLength: 1,
+	tLength: 1, // shitty name. what is t?! tromboneLength? tyrannosaurusLength?
 	dayStartHour: 7,
 	startDate: new Date().setHours(10),
 	endDate: new Date().setHours(11),
 	title: "",
 	description: "",
-	color: "gray"
+	color: "gray",
+	key: undefined // just so the structure will be clear
 };
 
 function getDefaultData() {
