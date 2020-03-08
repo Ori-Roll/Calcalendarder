@@ -165,11 +165,17 @@ function AppContextProvider(props) {
 
 	function removeTaskWithKey(removedTaskKey) {
 		console.log("remove task with key :" + removedTaskKey);
-		taskData.splice(
+
+		const newTaskData = [...taskData];
+
+		newTaskData.splice(
 			taskData.findIndex(item => item.key === removedTaskKey),
 			1
 		);
-		console.log("taskData is now :", taskData);
+
+		setTaskData(newTaskData);
+
+		console.log("taskData is now :", newTaskData);
 	}
 
 	return (
@@ -190,55 +196,3 @@ function AppContextProvider(props) {
 }
 
 export { AppContextProvider, AppContext };
-
-//OLD--------------------------------------------------------------------
-/* function setNewTask(newTask) {
-		// taskData needs to be ordered by date of tasks:
-
-		let prevTask = taskData.find(
-			(item, i) => newTask.startDate.getTime() < item.startDate.getTime()
-		);
-
-		let taskPosition = prevTask === undefined ? taskData.length : taskData.indexOf(prevTask);
-
-		setTaskData(prevData => {
-			prevData.splice(taskPosition, 0, newTask);
-			return prevData;
-		});
-	} */
-
-/* function getTasks(startDate, endTime) {
-        let startAt;
-        let endAt;
-
-        if (startDate) {startAt = startDate} else {return taskData};
-        if (endTime) {endAt = endTime} 
-        const taskSet = tasks.filter( item => item.startDate > startAt && item.tistartTimeme < endAt   ); 
-
-        return taskSet;        
-    } */
-
-/* 
-        newTaskData = taskData;
-        for(let i = 0; i < tasks.length; i++ ){
-
-            if (tasks[i].startDate < newTask.startDate) {
-                console.log("CONTAXT:  tasks[i].startDate < newTask.startDate,  newTask: ", newTask)
-            } 
-
-            else if (tasks[i].startDate >= newTask.startDate) {
-                newTaskData.splice(i, 0, newTask); 
-                console.log("CONTAXT:  tasks[i].startDate >= newTask.startDate,  newTask: ", newTask)
-                break; }
-
-            else if (i < tasks.length-1) {
-                newTaskData.push(newTask);
-                console.log("CONTAXT:   i === tasks.length-1,  newTask: ", newTask)
-
-            } else {
-                newTaskData.push(newTask);
-                console.log("CONTAXT: else ,  newTask: ", newTask);
-            };
-        }; 
-        
-        setTaskData(newTaskData); */
