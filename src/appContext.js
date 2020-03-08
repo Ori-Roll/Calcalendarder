@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const AppContext = React.createContext();
 
 function AppContextProvider(props) {
-	//Temp to replace database
+	// Mock data (replaces database)
 	const tasks = [
 		/* {
 			key: "1",
@@ -148,16 +148,18 @@ function AppContextProvider(props) {
 	function setNewTask(newTask) {
 		// taskData needs to be ordered by date of tasks:
 
-		let prevTask = taskData.find(
-			(item, i) => newTask.startDate.getTime() < item.startDate.getTime()
-		);
-
-		let taskPosition = prevTask === undefined ? taskData.length : taskData.indexOf(prevTask);
-		/* taskPosition = taskPosition < 0 ? 0 : taskPosition; */
-
 		setTaskData(prevData => {
-			prevData.splice(taskPosition, 0, newTask);
-			return prevData;
+			const newData = [...prevData, newTask];
+			newData.sort((a, b) => {
+				if (a.startDate.getTime() < b.startDate.getTime()) {
+					return -1;
+				} else if (a.startDate.getTime() > b.startDate.getTime()) {
+					return 1;
+				} else {
+					return 0;
+				}
+			});
+			return newData;
 		});
 	}
 
@@ -190,6 +192,20 @@ function AppContextProvider(props) {
 export { AppContextProvider, AppContext };
 
 //OLD--------------------------------------------------------------------
+/* function setNewTask(newTask) {
+		// taskData needs to be ordered by date of tasks:
+
+		let prevTask = taskData.find(
+			(item, i) => newTask.startDate.getTime() < item.startDate.getTime()
+		);
+
+		let taskPosition = prevTask === undefined ? taskData.length : taskData.indexOf(prevTask);
+
+		setTaskData(prevData => {
+			prevData.splice(taskPosition, 0, newTask);
+			return prevData;
+		});
+	} */
 
 /* function getTasks(startDate, endTime) {
         let startAt;
