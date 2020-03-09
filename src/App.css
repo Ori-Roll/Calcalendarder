@@ -94,7 +94,7 @@
 	z-index: 10;
 }
 
-.taskTitle {
+.task-title {
 	text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
 	overflow: hidden; /* !!!!! I need to combine all of these!*/
 	font-style: italic;
