@@ -15,9 +15,6 @@
 	min-width: 0;
 }
 
-@media only screen and (max-width: 800px) {
-}
-
 .week {
 	grid-area: week;
 	display: grid;
@@ -79,28 +76,6 @@
 	font-size: 0.8em;
 }
 
-/* 
-.time-ruler {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    top: 55px;
-    z-index: 5;
-    width: 100%;
-}
-
-.time-ruler div {
-    padding: 2px 5px;
-    height: 60px;
-    font-size: 12px;
-    text-align: right;    
-    color: rgb(167, 167, 167);
-    text-align: right;
-    border-bottom: rgb(248, 248, 248) 1px solid;
-    opacity: 0;
-} */
-
 .task {
 	overflow: hidden;
 	display: grid;
@@ -109,16 +84,11 @@
 	grid-template-areas:
 		"task-title task-time"
 		"task-description task-description";
-	/* margin: 0 0 2px 0; */
-	/* padding: 10px 10px 8px; */
 	border-top: rgb(241, 241, 245) 1px solid;
 	width: 100%;
 	cursor: default;
-	/* border-bottom: rgb(241, 241, 241) 1px solid; */
-	/* border-top:none; */
 	min-width: 0;
 	min-height: 23px;
-	/* max-height: Calc(5vh + 50px); */
 	background-color: rgb(245, 246, 246);
 	position: absolute;
 	z-index: 10;
@@ -126,7 +96,7 @@
 
 .taskTitle {
 	text-shadow: rgba(0, 0, 0, 0.055) 1px 1px 1px;
-	overflow: hidden; /* !!!!! need to combine all of these!*/
+	overflow: hidden; /* !!!!! I need to combine all of these!*/
 	font-style: italic;
 	padding: 3px 0 0 8px;
 	margin: 0 0 3px 0;
@@ -134,7 +104,6 @@
 	grid-area: task-title;
 	color: rgb(39, 39, 201);
 	border-left: blue 3px solid;
-	/* background-color: rgb(208, 208, 233); */
 }
 
 .task-time {
@@ -184,7 +153,6 @@
 	background-color: #edb19f;
 	display: inline-block;
 	margin: 5px 0 0 20px;
-	/* padding: 2px 0 2px 15px; */
 }
 
 .menu-btn {
@@ -202,9 +170,6 @@
 	margin: 0 0 0 27px;
 	border: rgb(228, 228, 228) 1px solid;
 	border-radius: 4px;
-	/* border-top: none;
-    border-bottom: none;
-    border-left: none; */
 	background-color: rgb(255, 255, 255);
 	box-shadow: inset rgba(0, 0, 0, 0.034) 3px -3px 5px;
 	height: 50%;
@@ -232,10 +197,7 @@
 	}
 
 	.task {
-		/* margin: 1px 0; */
 		padding: 0;
-		/* grid-template-areas:"text-title text-title"
-                            "text-description text-description"; */
 	}
 	.side-bar {
 		display: none;
@@ -245,8 +207,6 @@
 		margin: 1px 0;
 	}
 	.menu-btn {
-		/* background-color: #C87660;
-        color: white; */
 		border: #2c3d4f 2px solid;
 	}
 	.nav-bar h1 {
@@ -273,8 +233,6 @@
 	height: auto;
 	min-height: 400px;
 	padding: 50px 30px 10px;
-	/* border-top: rgb(240, 240, 240) 1px solid; */
-	/* border: none; */
 	border-radius: 2px;
 	box-shadow: rgba(0, 0, 0, 0.034) 2px 2px 15px;
 
@@ -306,9 +264,7 @@
 }
 
 .task-form input {
-	/* margin: 0px 0 15px; */
 	display: inline-block;
-	/* background: none; */
 	background-color: white;
 	word-break: break-word;
 }
@@ -317,7 +273,6 @@
 	color: rgb(182, 182, 182);
 	vertical-align: bottom;
 	display: inline-block;
-	/* border-bottom: gray 1px solid; */
 }
 
 .color-picker {
@@ -329,7 +284,6 @@
 	left: 18px;
 	padding: 5px;
 	background-color: white;
-	/* border: rgb(221, 221, 221) 1px solid; */
 	border: none;
 	z-index: 20;
 	animation: color-picker-pop-in ease-out 0.2s;
@@ -402,9 +356,6 @@
 	height: 40px;
 	text-align: center;
 	padding: 10px 1px 0 0;
-	/* margin: 26px 0px 0 20px; */
-	/* margin: 26px 0 0 0; */
-	/* margin: 30px 20px 50px 30px; */
 	border-radius: 30px;
 	color: white;
 	cursor: pointer;
