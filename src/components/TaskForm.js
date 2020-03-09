@@ -15,12 +15,6 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeT
 
 	const taskTitleRef = useRef();
 
-	/* function getRandomString() {
-		return Math.random()
-			.toString(36)
-			.replace(/[^a-z]+/g, "");
-	} */
-
 	function inputChangeHandler(e, stateSetter) {
 		stateSetter(e.target.value);
 	}
@@ -180,22 +174,3 @@ TaskForm.prototypes = {
 };
 
 export default TaskForm;
-
-{
-	/* <label
-                    type="label"
-                    htmlFor="form-color">
-                        Task Color:
-                </label> */
-}
-
-{
-	/* <input
-                    type="color" 
-                    id="task-form-color" 
-                    name="form-color" 
-                    value={taskColor} 
-                    onChange={(e) => {inputChangeHandler(e, setTaskColor)}} 
-                    className="task-form-color">
-                </input> */
-}
