@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { AppContext } from "../appContext.js";
 import Task from "./Task.js";
 import TaskForm from "./TaskForm.js";
-import { getTaskTimeFromEvent, def } from "./helpers.js";
+import { getTaskTimeFromEvent, defaultTask } from "./helpers.js";
 
 let dateToSet = new Date();
 
@@ -59,7 +59,7 @@ function Day({ dayDate, setWeekDefocus }) {
 
 		newStartDate.setHours(dateToSet.getHours());
 		newStartDate.setMinutes(dateToSet.getMinutes());
-		newEndDate.setHours(dateToSet.getHours() + def.tLength);
+		newEndDate.setHours(dateToSet.getHours() + defaultTask.timeLength);
 
 		const emptyNewTask = {
 			key: new Date().getTime().toString(),

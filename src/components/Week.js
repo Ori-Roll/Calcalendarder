@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import Day from "./Day.js";
 import { AppContext } from "../appContext.js";
+import Day from "./Day.js";
 
 function Week() {
 	const [weekDefocus, setWeekDefocus] = useState(false);
