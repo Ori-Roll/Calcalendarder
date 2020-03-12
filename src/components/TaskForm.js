@@ -5,7 +5,7 @@ import { defaultTaskColor } from "./helpers.js";
 
 function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeTaskWithKey }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
-	const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
+	const taskEndTime = useState(initialTask.endDate);
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
 	const [taskDescription, setTaskDescription] = useState(initialTask.description);
 	const [taskColor, setTaskColor] = useState(isNew ? defaultTaskColor : initialTask.color);
