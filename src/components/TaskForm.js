@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import ColorPicker from "./ColorPicker";
+import { defaultTaskColor } from "./helpers.js";
 
 function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeTaskWithKey }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
 	const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
 	const [taskDescription, setTaskDescription] = useState(initialTask.description);
-	const [taskColor, setTaskColor] = useState("#91A79E");
+	const [taskColor, setTaskColor] = useState(isNew ? defaultTaskColor : initialTask.color);
 	const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
 	const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
 

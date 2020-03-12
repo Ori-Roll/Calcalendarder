@@ -57,4 +57,13 @@ const pickerColors = [
 
 const todaysHeadStyle = { color: "#f1e5c8", backgroundColor: "#4f6f8e" };
 
-export { getTaskTimeFromEvent, defaultTask, getDefaultData, pickerColors, todaysHeadStyle };
+const defaultTaskColor = "#91A79E";
+
+export {
+	getTaskTimeFromEvent,
+	defaultTask,
+	getDefaultData,
+	pickerColors,
+	todaysHeadStyle,
+	defaultTaskColor
+};
