@@ -94,7 +94,6 @@ function Day({ dayDate, setWeekDefocus }) {
 		const taskIndex = dayTasks.findIndex(item => item.key === taskProps.key);
 		dayTasks.splice(taskIndex, 1);
 		e.dataTransfer.setData("taskKey", taskProps.key);
-		/* taskData[taskIndex].style */
 	}
 
 	function onDragOverHandler(e) {
@@ -156,7 +155,10 @@ function Day({ dayDate, setWeekDefocus }) {
 				))}
 				{timeToolTopIsOn && (
 					<div className='time-tool-tip' style={{ top: timeToolTipPosition.y }}>
-						{newTaskTime.getHours() + ":" + newTaskTime.getMinutes()}
+						{`${newTaskTime.getHours()}:${newTaskTime
+							.getMinutes()
+							.toString()
+							.padStart(2, "0")}`}
 					</div>
 				)}
 			</div>
