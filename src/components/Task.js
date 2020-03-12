@@ -65,6 +65,7 @@ function Task({ taskProps = getDefaultData(), onTaskClick, onDragStartHandler })
 			<p className='task-description' style={taskTooSmallToP()}>
 				{taskProps.description}
 			</p>
+			<div className='task-drag-handle' style={{ borderColor: taskProps.color }} />
 		</div>
 	);
 }

@@ -80,10 +80,11 @@
 	overflow: hidden;
 	display: grid;
 	grid-template-columns: 66% 34%;
-	grid-template-rows: auto 1fr;
+	grid-template-rows: auto 2fr auto;
 	grid-template-areas:
 		"task-title task-time"
-		"task-description task-description";
+		"task-description task-description"
+		"task-drag-handle task-drag-handle";
 	border-top: rgb(241, 241, 245) 1px solid;
 	width: 100%;
 	cursor: default;
@@ -124,6 +125,13 @@
 	overflow: hidden;
 	padding: 0 0 0 8px;
 	color: rgb(73, 73, 73);
+}
+
+.task-drag-handle {
+	grid-area: task-drag-handle;
+	height: 10px;
+	border-bottom: rgb(172, 172, 172) 1px solid;
+	cursor: n-resize;
 }
 
 .time-tool-tip {
