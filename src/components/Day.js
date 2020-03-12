@@ -106,8 +106,8 @@ function Day({ dayDate, setWeekDefocus }) {
 		const dropedTaskKey = e.dataTransfer.getData("taskKey");
 		const dropedTaskIndex = taskData.findIndex(item => item.key === dropedTaskKey);
 		const dropedTask = taskData[dropedTaskIndex];
-
 		const taskHoursTimeDifference = dropedTask.endDate.getHours() - dropedTask.startDate.getHours();
+
 		const taskMinutesTimeDifferance =
 			dropedTask.endDate.getMinutes() - dropedTask.startDate.getMinutes();
 
