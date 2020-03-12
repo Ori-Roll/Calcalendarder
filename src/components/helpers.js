@@ -55,4 +55,6 @@ const pickerColors = [
 	"white"
 ];
 
-export { getTaskTimeFromEvent, defaultTask, getDefaultData, pickerColors };
+const todaysHeadStyle = { color: "#f1e5c8", backgroundColor: "#4f6f8e" };
+
+export { getTaskTimeFromEvent, defaultTask, getDefaultData, pickerColors, todaysHeadStyle };
