@@ -168,10 +168,9 @@ function AppContextProvider(props) {
 
 		const newTaskData = [...taskData];
 
-		newTaskData.splice(
-			taskData.findIndex(item => item.key === removedTaskKey),
-			1
-		);
+		let taskIndex = taskData.findIndex(item => item.key === removedTaskKey);
+
+		taskIndex > -1 ? newTaskData.splice(taskIndex, 1) : console.log("no matching task key");
 
 		setTaskData(newTaskData);
 
