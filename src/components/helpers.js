@@ -59,11 +59,14 @@ const todaysHeadStyle = { color: "#f1e5c8", backgroundColor: "#4f6f8e" };
 
 const defaultTaskColor = "#91A79E";
 
+const dayHeadOffset = 65;
+
 export {
 	getTaskTimeFromEvent,
 	defaultTask,
 	getDefaultData,
 	pickerColors,
 	todaysHeadStyle,
-	defaultTaskColor
+	defaultTaskColor,
+	dayHeadOffset
 };
