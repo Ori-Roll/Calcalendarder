@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { getDefaultData } from "./helpers.js";
 
 function Task({ taskProps = getDefaultData(), onTaskClick, onDragStartHandler }) {
+	console.log("task!!!", taskProps);
 	let theDate = new Date(taskProps.startDate);
 	let endDate = new Date(taskProps.endDate);
 

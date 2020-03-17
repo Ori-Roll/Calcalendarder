@@ -3,7 +3,14 @@ import PropTypes from "prop-types";
 import ColorPicker from "./ColorPicker";
 import { defaultTaskColor } from "./helpers.js";
 
-function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeTaskWithKey }) {
+function TaskForm({
+	setWeekDefocus,
+	isNew,
+	initialTask,
+	setShowTaskForm,
+	removeTaskWithKey,
+	submitHandler
+}) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
 	const [taskEndTime] = useState(initialTask.endDate);
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
@@ -16,30 +23,23 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeT
 
 	const taskTitleRef = useRef();
 
+	console.log("FORM: ", initialTask);
+
 	function inputChangeHandler(e, stateSetter) {
 		stateSetter(e.target.value);
 	}
 
-	function submitHandler(e) {
+	/* 	function submitHandler(e) {
+		isNew ? console.log("I is New") : console.log("I is OLD");
 		e.preventDefault();
-		if (isNew) {
-			initialTask.startDate = taskStartTime;
-			initialTask.endDate = taskEndTime;
-			initialTask.title = taskTitle;
-			initialTask.description = taskDescription;
-			initialTask.color = taskColor;
-			console.log("isNew+");
-		} else {
-			initialTask.startDate = taskStartTime;
-			initialTask.endDate = taskEndTime;
-			initialTask.title = taskTitle;
-			initialTask.description = taskDescription;
-			initialTask.color = taskColor;
-			console.log("isOLD");
-		}
+		initialTask.startDate = taskStartTime;
+		initialTask.endDate = taskEndTime;
+		initialTask.title = taskTitle;
+		initialTask.description = taskDescription;
+		initialTask.color = taskColor;
 		setWeekDefocus(false);
 		setShowTaskForm(false);
-	}
+	} */
 
 	function cancelClickHandler() {
 		if (isNew) {
@@ -149,7 +149,23 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeT
 				C
 			</div>
 
-			<button type='submit' className='task-form-submit' onClick={submitHandler}>
+			<button
+				type='submit'
+				className='task-form-submit'
+				onClick={e =>
+					submitHandler(
+						e,
+						{
+							key: new Date().getTime(),
+							startDate: taskStartTime,
+							endDate: taskEndTime,
+							title: taskTitle,
+							description: taskDescription,
+							color: taskColor
+						},
+						initialTask
+					)
+				}>
 				&#10004;
 			</button>
 
@@ -167,11 +183,11 @@ function TaskForm({ setWeekDefocus, isNew, initialTask, setShowTaskForm, removeT
 }
 
 TaskForm.prototypes = {
-	setWeekDefocus: PropTypes.func,
+	/* setWeekDefocus: PropTypes.func,
 	isNew: PropTypes.bool,
 	initialTask: PropTypes.object,
 	setShowTaskForm: PropTypes.func,
-	removeTaskWithKey: PropTypes.func
+	removeTaskWithKey: PropTypes.func */
 };
 
 export default TaskForm;

@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import { AppContext } from "../appContext.js";
 import Task from "./Task.js";
 import TaskForm from "./TaskForm.js";
-import { getTaskTimeFromEvent, defaultTask, todaysHeadStyle } from "./helpers.js";
+import { getTaskTimeFromEvent, defaultTask, todaysHeadStyle, dayHeadOffset } from "./helpers.js";
 
 let dateToSet = new Date();
 
 const getDateWithoutTime = date => [date.getDate(), date.getMonth(), date.getFullYear()].join(" ");
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
-const daysShortNsmes = Object.freeze(["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]);
+const daysShortNames = Object.freeze(["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]);
 
 function Day({ dayDate, setWeekDefocus }) {
 	const dayNumber = dayDate.getDate().toString();
-	const dayShortName = daysShortNsmes[dayDate.getDay()];
+	const dayShortName = daysShortNames[dayDate.getDay()];
 	const dayStartTime = dayDate.getTime();
 	const dayEndTime = new Date(dayDate).setHours(23, 59, 59, 999);
 
@@ -24,30 +24,38 @@ function Day({ dayDate, setWeekDefocus }) {
 	const [initialTask, setInitialTask] = useState({});
 	const [initTaskIsNew, setInitTaskIsNew] = useState(true);
 
-	const [timeToolTopIsOn, setTimeToolTopIsOn] = useState(false);
+	const [timeToolTipIsOn, setTimeToolTopIsOn] = useState(false);
 	const [timeToolTipPosition, setTimeToolTipPosition] = useState({
 		x: 0,
 		y: 50
 	});
 
-	const { taskData, setNewTask, currentDate, removeTaskWithKey } = useContext(AppContext);
+	const { taskData, setNewTask, currentDate, removeTaskWithKey, setCurrentDate } = useContext(
+		AppContext
+	);
 
 	const dayRef = useRef();
 
 	const titleStyleChange = isSameDate(dayDate, currentDate) ? todaysHeadStyle : {};
 
 	useEffect(() => {
-		setDayTasks(getTasks(dayStartTime, dayEndTime));
-	}, [taskData.length]);
+		setCurrentDate(new Date());
+	}, []);
 
 	useEffect(() => {
 		setDayTasks(getTasks(dayStartTime, dayEndTime));
-	}, []);
+		/* console.log("USE EFFECT");
+		console.log(taskData); */
+	}, [taskData.length]);
 
 	function getTasks(startDate, endTime) {
+		/* console.log("getTasks");
+		console.log("start" + new Date(startDate) + ",  end " + new Date(endTime));
+		console.log("taskData : ", taskData); */
 		let taskSet = taskData.filter(item => {
 			return item.startDate >= startDate && item.startDate < endTime;
 		});
+		console.log("TaskSet", taskSet);
 		return taskSet;
 	}
 
@@ -68,7 +76,7 @@ function Day({ dayDate, setWeekDefocus }) {
 			description: ""
 		};
 
-		setNewTask(emptyNewTask);
+		/* setNewTask(emptyNewTask); */
 		setInitialTask(emptyNewTask);
 		setShowTaskForm(true);
 		setWeekDefocus(true);
@@ -81,11 +89,35 @@ function Day({ dayDate, setWeekDefocus }) {
 		setWeekDefocus(true);
 	}
 
+	function submitHandler(e, formTask, originalTask) {
+		/* isNew ? console.log("I is New") : console.log("I is OLD"); */
+
+		e.preventDefault();
+		setNewTask({ ...formTask });
+		/* console.log("taskForm", { ...formTask }); */
+		/* setInitialTask(() => {
+			return {
+				key: Math.random() * 10,
+				startDate: formTask.taskStartTime,
+				endDate: formTask.taskEndTime,
+				title: formTask.taskTitle,
+				description: formTask.taskDescription,
+				color: formTask.taskColor
+			};
+		}); */
+		/* removeTaskWithKey(originalTask.key); */
+		// REMOVE SET TASKS IN CONTEXT WITH "..." in setState on both the task and the array !!!
+		console.log("originalTask", originalTask);
+		setWeekDefocus(false);
+		setShowTaskForm(false);
+		console.log(dayTasks);
+	}
+
 	function mouseMoveHandler(e) {
 		const taskTimeFromEvent = getTaskTimeFromEvent(dayRef, e);
 		dateToSet.setHours(taskTimeFromEvent.hours);
 		dateToSet.setMinutes(taskTimeFromEvent.minutes);
-		setTimeToolTipPosition({ y: e.clientY - 65 });
+		setTimeToolTipPosition({ y: e.clientY - dayHeadOffset });
 		setNewTaskTime(dateToSet);
 	}
 
@@ -104,10 +136,13 @@ function Day({ dayDate, setWeekDefocus }) {
 		console.log("onDropHandler , e: ", e.dataTransfer.getData("taskKey"));
 		e.preventDefault();
 		const dropedTaskKey = e.dataTransfer.getData("taskKey");
-		const dropedTaskIndex = taskData.findIndex(item => item.key === dropedTaskKey);
+		console.log(taskData);
+		const dropedTaskIndex = taskData.findIndex(item => {
+			return item.key.toString() === dropedTaskKey;
+		});
 		const dropedTask = taskData[dropedTaskIndex];
-		const taskHoursTimeDifference = dropedTask.endDate.getHours() - dropedTask.startDate.getHours();
 
+		const taskHoursTimeDifference = dropedTask.endDate.getHours() - dropedTask.startDate.getHours();
 		const taskMinutesTimeDifferance =
 			dropedTask.endDate.getMinutes() - dropedTask.startDate.getMinutes();
 
@@ -153,7 +188,7 @@ function Day({ dayDate, setWeekDefocus }) {
 						onDragStartHandler={onDragStartHandler}
 					/>
 				))}
-				{timeToolTopIsOn && (
+				{timeToolTipIsOn && (
 					<div className='time-tool-tip' style={{ top: timeToolTipPosition.y }}>
 						{`${newTaskTime.getHours()}:${newTaskTime
 							.getMinutes()
@@ -165,6 +200,7 @@ function Day({ dayDate, setWeekDefocus }) {
 			{showTaskForm && (
 				<TaskForm
 					initialTask={initialTask}
+					submitHandler={submitHandler}
 					isNew={initTaskIsNew}
 					setWeekDefocus={setWeekDefocus}
 					setShowTaskForm={setShowTaskForm}

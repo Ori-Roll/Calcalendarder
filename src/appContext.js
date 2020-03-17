@@ -149,7 +149,10 @@ function AppContextProvider(props) {
 		// taskData needs to be ordered by date of tasks:
 
 		setTaskData(prevData => {
-			const newData = [...prevData, newTask];
+			const newData = [...prevData];
+			newData.push(newTask);
+			console.log("newTask", newTask);
+			console.log("newData", newData);
 			newData.sort((a, b) => {
 				if (a.startDate.getTime() < b.startDate.getTime()) {
 					return -1;
