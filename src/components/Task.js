@@ -24,6 +24,15 @@ function Task({
 			.toString()
 			.padStart(2, "0")}`;
 	})();
+	let taskEndTime = (() => {
+		if (taskProps.endDate === "") {
+			return "no endDate";
+		}
+		return `${endDate.getHours()}:${endDate
+			.getMinutes()
+			.toString()
+			.padStart(2, "0")}`;
+	})();
 	let taskBoxStart = (() => {
 		if (taskProps.startDate === "") {
 			return 0;
@@ -68,7 +77,7 @@ function Task({
 				{taskProps.title}
 			</p>
 			<p className='task-time' style={{ color: taskProps.color, borderLeftColor: taskProps.color }}>
-				{taskTime}
+				{`${taskTime} (${taskEndTime})`}
 			</p>
 			<p className='task-description' style={taskTooSmallToP()}>
 				{taskProps.description}

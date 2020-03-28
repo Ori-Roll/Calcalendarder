@@ -11,6 +11,7 @@ const getDateWithoutTime = date => [date.getDate(), date.getMonth(), date.getFul
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
 const daysShortNames = Object.freeze(["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]);
 let bottomDragged = false;
+let bottomDragStartPos = 0;
 
 function Day({ dayDate, setWeekDefocus }) {
 	const dayNumber = dayDate.getDate().toString();
@@ -169,6 +170,8 @@ function Day({ dayDate, setWeekDefocus }) {
 	function sizeDragStartHandler(e, taskKey) {
 		/* console.log("sizeDragStartHandler");*/
 		bottomDragged = true;
+		bottomDragStartPos = e.clientY;
+		console.log("Start", e.clientY);
 		/* let resizedTask =
 			taskData[
 				taskData.findIndex(item => {
@@ -186,13 +189,33 @@ function Day({ dayDate, setWeekDefocus }) {
 					return item.key === taskKey;
 				})
 			];
-		resizedTask.endDate.setTime(resizedTask.endDate.getTime() + 100000);
+		/* console.log(e.clientY); */
+
+		/* console.log(e.currentTarget.parentElement.getBoundingClientRect().top); */
+		/* resizedTask.endDate.setTime(
+			resizedTask.endDate.getTime() +
+				(e.clientY - e.currentTarget.parentElement.getBoundingClientRect().top - 50) * 1000
+		); */
 
 		setStartDaggingSizeAmount(0);
 	}
 
 	function sizeDragEndHandler(e, taskKey) {
 		console.log("--------------------");
+		let resizedTask =
+			taskData[
+				taskData.findIndex(item => {
+					return item.key === taskKey;
+				})
+			];
+		resizedTask.endDate.setTime(
+			resizedTask.endDate.getTime() + (e.clientY - bottomDragStartPos) * 60000
+		);
+		/* console.log("start was", bottomDragStartPos);
+		console.log("end", e.clientY); */
+		console.log(e.clientY - bottomDragStartPos);
+		/* (e.clientY - e.currentTarget.parentElement.getBoundingClientRect().top)  */
+		/* resizedTask.endDate.setTime(resizedTask.endDate.getTime() + 1000000); */
 		bottomDragged = false;
 		/* console.log("THIS!!!!" + e.clientY);
 		let endDate = taskData[taskKey].endDate;
