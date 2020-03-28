@@ -10,6 +10,7 @@ let dateToSet = new Date();
 const getDateWithoutTime = date => [date.getDate(), date.getMonth(), date.getFullYear()].join(" ");
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
 const daysShortNames = Object.freeze(["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]);
+let bottomDragged = false;
 
 function Day({ dayDate, setWeekDefocus }) {
 	const dayNumber = dayDate.getDate().toString();
@@ -20,6 +21,7 @@ function Day({ dayDate, setWeekDefocus }) {
 	const [showTaskForm, setShowTaskForm] = useState(false);
 	const [newTaskTime, setNewTaskTime] = useState(new Date(dayDate));
 	const [dayTasks, setDayTasks] = useState([]);
+	const [forceResetTasks, setForceResetTasks] = useState(false);
 
 	const [initialTask, setInitialTask] = useState({});
 	const [initTaskIsNew, setInitTaskIsNew] = useState(true);
@@ -29,6 +31,7 @@ function Day({ dayDate, setWeekDefocus }) {
 		x: 0,
 		y: 50
 	});
+	const [startDaggingSizeAmount, setStartDaggingSizeAmount] = useState(0);
 
 	const { taskData, setNewTask, currentDate, removeTaskWithKey, setCurrentDate } = useContext(
 		AppContext
@@ -46,7 +49,8 @@ function Day({ dayDate, setWeekDefocus }) {
 		setDayTasks(getTasks(dayStartTime, dayEndTime));
 		/* console.log("USE EFFECT");
 		console.log(taskData); */
-	}, [taskData.length]);
+		setForceResetTasks(false);
+	}, [taskData.length, forceResetTasks]);
 
 	function getTasks(startDate, endTime) {
 		/* console.log("getTasks");
@@ -55,7 +59,7 @@ function Day({ dayDate, setWeekDefocus }) {
 		let taskSet = taskData.filter(item => {
 			return item.startDate >= startDate && item.startDate < endTime;
 		});
-		console.log("TaskSet", taskSet);
+		/* console.log("TaskSet", taskSet); */
 		return taskSet;
 	}
 
@@ -107,10 +111,10 @@ function Day({ dayDate, setWeekDefocus }) {
 		}); */
 		/* removeTaskWithKey(originalTask.key); */
 		// REMOVE SET TASKS IN CONTEXT WITH "..." in setState on both the task and the array !!!
-		console.log("originalTask", originalTask);
+		/* console.log("originalTask", originalTask); */
 		setWeekDefocus(false);
 		setShowTaskForm(false);
-		console.log(dayTasks);
+		/* console.log(dayTasks); */
 	}
 
 	function mouseMoveHandler(e) {
@@ -122,10 +126,12 @@ function Day({ dayDate, setWeekDefocus }) {
 	}
 
 	function onDragStartHandler(e, taskProps) {
-		console.log("onDragStartHandler" + e.clientY);
-		const taskIndex = dayTasks.findIndex(item => item.key === taskProps.key);
-		dayTasks.splice(taskIndex, 1);
-		e.dataTransfer.setData("taskKey", taskProps.key);
+		/* console.log("onDragStartHandler" + e.clientY); */
+		if (bottomDragged !== true) {
+			const taskIndex = dayTasks.findIndex(item => item.key === taskProps.key);
+			dayTasks.splice(taskIndex, 1);
+			e.dataTransfer.setData("taskKey", taskProps.key);
+		}
 	}
 
 	function onDragOverHandler(e) {
@@ -133,28 +139,65 @@ function Day({ dayDate, setWeekDefocus }) {
 	}
 
 	function onDropHandler(e) {
-		console.log("onDropHandler , e: ", e.dataTransfer.getData("taskKey"));
-		e.preventDefault();
-		const dropedTaskKey = e.dataTransfer.getData("taskKey");
-		console.log(taskData);
-		const dropedTaskIndex = taskData.findIndex(item => {
-			return item.key.toString() === dropedTaskKey;
-		});
-		const dropedTask = taskData[dropedTaskIndex];
+		/* console.log("onDropHandler , e: ", e.dataTransfer.getData("taskKey")); */
+		if (bottomDragged !== true) {
+			e.preventDefault();
+			const dropedTaskKey = e.dataTransfer.getData("taskKey");
+			/* console.log(taskData); */
+			const dropedTaskIndex = taskData.findIndex(item => {
+				return item.key.toString() === dropedTaskKey;
+			});
+			const dropedTask = taskData[dropedTaskIndex];
 
-		const taskHoursTimeDifference = dropedTask.endDate.getHours() - dropedTask.startDate.getHours();
-		const taskMinutesTimeDifferance =
-			dropedTask.endDate.getMinutes() - dropedTask.startDate.getMinutes();
+			const taskHoursTimeDifference =
+				dropedTask.endDate.getHours() - dropedTask.startDate.getHours();
+			const taskMinutesTimeDifferance =
+				dropedTask.endDate.getMinutes() - dropedTask.startDate.getMinutes();
 
-		dropedTask.startDate.setTime(dayDate.getTime());
-		dropedTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e).hours);
-		dropedTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes);
+			dropedTask.startDate.setTime(dayDate.getTime());
+			dropedTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e).hours);
+			dropedTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes);
 
-		dropedTask.endDate.setTime(dayDate.getTime());
-		dropedTask.endDate.setHours(dropedTask.startDate.getHours() + taskHoursTimeDifference);
-		dropedTask.endDate.setMinutes(dropedTask.startDate.getMinutes() + taskMinutesTimeDifferance);
+			dropedTask.endDate.setTime(dayDate.getTime());
+			dropedTask.endDate.setHours(dropedTask.startDate.getHours() + taskHoursTimeDifference);
+			dropedTask.endDate.setMinutes(dropedTask.startDate.getMinutes() + taskMinutesTimeDifferance);
+			setForceResetTasks(true);
+			/* setDayTasks(getTasks(dayStartTime, dayEndTime)); */
+		}
+	}
 
-		setDayTasks(getTasks(dayStartTime, dayEndTime));
+	function sizeDragStartHandler(e, taskKey) {
+		/* console.log("sizeDragStartHandler");*/
+		bottomDragged = true;
+		/* let resizedTask =
+			taskData[
+				taskData.findIndex(item => {
+					return item.key === taskKey;
+				})
+			];
+		resizedTask.endDate.setTime(resizedTask.endDate.getTime() + 100000);
+		setStartDaggingSizeAmount(0); */
+	}
+
+	function sizeDragHandler(e, taskKey) {
+		let resizedTask =
+			taskData[
+				taskData.findIndex(item => {
+					return item.key === taskKey;
+				})
+			];
+		resizedTask.endDate.setTime(resizedTask.endDate.getTime() + 100000);
+
+		setStartDaggingSizeAmount(0);
+	}
+
+	function sizeDragEndHandler(e, taskKey) {
+		console.log("--------------------");
+		bottomDragged = false;
+		/* console.log("THIS!!!!" + e.clientY);
+		let endDate = taskData[taskKey].endDate;
+		console.log("THIS!" + endDate.setTime(endDate + e.clientY));
+		setStartDaggingSizeAmount(0); */
 	}
 
 	const dayTitle = (
@@ -186,6 +229,9 @@ function Day({ dayDate, setWeekDefocus }) {
 						taskProps={item}
 						onTaskClick={() => taskClickHandler(item)}
 						onDragStartHandler={onDragStartHandler}
+						sizeDragStartHandler={sizeDragStartHandler}
+						sizeDragHandler={sizeDragHandler}
+						sizeDragEndHandler={sizeDragEndHandler}
 					/>
 				))}
 				{timeToolTipIsOn && (

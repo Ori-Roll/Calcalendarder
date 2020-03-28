@@ -84,7 +84,7 @@
 	grid-template-areas:
 		"task-title task-time"
 		"task-description task-description"
-		"task-drag-handle task-drag-handle";
+		"task-size-handle task-size-handle";
 	border-top: rgb(241, 241, 245) 1px solid;
 	width: 100%;
 	cursor: default;
@@ -127,8 +127,8 @@
 	color: rgb(73, 73, 73);
 }
 
-.task-drag-handle {
-	grid-area: task-drag-handle;
+.task-size-handle {
+	grid-area: task-size-handle;
 	height: 10px;
 	border-bottom: rgb(172, 172, 172) 1px solid;
 	cursor: n-resize;

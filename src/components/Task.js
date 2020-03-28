@@ -2,8 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { getDefaultData } from "./helpers.js";
 
-function Task({ taskProps = getDefaultData(), onTaskClick, onDragStartHandler }) {
-	console.log("task!!!", taskProps);
+function Task({
+	taskProps = getDefaultData(),
+	onTaskClick,
+	onDragStartHandler,
+	sizeDragStartHandler,
+	sizeDragEndHandler,
+	sizeDragHandler
+}) {
+	/* console.log("task!!!", taskProps); */
 	let theDate = new Date(taskProps.startDate);
 	let endDate = new Date(taskProps.endDate);
 
@@ -66,7 +73,14 @@ function Task({ taskProps = getDefaultData(), onTaskClick, onDragStartHandler })
 			<p className='task-description' style={taskTooSmallToP()}>
 				{taskProps.description}
 			</p>
-			<div className='task-drag-handle' style={{ borderColor: taskProps.color }} />
+			<div
+				className='task-size-handle'
+				style={{ borderColor: taskProps.color }}
+				draggable='true'
+				onDragStart={e => sizeDragStartHandler(e, taskProps.key)} //????????????????????????????
+				onDrag={e => sizeDragHandler(e, taskProps.key)} //????????????????????????????
+				onDragEnd={e => sizeDragEndHandler(e, taskProps.key)}
+			/>
 		</div>
 	);
 }
