@@ -18,6 +18,7 @@ function TaskForm({
 	const [taskColor, setTaskColor] = useState(isNew ? defaultTaskColor : initialTask.color);
 	const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
 	const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
+	const [endTimeDisplay, setEndTimeDisplay] = useState("10:00");
 
 	const startDate = new Date(taskStartTime);
 
@@ -56,17 +57,21 @@ function TaskForm({
 	useEffect(() => {
 		taskTitleRef.current.focus();
 
-		setStartTimeDisplay(
-			startDate
-				.getHours()
-				.toString()
-				.padStart(2, 0) +
-				":" +
-				startDate
-					.getMinutes()
+		function setTimeDisplay(setDisplayFunc, sourceDate) {
+			setDisplayFunc(
+				sourceDate
+					.getHours()
 					.toString()
-					.padStart(2, 0)
-		);
+					.padStart(2, 0) +
+					":" +
+					sourceDate
+						.getMinutes()
+						.toString()
+						.padStart(2, 0)
+			);
+		}
+		setTimeDisplay(setStartTimeDisplay, startDate);
+		setTimeDisplay(setEndTimeDisplay, taskEndTime);
 	}, []);
 
 	return (
@@ -136,9 +141,10 @@ function TaskForm({
 				style={{ borderColor: taskColor }}
 				min='07:00'
 				max='21:00'
-				value='08:00'
+				value={endTimeDisplay}
+				readOnly={true}
 				onChange={e => {
-					inputChangeHandler(e, setTaskStartTime);
+					/* inputChangeHandler(e, setTaskStartTime); */
 				}}></input>
 
 			<div
@@ -183,11 +189,11 @@ function TaskForm({
 }
 
 TaskForm.prototypes = {
-	/* setWeekDefocus: PropTypes.func,
+	setWeekDefocus: PropTypes.func,
 	isNew: PropTypes.bool,
 	initialTask: PropTypes.object,
 	setShowTaskForm: PropTypes.func,
-	removeTaskWithKey: PropTypes.func */
+	removeTaskWithKey: PropTypes.func
 };
 
 export default TaskForm;

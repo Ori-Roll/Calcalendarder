@@ -144,6 +144,7 @@ function AppContextProvider(props) {
 	const [taskData, setTaskData] = useState(tasks);
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const [focusDate, setFocusDate] = useState(new Date("2020-01-08T06:00:00"));
+	const [taskLog, setTaskLog] = useState([]);
 
 	function setNewTask(newTask) {
 		// taskData needs to be ordered by date of tasks:
@@ -180,6 +181,14 @@ function AppContextProvider(props) {
 		console.log("taskData is now :", newTaskData);
 	}
 
+	function replaceTasks(oldTaskKey, newTask) {
+		removeTaskWithKey(oldTaskKey);
+		setNewTask(newTask);
+		setTaskLog(pervLog => {
+			return [...pervLog, { date: new Date(), taskKey: newTask.key }];
+		});
+	}
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -190,7 +199,8 @@ function AppContextProvider(props) {
 				setNewTask,
 				focusDate,
 				setFocusDate,
-				removeTaskWithKey
+				replaceTasks,
+				taskLog
 			}}>
 			{props.children}
 		</AppContext.Provider>

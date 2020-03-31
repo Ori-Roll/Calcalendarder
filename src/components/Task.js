@@ -77,7 +77,7 @@ function Task({
 				{taskProps.title}
 			</p>
 			<p className='task-time' style={{ color: taskProps.color, borderLeftColor: taskProps.color }}>
-				{`${taskTime} (${taskEndTime})`}
+				{`${taskTime} (to ${taskEndTime})`}
 			</p>
 			<p className='task-description' style={taskTooSmallToP()}>
 				{taskProps.description}

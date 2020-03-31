@@ -1,9 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../appContext.js";
 import Day from "./Day.js";
 
 function Week() {
+	console.log("WEEK INIT");
 	const [weekDefocus, setWeekDefocus] = useState(false);
+	const [weekLog, setWeekLog] = useState([]);
+	/* const [forceWeekRefresh, setForceWeekRefresh] = useState(false); */
 
 	const { focusDate } = useContext(AppContext);
 
@@ -22,7 +25,7 @@ function Week() {
 		<div className='week'>
 			{weekDefocus && <div className='week-defocus' />}
 			{weekDays.map(date => (
-				<Day dayDate={date} key={date} setWeekDefocus={setWeekDefocus} />
+				<Day dayDate={date} key={date} setWeekDefocus={setWeekDefocus} setWeekLog={setWeekLog} />
 			))}
 		</div>
 	);

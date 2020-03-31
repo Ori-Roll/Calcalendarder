@@ -61,6 +61,8 @@ const defaultTaskColor = "#91A79E";
 
 const dayHeadOffset = 65;
 
+const timePixelsToMin = 60000;
+
 export {
 	getTaskTimeFromEvent,
 	defaultTask,
@@ -68,5 +70,6 @@ export {
 	pickerColors,
 	todaysHeadStyle,
 	defaultTaskColor,
-	dayHeadOffset
+	dayHeadOffset,
+	timePixelsToMin
 };
