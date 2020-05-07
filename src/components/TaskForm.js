@@ -9,7 +9,7 @@ function TaskForm({
 	initialTask,
 	setShowTaskForm,
 	removeTaskWithKey,
-	submitHandler
+	submitHandler,
 }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
 	const [taskEndTime] = useState(initialTask.endDate);
@@ -59,15 +59,9 @@ function TaskForm({
 
 		function setTimeDisplay(setDisplayFunc, sourceDate) {
 			setDisplayFunc(
-				sourceDate
-					.getHours()
-					.toString()
-					.padStart(2, 0) +
+				sourceDate.getHours().toString().padStart(2, 0) +
 					":" +
-					sourceDate
-						.getMinutes()
-						.toString()
-						.padStart(2, 0)
+					sourceDate.getMinutes().toString().padStart(2, 0)
 			);
 		}
 		setTimeDisplay(setStartTimeDisplay, startDate);
@@ -84,7 +78,7 @@ function TaskForm({
 				className='task-form-title'
 				style={{ borderColor: taskColor }}
 				value={taskTitle}
-				onChange={e => {
+				onChange={(e) => {
 					inputChangeHandler(e, setTaskTitle);
 				}}
 				ref={taskTitleRef}
@@ -98,7 +92,7 @@ function TaskForm({
 				className='task-form-discription'
 				style={{ borderColor: taskColor }}
 				value={taskDescription}
-				onChange={e => {
+				onChange={(e) => {
 					inputChangeHandler(e, setTaskDescription);
 				}}
 			/>
@@ -121,7 +115,8 @@ function TaskForm({
 				max='21:00'
 				autoComplete='true'
 				value={startTimeDisplay}
-				onChange={e => {
+				readOnly={true}
+				onChange={(e) => {
 					inputChangeHandler(e, setTaskStartTime);
 				}}></input>
 
@@ -143,7 +138,7 @@ function TaskForm({
 				max='21:00'
 				value={endTimeDisplay}
 				readOnly={true}
-				onChange={e => {
+				onChange={(e) => {
 					/* inputChangeHandler(e, setTaskStartTime); */
 				}}></input>
 
@@ -158,7 +153,7 @@ function TaskForm({
 			<button
 				type='submit'
 				className='task-form-submit'
-				onClick={e =>
+				onClick={(e) =>
 					submitHandler(
 						e,
 						{
@@ -167,7 +162,7 @@ function TaskForm({
 							endDate: taskEndTime,
 							title: taskTitle,
 							description: taskDescription,
-							color: taskColor
+							color: taskColor,
 						},
 						initialTask
 					)
@@ -193,7 +188,7 @@ TaskForm.prototypes = {
 	isNew: PropTypes.bool,
 	initialTask: PropTypes.object,
 	setShowTaskForm: PropTypes.func,
-	removeTaskWithKey: PropTypes.func
+	removeTaskWithKey: PropTypes.func,
 };
 
 export default TaskForm;

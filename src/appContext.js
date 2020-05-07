@@ -149,7 +149,7 @@ function AppContextProvider(props) {
 	function setNewTask(newTask) {
 		// taskData needs to be ordered by date of tasks:
 
-		setTaskData(prevData => {
+		setTaskData((prevData) => {
 			const newData = [...prevData];
 			newData.push(newTask);
 			console.log("newTask", newTask);
@@ -172,7 +172,7 @@ function AppContextProvider(props) {
 
 		const newTaskData = [...taskData];
 
-		let taskIndex = taskData.findIndex(item => item.key === removedTaskKey);
+		let taskIndex = taskData.findIndex((item) => item.key === removedTaskKey);
 
 		taskIndex > -1 ? newTaskData.splice(taskIndex, 1) : console.log("no matching task key");
 
@@ -184,7 +184,7 @@ function AppContextProvider(props) {
 	function replaceTasks(oldTaskKey, newTask) {
 		removeTaskWithKey(oldTaskKey);
 		setNewTask(newTask);
-		setTaskLog(pervLog => {
+		setTaskLog((pervLog) => {
 			return [...pervLog, { date: new Date(), taskKey: newTask.key }];
 		});
 	}
@@ -200,7 +200,8 @@ function AppContextProvider(props) {
 				focusDate,
 				setFocusDate,
 				replaceTasks,
-				taskLog
+				taskLog,
+				removeTaskWithKey,
 			}}>
 			{props.children}
 		</AppContext.Provider>
