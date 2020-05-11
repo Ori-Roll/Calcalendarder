@@ -230,7 +230,7 @@
 }
 
 .task-form {
-	position: absolute;
+	position: fixed;
 	left: Calc(50% - 200px);
 	top: Calc(50% - 200px);
 	animation: form-pop-in ease-out 0.2s;
@@ -241,7 +241,7 @@
 	height: auto;
 	min-height: 400px;
 	padding: 50px 30px 10px;
-	border-radius: 2px;
+	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.034) 2px 2px 15px;
 
 	display: grid;
