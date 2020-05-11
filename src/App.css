@@ -240,19 +240,19 @@
 	width: 320px;
 	height: auto;
 	min-height: 400px;
-	padding: 50px 30px 10px;
-	border-radius: 10px;
+	/* padding: 50px 30px 10px 0; */
+	border-radius: 0 20px 20px 0;
 	box-shadow: rgba(0, 0, 0, 0.034) 2px 2px 15px;
 
 	display: grid;
-	grid-template-columns: 3fr 3fr 0.8fr;
+	grid-template-columns: 0.2fr 0.2fr 3fr 3fr 0.8fr;
 	grid-template-rows: 0.6fr 0.6fr 0.3fr 0.3fr 0.5fr;
 	grid-template-areas:
-		"task-form-title       task-form-title       task-form-title"
-		"task-form-discription task-form-discription task-form-discription"
-		"task-form-time-lable  task-form-time        task-form-color"
-		"task-form-end-lable   task-form-time-end    task-form-color"
-		"task-form-cancel      .                     task-form-submit";
+		"task-form-bottom-color	 .	task-form-title      	task-form-title       	task-form-title"
+		"task-form-bottom-color	 .	task-form-discription	task-form-discription 	task-form-discription"
+		"task-form-bottom-color	 .	task-form-time-lable 	task-form-time        	task-form-color"
+		"task-form-bottom-color	 .	task-form-end-lable  	task-form-time-end    	task-form-color"
+		"task-form-bottom-color	 .	.     					task-form-cancel       	task-form-submit";
 }
 
 @keyframes form-pop-in {
@@ -269,6 +269,8 @@
 .task-form * {
 	border-style: none;
 	outline: none;
+	font-family: "Open Sans", "sans-serif", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+		Arial, sans-serif;
 }
 
 .task-form input {
@@ -320,53 +322,78 @@
 	grid-area: task-form-title;
 	border-left: 1px solid;
 	padding: 15px;
-	margin: 0 0 5px 0;
+	margin: 40px 30px 0 20px;
+	max-width: 260px;
+	min-width: 260px;
+	max-height: 150px;
+	min-height: 50px;
 }
 .task-form-discription {
 	grid-area: task-form-discription;
 	border-left: 1px solid;
 	padding: 15px;
-	margin: 5px 0 0 0;
+	margin: 20px 30px 0 20px;
+	max-width: 260px;
+	min-width: 260px;
+	max-height: 180px;
+	min-height: 60px;
 }
 .task-form-time-lable {
 	grid-area: task-form-time-lable;
-	padding: 15px 5px;
+	padding: 25px 5px 10px;
+	margin: 0 0 0 20px;
 }
 .task-form-time {
 	grid-area: task-form-time;
-	padding: 0 0 0 20px;
+	padding: 18px 0 1px 0px;
+	font-size: 17px;
 }
 .task-form-end-lable {
 	grid-area: task-form-end-lable;
 	padding: 15px 5px;
 	width: 75px;
+	margin: 0 0 0 20px;
 }
 .task-form-time-end {
 	grid-area: task-form-time-end;
-	padding: 0 0 0 20px;
+	padding: 0 0 3px 0px;
+	font-size: 17px;
 }
 .task-form-submit {
 	grid-area: task-form-submit;
 	background: none;
-	color: rgb(26, 110, 71);
+	color: rgb(119, 119, 119);
 	cursor: pointer;
+	margin: 0 32px 0 0;
+	font-size: 25px;
 }
 .task-form-cancel {
 	grid-area: task-form-cancel;
 	background: none;
-	color: rgb(116, 16, 46);
+	color: rgb(138, 75, 75);
 	cursor: pointer;
+	margin: 5px 0 0 30px;
+	font-size: 22px;
 }
 .task-form-color {
 	grid-area: task-form-color;
-	font-size: 1em;
 	width: 40px;
 	height: 40px;
 	text-align: center;
-	padding: 10px 1px 0 0;
-	border-radius: 30px;
-	color: white;
+	margin: 35px 35px 0 0;
+	background-color: white;
 	cursor: pointer;
+}
+
+.task-form-color * {
+	width: 45px;
+	height: 45px;
+}
+
+.task-form-bottom-color {
+	grid-area: task-form-bottom-color;
+	background-color: rgb(75, 75, 145);
+	background-size: contain;
 }
 
 .side-bar {

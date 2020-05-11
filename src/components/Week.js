@@ -24,7 +24,7 @@ function Week() {
 	return (
 		<div className='week'>
 			{weekDefocus && <div className='week-defocus' />}
-			{weekDays.map(date => (
+			{weekDays.map((date) => (
 				<Day dayDate={date} key={date} setWeekDefocus={setWeekDefocus} setWeekLog={setWeekLog} />
 			))}
 		</div>

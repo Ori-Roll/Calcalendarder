@@ -8,7 +8,7 @@ function Task({
 	onDragStartHandler,
 	sizeDragStartHandler,
 	sizeDragEndHandler,
-	sizeDragHandler
+	sizeDragHandler,
 }) {
 	/* console.log("task!!!", taskProps); */
 	let theDate = new Date(taskProps.startDate);
@@ -19,19 +19,13 @@ function Task({
 		if (taskProps.startDate === "") {
 			return "no startDate";
 		}
-		return `${theDate.getHours()}:${theDate
-			.getMinutes()
-			.toString()
-			.padStart(2, "0")}`;
+		return `${theDate.getHours()}:${theDate.getMinutes().toString().padStart(2, "0")}`;
 	})();
 	let taskEndTime = (() => {
 		if (taskProps.endDate === "") {
 			return "no endDate";
 		}
-		return `${endDate.getHours()}:${endDate
-			.getMinutes()
-			.toString()
-			.padStart(2, "0")}`;
+		return `${endDate.getHours()}:${endDate.getMinutes().toString().padStart(2, "0")}`;
 	})();
 	let taskBoxStart = (() => {
 		if (taskProps.startDate === "") {
@@ -55,7 +49,7 @@ function Task({
 		}
 	})();
 
-	const taskClickHandler = e => {
+	const taskClickHandler = (e) => {
 		e.stopPropagation();
 		onTaskClick();
 	};
@@ -69,7 +63,7 @@ function Task({
 			className='task'
 			style={{ height: taskBoxEnd, top: taskBoxStart }}
 			onClick={taskClickHandler}
-			onDragStart={e => onDragStartHandler(e, taskProps)}
+			onDragStart={(e) => onDragStartHandler(e, taskProps)}
 			draggable='true'>
 			<p
 				className='task-title'
@@ -86,9 +80,9 @@ function Task({
 				className='task-size-handle'
 				style={{ borderColor: taskProps.color }}
 				draggable='true'
-				onDragStart={e => sizeDragStartHandler(e, taskProps.key)} //????????????????????????????
-				onDrag={e => sizeDragHandler(e, taskProps.key)} //????????????????????????????
-				onDragEnd={e => sizeDragEndHandler(e, taskProps.key)}
+				onDragStart={(e) => sizeDragStartHandler(e, taskProps.key)} //????????????????????????????
+				onDrag={(e) => sizeDragHandler(e, taskProps.key)} //????????????????????????????
+				onDragEnd={(e) => sizeDragEndHandler(e, taskProps.key)}
 			/>
 		</div>
 	);
@@ -97,7 +91,7 @@ function Task({
 Task.prototypes = {
 	taskProps: PropTypes.object,
 	onTaskClick: PropTypes.func,
-	onDragStartHandler: PropTypes.func
+	onDragStartHandler: PropTypes.func,
 };
 
 export default Task;

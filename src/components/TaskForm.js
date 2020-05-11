@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import ColorPicker from "./ColorPicker";
 import { defaultTaskColor } from "./helpers.js";
+import colorPickerImg from "../images/colorPicker.png";
 
 function TaskForm({
 	setWeekDefocus,
@@ -110,7 +111,7 @@ function TaskForm({
 				id='task-time'
 				name='task-time'
 				className='task-form-time'
-				style={{ borderColor: taskColor }}
+				style={{ color: taskColor }}
 				min='07:00'
 				max='21:00'
 				autoComplete='true'
@@ -133,7 +134,7 @@ function TaskForm({
 				id='task-time-end'
 				name='task-time-end'
 				className='task-form-time-end'
-				style={{ borderColor: taskColor }}
+				style={{ color: taskColor }}
 				min='07:00'
 				max='21:00'
 				value={endTimeDisplay}
@@ -147,7 +148,7 @@ function TaskForm({
 				className='task-form-color'
 				name='form-color'
 				style={{ backgroundColor: taskColor }}>
-				C
+				<img src={colorPickerImg} />
 			</div>
 
 			<button
@@ -174,11 +175,10 @@ function TaskForm({
 				&#x2716;
 			</button>
 
-			{colorPickerIsOn === true ? (
+			{colorPickerIsOn && (
 				<ColorPicker setTaskColor={setTaskColor} toggleColorPicker={toggleColorPicker} />
-			) : (
-				<div />
 			)}
+			<div style={{ backgroundColor: taskColor }} className='task-form-bottom-color'></div>
 		</form>
 	);
 }

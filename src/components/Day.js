@@ -8,12 +8,13 @@ import {
 	defaultTask,
 	todaysHeadStyle,
 	dayHeadOffset,
-	timePixelsToMin
+	timePixelsToMin,
 } from "./helpers.js";
 
 let dateToSet = new Date();
 
-const getDateWithoutTime = date => [date.getDate(), date.getMonth(), date.getFullYear()].join(" ");
+const getDateWithoutTime = (date) =>
+	[date.getDate(), date.getMonth(), date.getFullYear()].join(" ");
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
 const daysShortNames = Object.freeze(["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]);
 let bottomDragged = false;
@@ -38,7 +39,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 	const [timeToolTipIsOn, setTimeToolTopIsOn] = useState(false);
 	const [timeToolTipPosition, setTimeToolTipPosition] = useState({
 		x: 0,
-		y: 50
+		y: 50,
 	});
 
 	const [noDragTimer, setNoDragTimer] = useState(false);
@@ -50,7 +51,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 		removeTaskWithKey,
 		setCurrentDate,
 		replaceTasks,
-		taskLog
+		taskLog,
 	} = useContext(AppContext);
 
 	/* console.log("DAY --------! ", dayNumber); */
@@ -78,7 +79,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 	}, [noDragTimer]);
 
 	function getTasks(startDate, endTime) {
-		let taskSet = taskData.filter(item => {
+		let taskSet = taskData.filter((item) => {
 			return item.startDate >= startDate && item.startDate < endTime;
 		});
 		return taskSet;
@@ -99,7 +100,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 			startDate: newStartDate,
 			endDate: newEndDate,
 			title: "",
-			description: ""
+			description: "",
 		};
 
 		setInitialTask(emptyNewTask);
@@ -131,7 +132,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 
 	function onDragStartHandler(e, taskProps) {
 		if (bottomDragged !== true) {
-			const taskIndex = dayTasks.findIndex(item => item.key === taskProps.key);
+			const taskIndex = dayTasks.findIndex((item) => item.key === taskProps.key);
 			dayTasks.splice(taskIndex, 1);
 			e.dataTransfer.setData("taskKey", taskProps.key);
 		}
@@ -145,7 +146,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 		if (bottomDragged !== true) {
 			e.preventDefault();
 			const dropedTaskKey = e.dataTransfer.getData("taskKey");
-			const dropedTaskIndex = taskData.findIndex(item => {
+			const dropedTaskIndex = taskData.findIndex((item) => {
 				return item.key.toString() === dropedTaskKey;
 			});
 			const dropedTask = taskData[dropedTaskIndex];
@@ -182,7 +183,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 		bottomDragStartPos = e.clientY;
 		resizedTask =
 			taskData[
-				taskData.findIndex(item => {
+				taskData.findIndex((item) => {
 					return item.key === taskKey;
 				})
 			];
@@ -244,7 +245,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 				}}
 				onDragOver={onDragOverHandler}
 				onDrop={onDropHandler}>
-				{dayTasks.map(item => (
+				{dayTasks.map((item) => (
 					<Task
 						key={item.key}
 						taskProps={item}
@@ -257,10 +258,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 				))}
 				{timeToolTipIsOn && (
 					<div className='time-tool-tip' style={{ top: timeToolTipPosition.y }}>
-						{`${newTaskTime.getHours()}:${newTaskTime
-							.getMinutes()
-							.toString()
-							.padStart(2, "0")}`}
+						{`${newTaskTime.getHours()}:${newTaskTime.getMinutes().toString().padStart(2, "0")}`}
 					</div>
 				)}
 			</div>
@@ -280,7 +278,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 
 Day.prototypes = {
 	setWeekDefocus: PropTypes.func,
-	dayDate: PropTypes.object
+	dayDate: PropTypes.object,
 };
 
 export default Day;
