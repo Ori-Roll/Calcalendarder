@@ -290,8 +290,8 @@
 	display: grid;
 	grid-template-columns: repeat(5, auto);
 	grid-template-rows: repeat(6, auto);
-	top: 26px;
-	left: 18px;
+	top: 28px;
+	left: 20px;
 	padding: 5px;
 	background-color: white;
 	border: none;

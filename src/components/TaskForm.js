@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import ColorPicker from "./ColorPicker";
-import { defaultTaskColor } from "./helpers.js";
+import { defaultTaskColor, dateifyTaskTime } from "./helpers.js";
 import colorPickerImg from "../images/colorPicker.png";
 
 function TaskForm({
@@ -14,12 +14,12 @@ function TaskForm({
 }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
 	const [taskEndTime] = useState(initialTask.endDate);
+	const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
+	const [endTimeDisplay, setEndTimeDisplay] = useState("10:00");
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
 	const [taskDescription, setTaskDescription] = useState(initialTask.description);
 	const [taskColor, setTaskColor] = useState(isNew ? defaultTaskColor : initialTask.color);
 	const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
-	const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
-	const [endTimeDisplay, setEndTimeDisplay] = useState("10:00");
 
 	const startDate = new Date(taskStartTime);
 
@@ -29,6 +29,7 @@ function TaskForm({
 
 	function inputChangeHandler(e, stateSetter) {
 		stateSetter(e.target.value);
+		console.log("e.target.value", e.target.value);
 	}
 
 	/* 	function submitHandler(e) {
@@ -116,9 +117,10 @@ function TaskForm({
 				max='21:00'
 				autoComplete='true'
 				value={startTimeDisplay}
-				readOnly={true}
+				step={300}
+				/* readOnly={true} */
 				onChange={(e) => {
-					inputChangeHandler(e, setTaskStartTime);
+					inputChangeHandler(e, setStartTimeDisplay);
 				}}></input>
 
 			<label
@@ -138,9 +140,8 @@ function TaskForm({
 				min='07:00'
 				max='21:00'
 				value={endTimeDisplay}
-				readOnly={true}
 				onChange={(e) => {
-					/* inputChangeHandler(e, setTaskStartTime); */
+					inputChangeHandler(e, setEndTimeDisplay);
 				}}></input>
 
 			<div
@@ -155,18 +156,16 @@ function TaskForm({
 				type='submit'
 				className='task-form-submit'
 				onClick={(e) =>
-					submitHandler(
-						e,
-						{
-							key: new Date().getTime(),
-							startDate: taskStartTime,
-							endDate: taskEndTime,
-							title: taskTitle,
-							description: taskDescription,
-							color: taskColor,
-						},
-						initialTask
-					)
+					submitHandler(e, {
+						key: new Date().getTime(),
+						startDate: dateifyTaskTime(startTimeDisplay, taskStartTime),
+						endDate: dateifyTaskTime(endTimeDisplay, taskEndTime),
+						title: taskTitle,
+						description: taskDescription,
+						color: taskColor,
+						startTime: startTimeDisplay,
+						endTime: endTimeDisplay,
+					})
 				}>
 				&#10004;
 			</button>

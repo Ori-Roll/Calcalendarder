@@ -5,7 +5,7 @@ const defaultTask = {
 	endDate: new Date().setHours(11),
 	title: "",
 	description: "",
-	color: "gray"
+	color: "gray",
 };
 
 function getDefaultData() {
@@ -20,6 +20,12 @@ function getTaskTimeFromEvent(onDayRef, event) {
 	let fixedHour = timeNumValue > 7 ? Math.floor(timeNumValue) : 0;
 	let fixedMin = timeNumValue > 7 ? Math.floor((timeNumValue - Math.floor(timeNumValue)) * 60) : 0;
 	return { hours: fixedHour, minutes: fixedMin };
+}
+
+function dateifyTaskTime(newTime, originalDate) {
+	const newDate = new Date(originalDate.getTime());
+	newDate.setHours(newTime.slice(0, 2), newTime.slice(3, 5));
+	return newDate;
 }
 
 const pickerColors = [
@@ -52,7 +58,7 @@ const pickerColors = [
 	"#b87216",
 	"#dad046",
 	"gray",
-	"white"
+	"white",
 ];
 
 const todaysHeadStyle = { color: "#f1e5c8", backgroundColor: "#4f6f8e" };
@@ -71,5 +77,6 @@ export {
 	todaysHeadStyle,
 	defaultTaskColor,
 	dayHeadOffset,
-	timePixelsToMin
+	timePixelsToMin,
+	dateifyTaskTime,
 };
