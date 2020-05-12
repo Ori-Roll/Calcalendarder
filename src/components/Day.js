@@ -9,6 +9,8 @@ import {
 	todaysHeadStyle,
 	dayHeadOffset,
 	timePixelsToMin,
+	roundUpToFive,
+	roundDateToFive,
 } from "./helpers.js";
 
 let dateToSet = new Date();
@@ -97,8 +99,8 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 
 		const emptyNewTask = {
 			key: new Date().getTime().toString(),
-			startDate: newStartDate,
-			endDate: newEndDate,
+			startDate: roundDateToFive(newStartDate),
+			endDate: roundDateToFive(newEndDate),
 			title: "",
 			description: "",
 		};
@@ -115,9 +117,13 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 		setWeekDefocus(true);
 	}
 
-	function submitHandler(e, formTask, originalTask) {
+	function submitHandler(e, formTask, isNew, oldTaskKey) {
 		e.preventDefault();
-		setNewTask({ ...formTask });
+		if (isNew) {
+			setNewTask({ ...formTask });
+		} else {
+			replaceTasks(oldTaskKey, formTask);
+		}
 		setWeekDefocus(false);
 		setShowTaskForm(false);
 	}
@@ -158,10 +164,13 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 			newTask.startDate.setTime(dayDate.getTime());
 			newTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e).hours);
 			newTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes);
+			newTask.startDate = roundDateToFive(newTask.startDate);
 
 			newTask.endDate.setTime(dayDate.getTime());
 			newTask.endDate.setHours(newTask.startDate.getHours() + taskHoursTimeDifference);
 			newTask.endDate.setMinutes(newTask.startDate.getMinutes() + taskMinutesTimeDifferance);
+			newTask.endDate = roundDateToFive(newTask.endDate);
+			console.log("newTask issss", newTask.endDate);
 			replaceTasks(dropedTask.key, newTask);
 			setWeekLog(() => {
 				return { task: dropedTask, date: new Date() };
@@ -205,7 +214,6 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 		/* console.log(resizedTask);
 		console.log(resizedTask.startDate.getTime() + 600000); */
 		if (!noDragTimer) {
-			console.log("BLA");
 			resizedTask.endDate.setTime(newPos);
 			/* setForceResetTasks(true); */
 			setNoDragTimer(true);
@@ -215,9 +223,10 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 	}
 
 	function sizeDragEndHandler(e, taskKey) {
-		resizedTask.endDate.setTime(
-			bottomDragStartOfTaskSet + (e.clientY - bottomDragStartPos) * 60000
-		);
+		let roundDragPos = roundUpToFive(e.clientY - bottomDragStartPos);
+		const dragTo = bottomDragStartOfTaskSet + roundDragPos * 60000;
+		console.log(bottomDragStartPos);
+		resizedTask.endDate.setTime(dragTo);
 		bottomDragged = false;
 		/* setForceResetTasks(false); */
 	}

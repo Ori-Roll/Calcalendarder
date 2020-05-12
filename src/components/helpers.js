@@ -28,6 +28,22 @@ function dateifyTaskTime(newTime, originalDate) {
 	return newDate;
 }
 
+function roundUpToFive(num) {
+	for (let i = 5; i > 0; i--) {
+		num = Number.isInteger(num / 5) ? num : num + 1;
+	}
+}
+
+function roundDateToFive(date) {
+	let minValue = date.getMinutes();
+	for (let i = 5; i > 0; i--) {
+		minValue = Number.isInteger(minValue / 5) ? minValue : minValue + 1;
+	}
+	let newDate = new Date(date.getTime());
+	newDate.setMinutes(minValue);
+	return newDate;
+}
+
 const pickerColors = [
 	"#2C3D4F",
 	"#91A79E",
@@ -79,4 +95,6 @@ export {
 	dayHeadOffset,
 	timePixelsToMin,
 	dateifyTaskTime,
+	roundUpToFive,
+	roundDateToFive,
 };

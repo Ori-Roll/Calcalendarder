@@ -86,6 +86,7 @@
 		"task-description task-description"
 		"task-size-handle task-size-handle";
 	border-top: rgb(241, 241, 245) 1px solid;
+	border-radius: 3px;
 	width: 100%;
 	cursor: default;
 	min-width: 0;
@@ -246,11 +247,11 @@
 
 	display: grid;
 	grid-template-columns: 0.2fr 0.2fr 3fr 3fr 0.8fr;
-	grid-template-rows: 0.6fr 0.6fr 0.3fr 0.3fr 0.5fr;
+	grid-template-rows: 0.6fr 0.6fr 0.3fr 0.3fr 0.45fr;
 	grid-template-areas:
 		"task-form-bottom-color	 .	task-form-title      	task-form-title       	task-form-title"
 		"task-form-bottom-color	 .	task-form-discription	task-form-discription 	task-form-discription"
-		"task-form-bottom-color	 .	task-form-time-lable 	task-form-time        	task-form-color"
+		"task-form-bottom-color	 .	task-form-time-lable	task-form-time        	task-form-color"
 		"task-form-bottom-color	 .	task-form-end-lable  	task-form-time-end    	task-form-color"
 		"task-form-bottom-color	 .	.     					task-form-cancel       	task-form-submit";
 }
@@ -343,11 +344,28 @@
 	padding: 25px 5px 10px;
 	margin: 0 0 0 20px;
 }
+
+.task-form-time-end * {
+	cursor: pointer;
+	font-size: 0.9em;
+}
+.task-form-time * {
+	cursor: pointer;
+	font-size: 0.9em;
+}
+
 .task-form-time {
 	grid-area: task-form-time;
-	padding: 18px 0 1px 0px;
-	font-size: 17px;
+	margin: 22px 50px 0px 0px;
+	padding: 0 0 0 3px;
+	border: rgb(206, 206, 206) 1px solid;
+	border-radius: 3px;
 }
+
+/* .popup {
+	
+}
+ */
 .task-form-end-lable {
 	grid-area: task-form-end-lable;
 	padding: 15px 5px;
@@ -356,8 +374,10 @@
 }
 .task-form-time-end {
 	grid-area: task-form-time-end;
-	padding: 0 0 3px 0px;
-	font-size: 17px;
+	margin: 10px 50px 15px 0px;
+	padding: 0 0 0 3px;
+	border: rgb(206, 206, 206) 1px solid;
+	border-radius: 3px;
 }
 .task-form-submit {
 	grid-area: task-form-submit;

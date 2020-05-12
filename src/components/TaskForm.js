@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import ColorPicker from "./ColorPicker";
-import { defaultTaskColor, dateifyTaskTime } from "./helpers.js";
+import { defaultTaskColor, roundDateToFive } from "./helpers.js";
 import colorPickerImg from "../images/colorPicker.png";
+import TimePicker from "rc-time-picker";
+import moment from "moment";
+import "rc-time-picker/assets/index.css";
 
 function TaskForm({
 	setWeekDefocus,
@@ -13,9 +16,10 @@ function TaskForm({
 	submitHandler,
 }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
-	const [taskEndTime] = useState(initialTask.endDate);
+	const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
 	const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
 	const [endTimeDisplay, setEndTimeDisplay] = useState("10:00");
+
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
 	const [taskDescription, setTaskDescription] = useState(initialTask.description);
 	const [taskColor, setTaskColor] = useState(isNew ? defaultTaskColor : initialTask.color);
@@ -29,7 +33,10 @@ function TaskForm({
 
 	function inputChangeHandler(e, stateSetter) {
 		stateSetter(e.target.value);
-		console.log("e.target.value", e.target.value);
+	}
+
+	function timeChangeHandler(stateSetter, momentObj) {
+		stateSetter(new Date(momentObj.valueOf()));
 	}
 
 	/* 	function submitHandler(e) {
@@ -58,7 +65,6 @@ function TaskForm({
 
 	useEffect(() => {
 		taskTitleRef.current.focus();
-
 		function setTimeDisplay(setDisplayFunc, sourceDate) {
 			setDisplayFunc(
 				sourceDate.getHours().toString().padStart(2, 0) +
@@ -68,6 +74,9 @@ function TaskForm({
 		}
 		setTimeDisplay(setStartTimeDisplay, startDate);
 		setTimeDisplay(setEndTimeDisplay, taskEndTime);
+
+		setTaskStartTime(roundDateToFive(taskStartTime));
+		setTaskEndTime(roundDateToFive(taskEndTime));
 	}, []);
 
 	return (
@@ -101,13 +110,23 @@ function TaskForm({
 
 			<label
 				type='label'
-				htmlFor='task-time'
+				htmlFor='task-form-time'
 				className='task-form-time-lable'
 				style={{ color: taskColor }}>
 				Starts at:
 			</label>
 
-			<input
+			<TimePicker
+				className='task-form-time'
+				defaultValue={moment(taskStartTime)}
+				showSecond={false}
+				clearIcon={false}
+				allowEmpty={false}
+				popupClassName={"popup"}
+				minuteStep={5}
+				onChange={(momentObj) => timeChangeHandler(setTaskStartTime, momentObj)}
+			/>
+			{/* <input
 				type='time'
 				id='task-time'
 				name='task-time'
@@ -118,20 +137,29 @@ function TaskForm({
 				autoComplete='true'
 				value={startTimeDisplay}
 				step={300}
-				/* readOnly={true} */
 				onChange={(e) => {
 					inputChangeHandler(e, setStartTimeDisplay);
-				}}></input>
+				}}></input> */}
 
 			<label
 				type='label'
-				htmlFor='task-time-end'
+				htmlFor='task-form-time-end'
 				className='task-form-end-lable'
 				style={{ color: taskColor }}>
 				Ends at:
 			</label>
 
-			<input
+			<TimePicker
+				className='task-form-time-end'
+				defaultValue={moment(taskEndTime)}
+				showSecond={false}
+				clearIcon={false}
+				allowEmpty={false}
+				popupClassName={"popup"}
+				minuteStep={5}
+				onChange={(momentObj) => timeChangeHandler(setTaskEndTime, momentObj)}
+			/>
+			{/* <input
 				type='time'
 				id='task-time-end'
 				name='task-time-end'
@@ -142,7 +170,7 @@ function TaskForm({
 				value={endTimeDisplay}
 				onChange={(e) => {
 					inputChangeHandler(e, setEndTimeDisplay);
-				}}></input>
+				}}></input> */}
 
 			<div
 				onClick={toggleColorPicker}
@@ -156,16 +184,19 @@ function TaskForm({
 				type='submit'
 				className='task-form-submit'
 				onClick={(e) =>
-					submitHandler(e, {
-						key: new Date().getTime(),
-						startDate: dateifyTaskTime(startTimeDisplay, taskStartTime),
-						endDate: dateifyTaskTime(endTimeDisplay, taskEndTime),
-						title: taskTitle,
-						description: taskDescription,
-						color: taskColor,
-						startTime: startTimeDisplay,
-						endTime: endTimeDisplay,
-					})
+					submitHandler(
+						e,
+						{
+							key: new Date().getTime(),
+							startDate: taskStartTime,
+							endDate: taskEndTime,
+							title: taskTitle,
+							description: taskDescription,
+							color: taskColor,
+						},
+						isNew,
+						initialTask.key
+					)
 				}>
 				&#10004;
 			</button>
