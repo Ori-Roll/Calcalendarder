@@ -29,7 +29,7 @@ function TaskForm({
 
 	const taskTitleRef = useRef();
 
-	console.log("FORM: ", initialTask);
+	/* console.log("FORM: ", initialTask); */
 
 	function inputChangeHandler(e, stateSetter) {
 		stateSetter(e.target.value);

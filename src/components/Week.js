@@ -14,6 +14,8 @@ function Week() {
 		return new Date(date.setDate(date.getDate() - date.getDay()));
 	}
 
+	function formBackClickHandler() {}
+
 	const firstDayOfWeek = getWeekFirstDay(focusDate);
 	const firstDayOfWeekDate = firstDayOfWeek.getDate();
 
@@ -23,7 +25,7 @@ function Week() {
 
 	return (
 		<div className='week'>
-			{weekDefocus && <div className='week-defocus' />}
+			{weekDefocus && <div className='week-defocus' onClick={formBackClickHandler} />}
 			{weekDays.map((date) => (
 				<Day dayDate={date} key={date} setWeekDefocus={setWeekDefocus} setWeekLog={setWeekLog} />
 			))}
