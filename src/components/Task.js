@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getDefaultData } from "./helpers.js";
+import { getDefaultData, isShortTask } from "./helpers.js";
 
 function Task({
 	taskProps = getDefaultData(),
@@ -63,30 +63,58 @@ function Task({
 	return (
 		<div
 			className='task'
-			style={{ height: taskBoxEnd, top: taskBoxStart }}
+			style={{
+				height: taskBoxEnd,
+				top: taskBoxStart,
+				width: isOverlapping ? "95%" : "100%",
+				right: isOverlapping ? "0" : null,
+			}}
 			onClick={taskClickHandler}
 			onDragStart={(e) => onDragStartHandler(e, taskProps)}
 			draggable='true'>
 			<p
 				className='task-title'
-				style={{ color: taskProps.color, borderLeftColor: taskProps.color }}>
+				style={{
+					color: taskProps.color,
+					borderLeftColor: taskProps.color,
+					visibility: isShortTask(theDate, endDate) ? "hidden" : "visible",
+				}}>
 				{taskProps.title}
 			</p>
-			<p className='task-time' style={{ color: taskProps.color, borderLeftColor: taskProps.color }}>
+			<p
+				className='task-time'
+				style={{
+					color: taskProps.color,
+					borderLeftColor: taskProps.color,
+					/* visibility: isShortTask(theDate, endDate) ? "hidden" : "visible", */
+				}}>
 				{`${taskTime} ${taskEndTime}`}
 			</p>
-			<p className='task-description' style={taskTooSmallToP()}>
+			<p className='task-discription' style={taskTooSmallToP()}>
 				{taskProps.description}
 			</p>
-			{isOverlapping && <div className={"task-overlap-notice"}>OVERLAPPING</div>}
+			{isOverlapping && (
+				<div className='task-overlap-notice'>
+					<span className='overlap-tooltip'>Entries are overlapping</span>
+					&#x2731;
+				</div>
+			)}
 			<div
 				className='task-size-handle'
 				style={{ borderColor: taskProps.color }}
 				draggable='true'
-				onDragStart={(e) => sizeDragStartHandler(e, taskProps.key)} //????????????????????????????
-				onDrag={(e) => sizeDragHandler(e, taskProps.key)} //????????????????????????????
-				onDragEnd={(e) => sizeDragEndHandler(e, taskProps.key)}
-			/>
+				onDragStart={(e) => sizeDragStartHandler(e, taskProps.key)}
+				onDrag={(e) => sizeDragHandler(e, taskProps.key)}
+				onDragEnd={(e) => sizeDragEndHandler(e, taskProps.key)}>
+				<p
+					className='short-task-indicator'
+					style={{
+						color: taskProps.color,
+						visibility: isShortTask(theDate, endDate) ? "visible" : "hidden",
+					}}>
+					&#x279C; . . .
+				</p>
+			</div>
 		</div>
 	);
 }

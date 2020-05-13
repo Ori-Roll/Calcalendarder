@@ -51,13 +51,25 @@ function roundDateToFive(date) {
 function isOverlapping(task, tasksList) {
 	return tasksList.some((item) => {
 		return (
-			(task.startDate.getTime() > item.startDate.getTime() &&
-				task.startDate.getTime() < item.endDate.getTime()) ||
-			(task.endDate.getTime() < item.endDate.getTime() &&
-				task.endDate.getTime() > item.startDate.getTime())
+			task.startDate.getTime() > item.startDate.getTime() &&
+			task.startDate.getTime() <
+				item.endDate.getTime() /* ||
+			(task.startDate.getTime() === item.startDate.getTime() &&
+				task.endDate.getTime() === item.endDate.getTime()) */
 		);
 	});
 }
+
+const isShortTask = (startDate, endDate) => {
+	if (
+		endDate.getHours() - startDate.getHours() < 1 &&
+		endDate.getMinutes() - startDate.getMinutes() < 21
+	) {
+		return true;
+	} else {
+		return false;
+	}
+};
 
 const pickerColors = [
 	"#2C3D4F",
@@ -94,11 +106,17 @@ const pickerColors = [
 
 const todaysHeadStyle = { color: "#f1e5c8", backgroundColor: "#4f6f8e" };
 
-const defaultTaskColor = "#91A79E";
+const defaultTaskColor = "#2769a3";
 
 const dayHeadOffset = 65;
 
 const timePixelsToMin = 60000;
+
+const minTaskLength = 10;
+
+const hoursBeforeDayStart = [0, 1, 2, 3, 4, 5, 6];
+
+const hoursAfterDayEnd = [20, 21, 22, 23];
 
 export {
 	getTaskTimeFromEvent,
@@ -113,4 +131,8 @@ export {
 	roundUpToFive,
 	roundDateToFive,
 	isOverlapping,
+	minTaskLength,
+	hoursBeforeDayStart,
+	hoursAfterDayEnd,
+	isShortTask,
 };

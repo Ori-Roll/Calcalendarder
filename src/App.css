@@ -77,13 +77,13 @@
 }
 
 .task {
-	overflow: hidden;
+	/* overflow: hidden; */
 	display: grid;
 	grid-template-columns: 66% 34%;
 	grid-template-rows: auto 2fr auto;
 	grid-template-areas:
 		"task-title task-time"
-		"task-description task-description"
+		"task-discription task-discription"
 		"task-size-handle task-size-handle";
 	border-top: rgb(241, 241, 245) 1px solid;
 	border-radius: 3px;
@@ -120,32 +120,82 @@
 	grid-area: task-time;
 }
 
-.task-description {
-	grid-area: task-description;
+.task-discription {
+	grid-area: task-discription;
 	font-size: 0.8em;
 	overflow: hidden;
-	padding: 0 0 0 8px;
-	color: rgb(73, 73, 73);
+	padding: 2px 0 0 8px;
+	color: rgb(116, 116, 116);
 }
 
 .task-size-handle {
 	grid-area: task-size-handle;
-	height: 10px;
+	height: 6px;
 	border-bottom: rgb(172, 172, 172) 1px solid;
 	cursor: n-resize;
+	overflow: hidden;
+}
+
+.short-task-indicator {
+	color: rgb(134, 134, 134);
+	font-size: 0.8em;
+	padding: 0 0 5px 5px;
+	position: absolute;
+	bottom: 0;
+	/* transform: rotate(45deg); */
+	overflow: hidden;
+	font-style: italic;
+	visibility: hidden;
+}
+
+.task-overlap-notice {
+	position: absolute;
+	color: rgb(133, 113, 113);
+	bottom: 0;
+	right: 0;
+	font-size: 23px;
+	color: rgba(211, 34, 34, 0.753);
+	padding: 0 3px 2px;
+	/* border-radius: 30px;
+	background-color: rgba(214, 24, 24, 0.075);
+	border: 1px rgba(151, 57, 57, 0.13) solid; */
+}
+
+.task-overlap-notice * {
+	position: absolute;
+}
+
+.overlap-tooltip {
+	visibility: hidden;
+	color: rgb(138, 138, 138);
+	right: 20px;
+	background-color: rgb(255, 255, 255);
+	border: rgb(195, 195, 195) 1px solid;
+	text-align: justify;
+	border-radius: 5px;
+	padding: 6px 12px 8px 9px;
+	font-size: 0.8em;
+}
+
+.task-overlap-notice:hover .overlap-tooltip {
+	visibility: visible;
 }
 
 .time-tool-tip {
 	position: absolute;
-	width: 100%;
+	width: 80%;
 	height: 60px;
 	z-index: 2;
 	pointer-events: none;
 	padding: 0.2em 0.3em;
 	border-top: rgb(223, 223, 223) 1px solid;
-	text-align: center;
+	text-align: left;
 	color: rgb(118, 131, 136);
 	font-size: 0.9em;
+}
+
+.task:hover .time-tool-tip {
+	visibility: hidden;
 }
 
 .nav-bar {
@@ -194,7 +244,7 @@
 			"nav-bar nav-bar"
 			"week    week";
 	}
-	.task-description {
+	.task-discription {
 		font-size: 0.7em;
 	}
 	.task-time {

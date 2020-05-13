@@ -1,7 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import ColorPicker from "./ColorPicker";
-import { defaultTaskColor, roundDateToFive } from "./helpers.js";
+import {
+	defaultTaskColor,
+	roundDateToFive,
+	minTaskLength,
+	hoursBeforeDayStart,
+	hoursAfterDayEnd,
+} from "./helpers.js";
 import colorPickerImg from "../images/colorPicker.png";
 import TimePicker from "rc-time-picker";
 import moment from "moment";
@@ -28,8 +34,6 @@ function TaskForm({
 	const startDate = new Date(taskStartTime);
 
 	const taskTitleRef = useRef();
-
-	/* console.log("FORM: ", initialTask); */
 
 	function inputChangeHandler(e, stateSetter) {
 		stateSetter(e.target.value);
@@ -61,6 +65,58 @@ function TaskForm({
 
 	function toggleColorPicker() {
 		setColorPickerIsOn(!colorPickerIsOn);
+	}
+
+	function hoursAfterEndTime() {
+		const badHours = [...hoursBeforeDayStart];
+		for (let i = 23; i > 0; i--) {
+			if (taskEndTime.getHours() < i) {
+				badHours.push(i);
+			} else {
+				break;
+			}
+		}
+		return badHours;
+	}
+
+	function minAfterEndTime(h) {
+		if (h === taskEndTime.getHours()) {
+			const badMins = [];
+			for (let i = 59; i > 0; i--) {
+				if (taskEndTime.getMinutes() - minTaskLength <= i + 1) {
+					badMins.push(i);
+				} else {
+					break;
+				}
+			}
+			return badMins;
+		}
+	}
+
+	function hoursBeforeStartTime() {
+		const badHours = [...hoursBeforeDayStart];
+		for (let i = 0; i < 23; i++) {
+			if (taskStartTime.getHours() + 1 > i + 1) {
+				badHours.push(i);
+			} else {
+				break;
+			}
+		}
+		return badHours;
+	}
+
+	function minsBeforeStartTime(h) {
+		if (h === taskStartTime.getHours()) {
+			const badMins = [];
+			for (let i = 0; i < 59; i++) {
+				if (taskStartTime.getMinutes() + minTaskLength >= i + 1) {
+					badMins.push(i);
+				} else {
+					break;
+				}
+			}
+			return badMins;
+		}
 	}
 
 	useEffect(() => {
@@ -124,6 +180,9 @@ function TaskForm({
 				allowEmpty={false}
 				popupClassName={"popup"}
 				minuteStep={5}
+				hideDisabledOptions={true}
+				disabledHours={() => hoursAfterEndTime()}
+				disabledMinutes={(h) => minAfterEndTime(h)}
 				onChange={(momentObj) => timeChangeHandler(setTaskStartTime, momentObj)}
 			/>
 			{/* <input
@@ -157,6 +216,9 @@ function TaskForm({
 				allowEmpty={false}
 				popupClassName={"popup"}
 				minuteStep={5}
+				disabledHours={() => hoursBeforeStartTime()}
+				disabledMinutes={(h) => minsBeforeStartTime(h)}
+				hideDisabledOptions={true}
 				onChange={(momentObj) => timeChangeHandler(setTaskEndTime, momentObj)}
 			/>
 			{/* <input
