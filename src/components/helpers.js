@@ -14,9 +14,13 @@ function getDefaultData() {
 	return defaultData;
 }
 
-function getTaskTimeFromEvent(onDayRef, event) {
+function getTaskTimeFromEvent(onDayRef, event, clickToTaskStartDif) {
 	let timeNumValue =
-		(event.clientY - onDayRef.current.offsetTop - (defaultTask.dayStartHour - 1)) / 60 + 6;
+		(event.clientY - onDayRef.current.offsetTop - defaultTask.dayStartHour - 6) / 60 + 6;
+	if (clickToTaskStartDif) {
+		timeNumValue -= clickToTaskStartDif / 60;
+		console.log("timeNumValue", timeNumValue);
+	}
 	let fixedHour = timeNumValue > 7 ? Math.floor(timeNumValue) : 0;
 	let fixedMin = timeNumValue > 7 ? Math.floor((timeNumValue - Math.floor(timeNumValue)) * 60) : 0;
 	return { hours: fixedHour, minutes: fixedMin };

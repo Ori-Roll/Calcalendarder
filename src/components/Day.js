@@ -56,10 +56,6 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 		taskLog,
 	} = useContext(AppContext);
 
-	/* console.log("DAY --------! ", dayNumber); */
-	/* console.log("DAY taskData! ", taskData);
-	console.log("DAY dayTasks! ", dayTasks); */
-
 	const dayRef = useRef();
 
 	const titleStyleChange = isSameDate(dayDate, currentDate) ? todaysHeadStyle : {};
@@ -140,7 +136,9 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 		if (bottomDragged !== true) {
 			const taskIndex = dayTasks.findIndex((item) => item.key === taskProps.key);
 			dayTasks.splice(taskIndex, 1);
+			const clickToTaskStartDif = e.clientY - e.target.getBoundingClientRect().y;
 			e.dataTransfer.setData("taskKey", taskProps.key);
+			e.dataTransfer.setData("clickToTaskStartDif", clickToTaskStartDif);
 		}
 	}
 
@@ -151,9 +149,8 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 	function onDropHandler(e) {
 		if (bottomDragged !== true) {
 			e.preventDefault();
-			const dropedTaskKey = e.dataTransfer.getData("taskKey");
 			const dropedTaskIndex = taskData.findIndex((item) => {
-				return item.key.toString() === dropedTaskKey;
+				return item.key.toString() === e.dataTransfer.getData("taskKey");
 			});
 			const dropedTask = taskData[dropedTaskIndex];
 			const newTask = { ...dropedTask };
@@ -161,16 +158,18 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 			const taskMinutesTimeDifferance =
 				newTask.endDate.getMinutes() - newTask.startDate.getMinutes();
 
+			const clickToTaskStartDif = e.dataTransfer.getData("clickToTaskStartDif");
+
 			newTask.startDate.setTime(dayDate.getTime());
-			newTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e).hours);
-			newTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e).minutes);
+			newTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e, clickToTaskStartDif).hours);
+			newTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e, clickToTaskStartDif).minutes);
 			newTask.startDate = roundDateToFive(newTask.startDate);
 
 			newTask.endDate.setTime(dayDate.getTime());
 			newTask.endDate.setHours(newTask.startDate.getHours() + taskHoursTimeDifference);
 			newTask.endDate.setMinutes(newTask.startDate.getMinutes() + taskMinutesTimeDifferance);
 			newTask.endDate = roundDateToFive(newTask.endDate);
-			console.log("newTask issss", newTask.endDate);
+			/* console.log("newTask issss", newTask.endDate); */
 			replaceTasks(dropedTask.key, newTask);
 			setWeekLog(() => {
 				return { task: dropedTask, date: new Date() };
@@ -208,11 +207,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 
 		let newPos = bottomDragStartOfTaskSet + (e.clientY - bottomDragStartPos) * timePixelsToMin;
 		let checkSize = resizedTask.endDate.getTime() > resizedTask.startDate.getTime() + 600000;
-		/* console.log(bottomDragStartOfTaskSet);
-		console.log((e.clientY - bottomDragStartPos) * timePixelsToMin); */
-		/* console.log(new Date(bottomDragStartOfTaskSet)); */
-		/* console.log(resizedTask);
-		console.log(resizedTask.startDate.getTime() + 600000); */
+
 		if (!noDragTimer) {
 			resizedTask.endDate.setTime(newPos);
 			/* setForceResetTasks(true); */
@@ -223,10 +218,9 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 	}
 
 	function sizeDragEndHandler(e, taskKey) {
-		let roundDragPos = roundUpToFive(e.clientY - bottomDragStartPos);
-		const dragTo = bottomDragStartOfTaskSet + roundDragPos * 60000;
-		console.log(bottomDragStartPos);
-		resizedTask.endDate.setTime(dragTo);
+		let dragDiffrance = e.clientY - bottomDragStartPos;
+		const dragTo = bottomDragStartOfTaskSet + dragDiffrance * 60000;
+		resizedTask.endDate.setTime(roundDateToFive(new Date(dragTo)));
 		bottomDragged = false;
 		/* setForceResetTasks(false); */
 	}
