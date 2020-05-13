@@ -48,6 +48,17 @@ function roundDateToFive(date) {
 	return newDate;
 }
 
+function isOverlapping(task, tasksList) {
+	return tasksList.some((item) => {
+		return (
+			(task.startDate.getTime() > item.startDate.getTime() &&
+				task.startDate.getTime() < item.endDate.getTime()) ||
+			(task.endDate.getTime() < item.endDate.getTime() &&
+				task.endDate.getTime() > item.startDate.getTime())
+		);
+	});
+}
+
 const pickerColors = [
 	"#2C3D4F",
 	"#91A79E",
@@ -101,4 +112,5 @@ export {
 	dateifyTaskTime,
 	roundUpToFive,
 	roundDateToFive,
+	isOverlapping,
 };

@@ -9,7 +9,7 @@ import {
 	todaysHeadStyle,
 	dayHeadOffset,
 	timePixelsToMin,
-	roundUpToFive,
+	isOverlapping,
 	roundDateToFive,
 } from "./helpers.js";
 
@@ -75,6 +75,18 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 			setNoDragTimer(false);
 		}, 100);
 	}, [noDragTimer]);
+
+	setTimeout(
+		() =>
+			dayTasks.forEach((item) => {
+				if (isOverlapping(item, dayTasks)) {
+					item.isOverlapping = true;
+				} else {
+					item.isOverlapping = false;
+				}
+			}),
+		0
+	);
 
 	function getTasks(startDate, endTime) {
 		let taskSet = taskData.filter((item) => {
@@ -171,9 +183,9 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 			newTask.endDate = roundDateToFive(newTask.endDate);
 			/* console.log("newTask issss", newTask.endDate); */
 			replaceTasks(dropedTask.key, newTask);
-			setWeekLog(() => {
+			/* 	setWeekLog(() => {
 				return { task: dropedTask, date: new Date() };
-			});
+			}); */
 			/* setForceResetTasks(true); */
 			/* setTaskDataChangeLog(oldLog => {
 				console.log("logChange");

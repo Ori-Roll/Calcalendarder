@@ -14,6 +14,8 @@ function Task({
 	let theDate = new Date(taskProps.startDate);
 	let endDate = new Date(taskProps.endDate);
 
+	const { isOverlapping } = taskProps;
+
 	// This creates startDate format
 	let taskTime = (() => {
 		if (taskProps.startDate === "") {
@@ -76,6 +78,7 @@ function Task({
 			<p className='task-description' style={taskTooSmallToP()}>
 				{taskProps.description}
 			</p>
+			{isOverlapping && <div className={"task-overlap-notice"}>OVERLAPPING</div>}
 			<div
 				className='task-size-handle'
 				style={{ borderColor: taskProps.color }}
