@@ -11,6 +11,7 @@ import {
 	timePixelsToMin,
 	isOverlapping,
 	roundDateToFive,
+	minTaskLength,
 } from "./helpers.js";
 
 let dateToSet = new Date();
@@ -183,14 +184,11 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 			newTask.endDate = roundDateToFive(newTask.endDate);
 			/* console.log("newTask issss", newTask.endDate); */
 			replaceTasks(dropedTask.key, newTask);
-			/* 	setWeekLog(() => {
-				return { task: dropedTask, date: new Date() };
-			}); */
-			/* setForceResetTasks(true); */
-			/* setTaskDataChangeLog(oldLog => {
-				console.log("logChange");
-				return [...oldLog, { task: dropedTask, date: new Date() }];
-			}); */
+		}
+	}
+	function onDragEndHandler(e) {
+		if (e.dataTransfer.dropEffect === "none") {
+			setDayTasks(getTasks(dayStartTime, dayEndTime));
 		}
 	}
 
@@ -218,12 +216,13 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 			); */
 
 		let newPos = bottomDragStartOfTaskSet + (e.clientY - bottomDragStartPos) * timePixelsToMin;
-		let checkSize = resizedTask.endDate.getTime() > resizedTask.startDate.getTime() + 600000;
-
-		if (!noDragTimer) {
-			resizedTask.endDate.setTime(newPos);
-			/* setForceResetTasks(true); */
-			setNoDragTimer(true);
+		let taskSizeNotNegative = resizedTask.endDate.getTime() > resizedTask.startDate.getTime();
+		if (taskSizeNotNegative) {
+			if (!noDragTimer && taskSizeNotNegative) {
+				resizedTask.endDate.setTime(newPos);
+				/* setForceResetTasks(true); */
+				setNoDragTimer(true);
+			}
 		}
 
 		/* skipDragFuncByMin(doSizeDrag, e, 5); */
@@ -232,7 +231,11 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 	function sizeDragEndHandler(e, taskKey) {
 		let dragDiffrance = e.clientY - bottomDragStartPos;
 		const dragTo = bottomDragStartOfTaskSet + dragDiffrance * 60000;
+		let taskSizeNotNegative = resizedTask.endDate.getTime() > resizedTask.startDate.getTime();
 		resizedTask.endDate.setTime(roundDateToFive(new Date(dragTo)));
+		if (!taskSizeNotNegative) {
+			resizedTask.endDate.setTime(resizedTask.startDate.getTime() + minTaskLength * 3 * 60000);
+		}
 		bottomDragged = false;
 		/* setForceResetTasks(false); */
 	}
@@ -269,6 +272,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 						sizeDragStartHandler={sizeDragStartHandler}
 						sizeDragHandler={sizeDragHandler}
 						sizeDragEndHandler={sizeDragEndHandler}
+						onDragEndHandler={onDragEndHandler}
 					/>
 				))}
 				{timeToolTipIsOn && (

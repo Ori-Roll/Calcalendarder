@@ -6,6 +6,7 @@ function Task({
 	taskProps = getDefaultData(),
 	onTaskClick,
 	onDragStartHandler,
+	onDragEndHandler,
 	sizeDragStartHandler,
 	sizeDragEndHandler,
 	sizeDragHandler,
@@ -71,6 +72,7 @@ function Task({
 			}}
 			onClick={taskClickHandler}
 			onDragStart={(e) => onDragStartHandler(e, taskProps)}
+			onDragEnd={(e) => onDragEndHandler(e)}
 			draggable='true'>
 			<p
 				className='task-title'
@@ -86,7 +88,7 @@ function Task({
 				style={{
 					color: taskProps.color,
 					borderLeftColor: taskProps.color,
-					/* visibility: isShortTask(theDate, endDate) ? "hidden" : "visible", */
+					visibility: isShortTask(theDate, endDate) ? "hidden" : "visible",
 				}}>
 				{`${taskTime} ${taskEndTime}`}
 			</p>
@@ -95,7 +97,7 @@ function Task({
 			</p>
 			{isOverlapping && (
 				<div className='task-overlap-notice'>
-					<span className='overlap-tooltip'>Entries are overlapping</span>
+					<span className='overlap-tooltip'>Times overlap</span>
 					&#x2731;
 				</div>
 			)}
@@ -111,8 +113,9 @@ function Task({
 					style={{
 						color: taskProps.color,
 						visibility: isShortTask(theDate, endDate) ? "visible" : "hidden",
+						borderLeft: isShortTask(theDate, endDate) ? `3px ${taskProps.color} solid` : "none",
 					}}>
-					&#x279C; . . .
+					&#x225A; . . .
 				</p>
 			</div>
 		</div>
