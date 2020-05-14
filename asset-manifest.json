@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/Calcalendarder/static/css/main.d746e7e4.chunk.css",
-    "main.js": "/Calcalendarder/static/js/main.10327404.chunk.js",
-    "main.js.map": "/Calcalendarder/static/js/main.10327404.chunk.js.map",
-    "runtime-main.js": "/Calcalendarder/static/js/runtime-main.3385b06b.js",
-    "runtime-main.js.map": "/Calcalendarder/static/js/runtime-main.3385b06b.js.map",
-    "static/css/2.764ccc25.chunk.css": "/Calcalendarder/static/css/2.764ccc25.chunk.css",
-    "static/js/2.b647aecf.chunk.js": "/Calcalendarder/static/js/2.b647aecf.chunk.js",
-    "static/js/2.b647aecf.chunk.js.map": "/Calcalendarder/static/js/2.b647aecf.chunk.js.map",
+    "main.css": "/Calcalendarder/static/css/main.5122f9ce.chunk.css",
+    "main.js": "/Calcalendarder/static/js/main.01496393.chunk.js",
+    "main.js.map": "/Calcalendarder/static/js/main.01496393.chunk.js.map",
+    "runtime-main.js": "/Calcalendarder/static/js/runtime-main.44faf4f7.js",
+    "runtime-main.js.map": "/Calcalendarder/static/js/runtime-main.44faf4f7.js.map",
+    "static/css/2.b3e56d76.chunk.css": "/Calcalendarder/static/css/2.b3e56d76.chunk.css",
+    "static/js/2.76c5550c.chunk.js": "/Calcalendarder/static/js/2.76c5550c.chunk.js",
+    "static/js/2.76c5550c.chunk.js.map": "/Calcalendarder/static/js/2.76c5550c.chunk.js.map",
     "index.html": "/Calcalendarder/index.html",
-    "precache-manifest.9f1bfea7c00156dc752f2dc7733dfcdf.js": "/Calcalendarder/precache-manifest.9f1bfea7c00156dc752f2dc7733dfcdf.js",
+    "precache-manifest.dc8bf50b318caf65516f65d046f73d21.js": "/Calcalendarder/precache-manifest.dc8bf50b318caf65516f65d046f73d21.js",
     "service-worker.js": "/Calcalendarder/service-worker.js",
-    "static/css/2.764ccc25.chunk.css.map": "/Calcalendarder/static/css/2.764ccc25.chunk.css.map",
-    "static/css/main.d746e7e4.chunk.css.map": "/Calcalendarder/static/css/main.d746e7e4.chunk.css.map",
-    "static/js/2.b647aecf.chunk.js.LICENSE": "/Calcalendarder/static/js/2.b647aecf.chunk.js.LICENSE"
+    "static/css/2.b3e56d76.chunk.css.map": "/Calcalendarder/static/css/2.b3e56d76.chunk.css.map",
+    "static/css/main.5122f9ce.chunk.css.map": "/Calcalendarder/static/css/main.5122f9ce.chunk.css.map",
+    "static/js/2.76c5550c.chunk.js.LICENSE.txt": "/Calcalendarder/static/js/2.76c5550c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.3385b06b.js",
-    "static/css/2.764ccc25.chunk.css",
-    "static/js/2.b647aecf.chunk.js",
-    "static/css/main.d746e7e4.chunk.css",
-    "static/js/main.10327404.chunk.js"
+    "static/js/runtime-main.44faf4f7.js",
+    "static/css/2.b3e56d76.chunk.css",
+    "static/js/2.76c5550c.chunk.js",
+    "static/css/main.5122f9ce.chunk.css",
+    "static/js/main.01496393.chunk.js"
   ]
 }
