@@ -152,8 +152,8 @@ function AppContextProvider(props) {
 		setTaskData((prevData) => {
 			const newData = [...prevData];
 			newData.push(newTask);
-			console.log("newTask", newTask);
-			console.log("newData", newData);
+			/* console.log("newTask", newTask);
+			console.log("newData", newData); */
 			newData.sort((a, b) => {
 				if (a.startDate.getTime() < b.startDate.getTime()) {
 					return -1;

@@ -19,7 +19,6 @@ function getTaskTimeFromEvent(onDayRef, event, clickToTaskStartDif) {
 		(event.clientY - onDayRef.current.offsetTop - defaultTask.dayStartHour - 6) / 60 + 6;
 	if (clickToTaskStartDif) {
 		timeNumValue -= clickToTaskStartDif / 60;
-		console.log("timeNumValue", timeNumValue);
 	}
 	let fixedHour = timeNumValue > 7 ? Math.floor(timeNumValue) : 0;
 	let fixedMin = timeNumValue > 7 ? Math.floor((timeNumValue - Math.floor(timeNumValue)) * 60) : 0;
@@ -40,8 +39,8 @@ function roundUpToFive(num) {
 
 function roundDateToFive(date) {
 	let minValue = date.getMinutes();
-	for (let i = 5; i > 0; i--) {
-		minValue = Number.isInteger(minValue / 5) ? minValue : minValue + 1;
+	for (let i = 10; i > 0; i--) {
+		minValue = Number.isInteger(minValue / 10) ? minValue : minValue + 1;
 	}
 	let newDate = new Date(date.getTime());
 	newDate.setMinutes(minValue);
@@ -63,7 +62,7 @@ function isOverlapping(task, tasksList) {
 const isShortTask = (startDate, endDate) => {
 	if (
 		endDate.getHours() - startDate.getHours() < 1 &&
-		endDate.getMinutes() - startDate.getMinutes() < 21
+		endDate.getMinutes() - startDate.getMinutes() < 26
 	) {
 		return true;
 	} else {

@@ -3,7 +3,6 @@ import { AppContext } from "../appContext.js";
 import Day from "./Day.js";
 
 function Week() {
-	console.log("WEEK INIT");
 	const [weekDefocus, setWeekDefocus] = useState(false);
 	const [weekLog, setWeekLog] = useState([]);
 	/* const [forceWeekRefresh, setForceWeekRefresh] = useState(false); */
