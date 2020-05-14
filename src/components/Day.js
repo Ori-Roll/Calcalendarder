@@ -20,6 +20,7 @@ const getDateWithoutTime = (date) =>
 	[date.getDate(), date.getMonth(), date.getFullYear()].join(" ");
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
 const daysShortNames = Object.freeze(["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]);
+
 let bottomDragged = false;
 let bottomDragStartPos = 0;
 let bottomDragStartOfTaskSet = 0;
@@ -61,13 +62,14 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 
 	const titleStyleChange = isSameDate(dayDate, currentDate) ? todaysHeadStyle : {};
 
+	/* console.log("DAY!", taskData); */
+
 	useEffect(() => {
 		setCurrentDate(new Date());
 	}, []);
 
 	useEffect(() => {
 		setDayTasks(getTasks(dayStartTime, dayEndTime));
-
 		/* setTimeout(setForceResetTasks(false), 100); */
 	}, [taskLog, taskData.length /* , forceResetTasks */]);
 
