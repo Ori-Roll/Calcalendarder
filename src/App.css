@@ -299,7 +299,7 @@
 		"task-form-bottom-color	 .	task-form-discription	task-form-discription 	task-form-discription"
 		"task-form-bottom-color	 .	task-form-time-lable	task-form-time        	task-form-color"
 		"task-form-bottom-color	 .	task-form-end-lable  	task-form-time-end    	task-form-color"
-		"task-form-bottom-color	 .	.						task-form-cancel       	task-form-submit";
+		"task-form-bottom-color	 .	task-form-delete		task-form-cancel       	task-form-submit";
 }
 
 @keyframes form-pop-in {
@@ -404,7 +404,8 @@
 	grid-area: task-form-time;
 	margin: 22px 50px 0px 0px;
 	padding: 0 0 0 3px;
-	border: rgb(206, 206, 206) 1px solid;
+	border: rgb(228, 228, 228) 2px solid;
+	font-size: 1.05em;
 	border-radius: 3px;
 }
 
@@ -422,8 +423,9 @@
 	grid-area: task-form-time-end;
 	margin: 10px 50px 15px 0px;
 	padding: 0 0 0 3px;
-	border: rgb(206, 206, 206) 1px solid;
-	border-radius: 3px;
+	border: rgb(228, 228, 228) 2px solid;
+	font-size: 1.05em;
+	border-radius: 5px;
 }
 .task-form-submit {
 	grid-area: task-form-submit;
@@ -442,9 +444,13 @@
 	font-size: 22px;
 }
 
-/* .task-form-delete {
+.task-form-delete {
+	background: none;
+	height: 26px;
+	margin: 30px 0 0 32px;
+	cursor: pointer;
 	grid-area: task-form-delete;
-} */
+}
 
 .task-form-color {
 	grid-area: task-form-color;

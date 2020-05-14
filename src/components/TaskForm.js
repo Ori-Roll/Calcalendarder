@@ -9,6 +9,7 @@ import {
 	hoursAfterDayEnd,
 } from "./helpers.js";
 import colorPickerImg from "../images/colorPicker.png";
+import trashImg from "../images/Trash.jpg";
 import TimePicker from "rc-time-picker";
 import moment from "moment";
 import "rc-time-picker/assets/index.css";
@@ -117,6 +118,12 @@ function TaskForm({
 			}
 			return badMins;
 		}
+	}
+
+	function deleteThisTask() {
+		removeTaskWithKey(initialTask.key);
+		setShowTaskForm(false);
+		setWeekDefocus(false);
 	}
 
 	useEffect(() => {
@@ -242,9 +249,6 @@ function TaskForm({
 				<img src={colorPickerImg} />
 			</div>
 
-			{/* <button className='task-form-delete'
-			onClick={}>&#128465;</button> */}
-
 			<button
 				type='submit'
 				className='task-form-submit'
@@ -269,6 +273,7 @@ function TaskForm({
 			<button type='button' className='task-form-cancel' onClick={cancelClickHandler}>
 				&#x2716;
 			</button>
+			<img src={trashImg} className='task-form-delete' onClick={deleteThisTask}></img>
 
 			{colorPickerIsOn && (
 				<ColorPicker setTaskColor={setTaskColor} toggleColorPicker={toggleColorPicker} />
