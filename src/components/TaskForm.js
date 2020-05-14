@@ -94,7 +94,7 @@ function TaskForm({
 	}
 
 	function hoursBeforeStartTime() {
-		const badHours = [...hoursBeforeDayStart];
+		const badHours = [...hoursAfterDayEnd];
 		for (let i = 0; i < 23; i++) {
 			if (taskStartTime.getHours() + 1 > i + 1) {
 				badHours.push(i);
@@ -241,6 +241,9 @@ function TaskForm({
 				style={{ backgroundColor: taskColor }}>
 				<img src={colorPickerImg} />
 			</div>
+
+			{/* <button className='task-form-delete'
+			onClick={}>&#128465;</button> */}
 
 			<button
 				type='submit'

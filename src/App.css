@@ -80,7 +80,7 @@
 	/* overflow: hidden; */
 	display: grid;
 	grid-template-columns: 66% 34%;
-	grid-template-rows: auto 2fr auto;
+	grid-template-rows: auto 2fr 10px;
 	grid-template-areas:
 		"task-title task-time"
 		"task-discription task-discription"
@@ -130,7 +130,7 @@
 
 .task-size-handle {
 	grid-area: task-size-handle;
-	height: 6px;
+	height: 10px;
 	border-bottom: rgb(172, 172, 172) 1px solid;
 	cursor: n-resize;
 	overflow: hidden;
@@ -144,21 +144,16 @@
 	bottom: 0;
 	/* transform: rotate(45deg); */
 	overflow: hidden;
-	font-style: italic;
 	visibility: hidden;
 }
 
 .task-overlap-notice {
 	position: absolute;
-	color: rgb(133, 113, 113);
 	bottom: 0;
 	right: 0;
 	font-size: 23px;
 	color: rgba(211, 34, 34, 0.753);
 	padding: 0 3px 2px;
-	/* border-radius: 30px;
-	background-color: rgba(214, 24, 24, 0.075);
-	border: 1px rgba(151, 57, 57, 0.13) solid; */
 }
 
 .task-overlap-notice * {
@@ -168,13 +163,14 @@
 .overlap-tooltip {
 	visibility: hidden;
 	color: rgb(138, 138, 138);
-	right: 20px;
+	right: 25px;
+	bottom: -13px;
 	background-color: rgb(255, 255, 255);
 	border: rgb(195, 195, 195) 1px solid;
-	text-align: justify;
+	text-align: center;
 	border-radius: 5px;
 	padding: 6px 12px 8px 9px;
-	font-size: 0.8em;
+	font-size: 0.75em;
 }
 
 .task-overlap-notice:hover .overlap-tooltip {
@@ -303,7 +299,7 @@
 		"task-form-bottom-color	 .	task-form-discription	task-form-discription 	task-form-discription"
 		"task-form-bottom-color	 .	task-form-time-lable	task-form-time        	task-form-color"
 		"task-form-bottom-color	 .	task-form-end-lable  	task-form-time-end    	task-form-color"
-		"task-form-bottom-color	 .	.     					task-form-cancel       	task-form-submit";
+		"task-form-bottom-color	 .	.						task-form-cancel       	task-form-submit";
 }
 
 @keyframes form-pop-in {
@@ -445,6 +441,11 @@
 	margin: 5px 0 0 30px;
 	font-size: 22px;
 }
+
+/* .task-form-delete {
+	grid-area: task-form-delete;
+} */
+
 .task-form-color {
 	grid-area: task-form-color;
 	width: 40px;
