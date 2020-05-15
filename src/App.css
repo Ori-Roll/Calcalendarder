@@ -15,6 +15,68 @@
 	min-width: 0;
 }
 
+.nav-bar {
+	grid-area: nav-bar;
+	align-items: center;
+	background-color: rgb(255, 255, 255);
+	border-bottom: rgb(233, 233, 233) 1px solid;
+	/* display: grid;
+	
+	grid-template-columns: 2fr 50fr 1fr; */
+}
+
+.nav-bar h1 {
+	font-size: 2.2em;
+	color: rgb(150, 223, 186);
+	color: #2c3d4f;
+	background-color: #edb19f;
+	display: inline-block;
+	margin: 5px 0 0 20px;
+}
+
+.today-btn {
+	margin: 6px 15px;
+	padding: 8px 15px 10px 12px;
+	position: absolute;
+	right: 2.2em;
+	top: 16px;
+	font-size: 1.1em;
+	font-weight: 600;
+	border: rgb(219, 219, 219) 1px solid;
+	/* border-bottom: rgb(199, 199, 199) 1px solid; */
+	border-radius: 5px;
+	color: #394857;
+	cursor: pointer;
+	margin: 0 0 5px;
+
+	/* color: #f1e5c8;
+		background-color: #4f6f8e;
+		
+		padding: 5px 7px;
+		position: absolute;
+		right: 2em;
+		top: 16px;
+		font-size: 0.8em;
+		font-weight: 500;
+		cursor: pointer; */
+}
+.today-btn:hover {
+	/* background-color: #2c3d4f;
+	color: white; */
+	border-bottom: rgb(186, 196, 204) 1px solid;
+	color: #466a91;
+}
+
+.menu-btn {
+	width: 45px;
+	height: 45px;
+	border: rgb(221, 221, 221) 1px solid;
+	border-radius: 30px;
+	margin: 0 0 5px 10px;
+	background-color: white;
+	font-size: 1.5em;
+}
+
 .week {
 	grid-area: week;
 	display: grid;
@@ -69,7 +131,7 @@
 	font-size: 1.1em;
 	cursor: none;
 	height: 55px;
-	z-index: 50;
+	z-index: 0;
 }
 
 .dayTitle p {
@@ -194,32 +256,6 @@
 	visibility: hidden;
 }
 
-.nav-bar {
-	grid-area: nav-bar;
-	align-items: center;
-	background-color: rgb(255, 255, 255);
-	border-bottom: rgb(233, 233, 233) 1px solid;
-}
-
-.nav-bar h1 {
-	font-size: 2.2em;
-	color: rgb(150, 223, 186);
-	color: #2c3d4f;
-	background-color: #edb19f;
-	display: inline-block;
-	margin: 5px 0 0 20px;
-}
-
-.menu-btn {
-	width: 45px;
-	height: 45px;
-	border: rgb(221, 221, 221) 1px solid;
-	border-radius: 30px;
-	margin: 0 0 5px 10px;
-	background-color: white;
-	font-size: 1.5em;
-}
-
 .date-select-drop {
 	padding: 0 20px 2px;
 	margin: 0 0 0 27px;
@@ -240,6 +276,7 @@
 			"nav-bar nav-bar"
 			"week    week";
 	}
+
 	.task-discription {
 		font-size: 0.7em;
 	}
@@ -337,8 +374,9 @@
 	display: grid;
 	grid-template-columns: repeat(5, auto);
 	grid-template-rows: repeat(6, auto);
+	gap: 2px;
 	top: 28px;
-	left: 20px;
+	left: 18px;
 	padding: 5px;
 	background-color: white;
 	border: none;
@@ -435,6 +473,7 @@
 	margin: 0 32px 0 0;
 	font-size: 25px;
 }
+
 .task-form-cancel {
 	grid-area: task-form-cancel;
 	background: none;
