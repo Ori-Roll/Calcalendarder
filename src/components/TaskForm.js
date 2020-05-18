@@ -44,18 +44,6 @@ function TaskForm({
 		stateSetter(new Date(momentObj.valueOf()));
 	}
 
-	/* 	function submitHandler(e) {
-		isNew ? console.log("I is New") : console.log("I is OLD");
-		e.preventDefault();
-		initialTask.startDate = taskStartTime;
-		initialTask.endDate = taskEndTime;
-		initialTask.title = taskTitle;
-		initialTask.description = taskDescription;
-		initialTask.color = taskColor;
-		setWeekDefocus(false);
-		setShowTaskForm(false);
-	} */
-
 	function cancelClickHandler() {
 		if (isNew) {
 			removeTaskWithKey(initialTask.key);

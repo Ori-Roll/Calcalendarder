@@ -62,8 +62,6 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 
 	const titleStyleChange = isSameDate(dayDate, currentDate) ? todaysHeadStyle : {};
 
-	/* console.log("DAY!", taskData); */
-
 	useEffect(() => {
 		setCurrentDate(new Date());
 	}, []);
@@ -184,12 +182,12 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 			newTask.endDate.setHours(newTask.startDate.getHours() + taskHoursTimeDifference);
 			newTask.endDate.setMinutes(newTask.startDate.getMinutes() + taskMinutesTimeDifferance);
 			newTask.endDate = roundDateToFive(newTask.endDate);
-			/* console.log("newTask issss", newTask.endDate); */
 			replaceTasks(dropedTask.key, newTask);
 		}
 	}
 	function onDragEndHandler(e) {
 		if (e.dataTransfer.dropEffect === "none") {
+			/* setWeekLog((oldLog) => ({ ...oldLog, e })); */
 			setDayTasks(getTasks(dayStartTime, dayEndTime));
 		}
 	}
@@ -211,12 +209,6 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 	}
 
 	function sizeDragHandler(e, taskKey) {
-		/* console.log((e.clientY - bottomDragStartPos) * 60000); */
-		/* console.log(
-				bottomDragStartOfTaskSet + (e.clientY - bottomDragStartPos) * timePixelsToMin <
-					resizedTask.startDate.getTime()
-			); */
-
 		let newPos = bottomDragStartOfTaskSet + (e.clientY - bottomDragStartPos) * timePixelsToMin;
 		let taskSizeNotNegative = resizedTask.endDate.getTime() > resizedTask.startDate.getTime();
 		if (taskSizeNotNegative) {

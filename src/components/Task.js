@@ -11,7 +11,6 @@ function Task({
 	sizeDragEndHandler,
 	sizeDragHandler,
 }) {
-	/* console.log("task!!!", taskProps); */
 	let theDate = new Date(taskProps.startDate);
 	let endDate = new Date(taskProps.endDate);
 

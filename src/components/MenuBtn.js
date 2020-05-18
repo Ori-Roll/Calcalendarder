@@ -1,9 +1,7 @@
 import React from "react";
 
 function MenuBtn() {
-	function menuBtnHandler() {
-		console.log("menuBtnClick!");
-	}
+	function menuBtnHandler() {}
 
 	return (
 		<button className='menu-btn' onClick={menuBtnHandler}>

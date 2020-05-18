@@ -152,8 +152,6 @@ function AppContextProvider(props) {
 		setTaskData((prevData) => {
 			const newData = [...prevData];
 			newData.push(newTask);
-			/* console.log("newTask", newTask);
-			console.log("newData", newData); */
 			newData.sort((a, b) => {
 				if (a.startDate.getTime() < b.startDate.getTime()) {
 					return -1;
@@ -168,8 +166,6 @@ function AppContextProvider(props) {
 	}
 
 	function removeTaskWithKey(removedTaskKey) {
-		console.log("remove task with key :" + removedTaskKey);
-
 		const newTaskData = [...taskData];
 
 		let taskIndex = taskData.findIndex((item) => item.key === removedTaskKey);
@@ -177,8 +173,6 @@ function AppContextProvider(props) {
 		taskIndex > -1 ? newTaskData.splice(taskIndex, 1) : console.log("no matching task key");
 
 		setTaskData(newTaskData);
-
-		console.log("taskData is now :", newTaskData);
 	}
 
 	function replaceTasks(oldTaskKey, newTask) {
