@@ -24,15 +24,15 @@ function TaskForm({
 }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
 	const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
-	const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
-	const [endTimeDisplay, setEndTimeDisplay] = useState("10:00");
+	/* const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
+	const [endTimeDisplay, setEndTimeDisplay] = useState("10:00"); */
 
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
 	const [taskDescription, setTaskDescription] = useState(initialTask.description);
 	const [taskColor, setTaskColor] = useState(isNew ? defaultTaskColor : initialTask.color);
 	const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
 
-	const startDate = new Date(taskStartTime);
+	/* const startDate = new Date(taskStartTime); */
 
 	const taskTitleRef = useRef();
 
@@ -116,15 +116,13 @@ function TaskForm({
 
 	useEffect(() => {
 		taskTitleRef.current.focus();
-		function setTimeDisplay(setDisplayFunc, sourceDate) {
+		/* function setTimeDisplay(setDisplayFunc, sourceDate) {
 			setDisplayFunc(
 				sourceDate.getHours().toString().padStart(2, 0) +
 					":" +
 					sourceDate.getMinutes().toString().padStart(2, 0)
 			);
-		}
-		setTimeDisplay(setStartTimeDisplay, startDate);
-		setTimeDisplay(setEndTimeDisplay, taskEndTime);
+		} */
 
 		setTaskStartTime(roundDateToFive(taskStartTime));
 		setTaskEndTime(roundDateToFive(taskEndTime));
@@ -234,7 +232,7 @@ function TaskForm({
 				className='task-form-color'
 				name='form-color'
 				style={{ backgroundColor: taskColor }}>
-				<img src={colorPickerImg} />
+				<img src={colorPickerImg} alt='COLOR' />
 			</div>
 
 			<button
@@ -261,7 +259,7 @@ function TaskForm({
 			<button type='button' className='task-form-cancel' onClick={cancelClickHandler}>
 				&#x2716;
 			</button>
-			<img src={trashImg} className='task-form-delete' onClick={deleteThisTask}></img>
+			<img src={trashImg} alt='DELETE' className='task-form-delete' onClick={deleteThisTask}></img>
 
 			{colorPickerIsOn && (
 				<ColorPicker setTaskColor={setTaskColor} toggleColorPicker={toggleColorPicker} />

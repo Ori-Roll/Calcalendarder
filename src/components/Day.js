@@ -26,7 +26,7 @@ let bottomDragStartPos = 0;
 let bottomDragStartOfTaskSet = 0;
 let resizedTask;
 
-function Day({ dayDate, setWeekDefocus, setWeekLog }) {
+function Day({ dayDate, setWeekDefocus }) {
 	const dayNumber = dayDate.getDate().toString();
 	const dayShortName = daysShortNames[dayDate.getDay()];
 	const dayStartTime = dayDate.getTime();
@@ -68,8 +68,7 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 
 	useEffect(() => {
 		setDayTasks(getTasks(dayStartTime, dayEndTime));
-		/* setTimeout(setForceResetTasks(false), 100); */
-	}, [taskLog, taskData.length /* , forceResetTasks */]);
+	}, [taskLog, taskData.length]);
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -187,7 +186,6 @@ function Day({ dayDate, setWeekDefocus, setWeekLog }) {
 	}
 	function onDragEndHandler(e) {
 		if (e.dataTransfer.dropEffect === "none") {
-			/* setWeekLog((oldLog) => ({ ...oldLog, e })); */
 			setDayTasks(getTasks(dayStartTime, dayEndTime));
 		}
 	}

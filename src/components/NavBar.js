@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { AppContext } from "../appContext.js";
-import MenuBtn from "./MenuBtn.js";
 
 function NavBar() {
 	const { setFocusDate } = useContext(AppContext);
@@ -16,7 +15,7 @@ function NavBar() {
 					dateToSet.setMinutes(0);
 					setFocusDate(dateToSet);
 				}}>
-				&#x273F; TODAY
+				TODAY
 			</div>
 		</header>
 	);
