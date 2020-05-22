@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../appContext.js";
+import { getTodayDate } from "./helpers";
 
 function NavBar() {
 	const { setFocusDate } = useContext(AppContext);
@@ -10,10 +11,7 @@ function NavBar() {
 			<div
 				className='today-btn'
 				onClick={() => {
-					const dateToSet = new Date();
-					dateToSet.setHours(0);
-					dateToSet.setMinutes(0);
-					setFocusDate(dateToSet);
+					setFocusDate(getTodayDate());
 				}}>
 				TODAY
 			</div>

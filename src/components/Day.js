@@ -55,7 +55,6 @@ function Day({ dayDate, setWeekDefocus }) {
 		removeTaskWithKey,
 		setCurrentDate,
 		replaceTasks,
-		taskLog,
 	} = useContext(AppContext);
 
 	const dayRef = useRef();
@@ -68,7 +67,7 @@ function Day({ dayDate, setWeekDefocus }) {
 
 	useEffect(() => {
 		setDayTasks(getTasks(dayStartTime, dayEndTime));
-	}, [taskLog, taskData.length]);
+	}, [taskData]);
 
 	useEffect(() => {
 		setTimeout(() => {

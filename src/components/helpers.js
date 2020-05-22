@@ -1,3 +1,4 @@
+import React from "react";
 const defaultTask = {
 	timeLength: 1,
 	dayStartHour: 7,
@@ -7,6 +8,32 @@ const defaultTask = {
 	description: "",
 	color: "gray",
 };
+
+function getInitTasks() {
+	const tasks = [
+		{
+			key: "introTask",
+			startDate: new Date(),
+			endDate: new Date(),
+			title: "Hi there!",
+			description: `Click to change.\nOr click and drag somewhere or drag the bottom line to change time.`,
+			color: "#b81639",
+		},
+	];
+	tasks[0].startDate.setHours(12);
+	tasks[0].startDate.setMinutes(0);
+	tasks[0].endDate.setHours(13);
+	tasks[0].endDate.setMinutes(30);
+
+	return tasks;
+}
+
+function getTodayDate() {
+	const todayDate = new Date();
+	todayDate.setHours(0);
+	todayDate.setMinutes(0);
+	return todayDate;
+}
 
 function getDefaultData() {
 	let defaultData = Object.assign({}, defaultTask);
@@ -119,6 +146,8 @@ const hoursAfterDayEnd = [20, 21, 22, 23];
 
 export {
 	getTaskTimeFromEvent,
+	getInitTasks,
+	getTodayDate,
 	defaultTask,
 	getDefaultData,
 	pickerColors,

@@ -188,6 +188,7 @@
 	overflow: hidden;
 	padding: 2px 0 0 8px;
 	color: rgb(116, 116, 116);
+	white-space: pre-line;
 }
 
 .task-size-handle {
