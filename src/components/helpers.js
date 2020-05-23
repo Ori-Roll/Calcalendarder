@@ -156,7 +156,7 @@ function minAfterEndTime(h, taskEndTime) {
 	if (h === taskEndTime.getHours()) {
 		const disabledMins = [];
 		for (let i = 59; i > 0; i--) {
-			if (taskEndTime.getMinutes() - minTaskLength <= i + 1) {
+			if (taskEndTime.getMinutes() - minTaskLength + 5 <= i + 1) {
 				disabledMins.push(i);
 			} else {
 				break;
