@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { getDefaultData, isShortTask } from "./helpers.js";
 
@@ -11,25 +11,25 @@ function Task({
 	sizeDragEndHandler,
 	sizeDragHandler,
 }) {
-	let theDate = new Date(taskProps.startDate);
-	let endDate = new Date(taskProps.endDate);
+	const theDate = useMemo(() => new Date(taskProps.startDate), [onDragStartHandler]);
+	const endDate = useMemo(() => new Date(taskProps.endDate), [onDragStartHandler]);
 
 	const { isOverlapping } = taskProps;
 
 	// This creates startDate format
-	let taskTime = (() => {
+	const taskTime = (() => {
 		if (taskProps.startDate === "") {
 			return "no startDate";
 		}
 		return `${theDate.getHours()}:${theDate.getMinutes().toString().padStart(2, "0")}`;
 	})();
-	let taskEndTime = (() => {
+	const taskEndTime = (() => {
 		if (taskProps.endDate === "") {
 			return "no endDate";
 		}
 		return `${endDate.getHours()}:${endDate.getMinutes().toString().padStart(2, "0")}`;
 	})();
-	let taskBoxStart = (() => {
+	const taskBoxStart = (() => {
 		if (taskProps.startDate === "") {
 			return 0;
 		} else {
@@ -37,7 +37,7 @@ function Task({
 		}
 	})();
 
-	let taskBoxEnd = (() => {
+	const taskBoxEnd = (() => {
 		if (taskProps.endDate === "") {
 			return "60px";
 		} else {
