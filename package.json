@@ -8,6 +8,7 @@
 		"@testing-library/react": "^9.5.0",
 		"@testing-library/user-event": "^7.2.1",
 		"normalize.css": "^8.0.1",
+		"prop-types": "^15.7.2",
 		"rc-time-picker": "^3.7.3",
 		"react": "^16.13.1",
 		"react-calendar": "^2.19.2",
