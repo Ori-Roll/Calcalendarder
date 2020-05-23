@@ -13,13 +13,14 @@
 		"side-bar week";
 	height: 100vh;
 	min-width: 0;
+	padding: 0 5px;
 }
 
 .nav-bar {
 	grid-area: nav-bar;
 	align-items: center;
 	background-color: rgb(255, 255, 255);
-	border-bottom: rgb(233, 233, 233) 1px solid;
+	/* border-bottom: rgb(233, 233, 233) 1px solid; */
 	/* display: grid;
 	
 	grid-template-columns: 2fr 50fr 1fr; */
@@ -37,17 +38,18 @@
 }
 
 .today-btn {
-	margin: 6px 15px;
-	padding: 8px 15px 10px 12px;
+	margin: 6px 10px;
+	padding: 6px 15px 8px 15px;
 	position: absolute;
 	right: 2.2em;
 	top: 16px;
-	font-size: 1.1em;
+	font-size: 1.05em;
 	font-weight: 600;
-	border: rgb(219, 219, 219) 1px solid;
+	/* border: rgb(219, 219, 219) 1px solid; */
 	/* border-bottom: rgb(199, 199, 199) 1px solid; */
-	border-radius: 5px;
-	color: #394857;
+	border: #d1d1d1 1px solid;
+	border-radius: 20px;
+	color: #2c2b2f;
 	cursor: pointer;
 	margin: 0 0 5px;
 
@@ -111,9 +113,10 @@
 }
 
 .day-container {
-	border-left: rgb(246, 246, 246) 1px solid;
+	border-left: rgb(246, 246, 246) 3px solid;
 	min-width: 0;
 	position: relative;
+	border-radius: 3px;
 }
 
 .day {
@@ -124,7 +127,7 @@
 }
 
 .dayTitle {
-	padding: 5px Calc(1.5vw + 5px) 5px;
+	padding: 10px Calc(1.5vw + 5px) 2px;
 	color: rgb(83, 88, 95);
 	min-width: 0;
 	text-align: center;

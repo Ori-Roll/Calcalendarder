@@ -199,7 +199,7 @@ const pickerColors = [
 	"white",
 ];
 
-const todaysHeadStyle = { color: "#f1e5c8", backgroundColor: "#4f6f8e" };
+const todaysHeadStyle = { color: "white", backgroundColor: "#c9c9c9" };
 
 const defaultTaskColor = "#2769a3";
 
