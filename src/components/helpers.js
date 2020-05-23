@@ -1,4 +1,3 @@
-import React from "react";
 const defaultTask = {
 	timeLength: 1,
 	dayStartHour: 7,

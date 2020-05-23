@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../appContext.js";
 import Day from "./Day.js";
 
 function Week() {
 	const [weekDefocus, setWeekDefocus] = useState(false);
 
-	const { focusDate } = useContext(AppContext);
+	const { focusDate, setCurrentDate } = useContext(AppContext);
 
 	function getWeekFirstDay(date) {
 		return new Date(date.setDate(date.getDate() - date.getDay()));
@@ -19,6 +19,10 @@ function Week() {
 	const weekDays = new Array(7)
 		.fill(undefined)
 		.map((item, i) => new Date(new Date(firstDayOfWeek).setDate(firstDayOfWeekDate + i)));
+
+	/* useEffect(() => {
+		setCurrentDate(new Date());
+	}, []); */
 
 	return (
 		<div className='week'>

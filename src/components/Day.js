@@ -35,7 +35,6 @@ function Day({ dayDate, setWeekDefocus }) {
 	const [showTaskForm, setShowTaskForm] = useState(false);
 	const [newTaskTime, setNewTaskTime] = useState(new Date(dayDate));
 	const [dayTasks, setDayTasks] = useState([]);
-	/* const [forceResetTasks, setForceResetTasks] = useState(false); */
 
 	const [initialTask, setInitialTask] = useState({});
 	const [initTaskIsNew, setInitTaskIsNew] = useState(true);
@@ -48,48 +47,36 @@ function Day({ dayDate, setWeekDefocus }) {
 
 	const [noDragTimer, setNoDragTimer] = useState(false);
 
-	const {
-		taskData,
-		setNewTask,
-		currentDate,
-		removeTaskWithKey,
-		setCurrentDate,
-		replaceTasks,
-	} = useContext(AppContext);
+	const { taskData, setNewTask, currentDate, removeTaskWithKey, replaceTasks } = useContext(
+		AppContext
+	);
 
 	const dayRef = useRef();
 
 	const titleStyleChange = isSameDate(dayDate, currentDate) ? todaysHeadStyle : {};
 
 	useEffect(() => {
-		setCurrentDate(new Date());
-	}, []);
-
-	useEffect(() => {
 		setDayTasks(getTasks(dayStartTime, dayEndTime));
 	}, [taskData]);
 
+	// !!!!!!!!!!!! - set time out????
 	useEffect(() => {
-		setTimeout(() => {
-			setNoDragTimer(false);
-		}, 100);
+		setNoDragTimer(false);
 	}, [noDragTimer]);
+	// !!!!!!!!!!!! - set time out????
+	useEffect(() => {
+		dayTasks.forEach((item) => {
+			if (isOverlapping(item, dayTasks)) {
+				item.isOverlapping = true;
+			} else {
+				item.isOverlapping = false;
+			}
+		});
+	});
 
-	setTimeout(
-		() =>
-			dayTasks.forEach((item) => {
-				if (isOverlapping(item, dayTasks)) {
-					item.isOverlapping = true;
-				} else {
-					item.isOverlapping = false;
-				}
-			}),
-		0
-	);
-
-	function getTasks(startDate, endTime) {
+	function getTasks(startDate, endDate) {
 		let taskSet = taskData.filter((item) => {
-			return item.startDate >= startDate && item.startDate < endTime;
+			return item.startDate >= startDate && item.startDate < endDate;
 		});
 		return taskSet;
 	}
