@@ -4,9 +4,10 @@ import ColorPicker from "./ColorPicker";
 import {
 	defaultTaskColor,
 	roundDateToFive,
-	minTaskLength,
-	hoursBeforeDayStart,
-	hoursAfterDayEnd,
+	minsBeforeStartTime,
+	hoursBeforeStartTime,
+	minAfterEndTime,
+	hoursAfterEndTime,
 } from "./helpers.js";
 import colorPickerImg from "../images/colorPicker.png";
 import trashImg from "../images/Trash.jpg";
@@ -50,58 +51,6 @@ function TaskForm({
 
 	function toggleColorPicker() {
 		setColorPickerIsOn(!colorPickerIsOn);
-	}
-
-	function hoursAfterEndTime() {
-		const badHours = [...hoursBeforeDayStart];
-		for (let i = 23; i > 0; i--) {
-			if (taskEndTime.getHours() < i) {
-				badHours.push(i);
-			} else {
-				break;
-			}
-		}
-		return badHours;
-	}
-
-	function minAfterEndTime(h) {
-		if (h === taskEndTime.getHours()) {
-			const badMins = [];
-			for (let i = 59; i > 0; i--) {
-				if (taskEndTime.getMinutes() - minTaskLength <= i + 1) {
-					badMins.push(i);
-				} else {
-					break;
-				}
-			}
-			return badMins;
-		}
-	}
-
-	function hoursBeforeStartTime() {
-		const badHours = [...hoursAfterDayEnd];
-		for (let i = 0; i < 23; i++) {
-			if (taskStartTime.getHours() + 1 > i + 1) {
-				badHours.push(i);
-			} else {
-				break;
-			}
-		}
-		return badHours;
-	}
-
-	function minsBeforeStartTime(h) {
-		if (h === taskStartTime.getHours()) {
-			const badMins = [];
-			for (let i = 0; i < 59; i++) {
-				if (taskStartTime.getMinutes() + minTaskLength >= i + 1) {
-					badMins.push(i);
-				} else {
-					break;
-				}
-			}
-			return badMins;
-		}
 	}
 
 	function deleteThisTask() {
@@ -162,8 +111,8 @@ function TaskForm({
 				popupClassName={"popup"}
 				minuteStep={5}
 				hideDisabledOptions={true}
-				disabledHours={() => hoursAfterEndTime()}
-				disabledMinutes={(h) => minAfterEndTime(h)}
+				disabledHours={() => hoursAfterEndTime(taskEndTime)}
+				disabledMinutes={(h) => minAfterEndTime(h, taskEndTime)}
 				onChange={(momentObj) => timeChangeHandler(setTaskStartTime, momentObj)}
 			/>
 
@@ -183,8 +132,8 @@ function TaskForm({
 				allowEmpty={false}
 				popupClassName={"popup"}
 				minuteStep={5}
-				disabledHours={() => hoursBeforeStartTime()}
-				disabledMinutes={(h) => minsBeforeStartTime(h)}
+				disabledHours={() => hoursBeforeStartTime(taskStartTime)}
+				disabledMinutes={(h) => minsBeforeStartTime(h, taskStartTime)}
 				hideDisabledOptions={true}
 				onChange={(momentObj) => timeChangeHandler(setTaskEndTime, momentObj)}
 			/>

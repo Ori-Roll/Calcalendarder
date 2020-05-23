@@ -20,9 +20,9 @@ function Week() {
 		.fill(undefined)
 		.map((item, i) => new Date(new Date(firstDayOfWeek).setDate(firstDayOfWeekDate + i)));
 
-	/* useEffect(() => {
+	useEffect(() => {
 		setCurrentDate(new Date());
-	}, []); */
+	}, []);
 
 	return (
 		<div className='week'>

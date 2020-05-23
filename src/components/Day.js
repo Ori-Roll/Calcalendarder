@@ -21,11 +21,6 @@ const getDateWithoutTime = (date) =>
 const isSameDate = (date1, date2) => getDateWithoutTime(date1) === getDateWithoutTime(date2);
 const daysShortNames = Object.freeze(["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]);
 
-let bottomDragged = false;
-let bottomDragStartPos = 0;
-let bottomDragStartOfTaskSet = 0;
-let resizedTask;
-
 function Day({ dayDate, setWeekDefocus }) {
 	const dayNumber = dayDate.getDate().toString();
 	const dayShortName = daysShortNames[dayDate.getDay()];
@@ -53,24 +48,27 @@ function Day({ dayDate, setWeekDefocus }) {
 
 	const dayRef = useRef();
 
+	const bottom = useRef({
+		dragged: false,
+		dragStartPos: 0,
+		dragStartOfTaskSet: 0,
+	});
+
+	const resizedTask = useRef();
+
 	const titleStyleChange = isSameDate(dayDate, currentDate) ? todaysHeadStyle : {};
 
 	useEffect(() => {
 		setDayTasks(getTasks(dayStartTime, dayEndTime));
 	}, [taskData]);
 
-	// !!!!!!!!!!!! - set time out????
 	useEffect(() => {
 		setNoDragTimer(false);
 	}, [noDragTimer]);
-	// !!!!!!!!!!!! - set time out????
+
 	useEffect(() => {
 		dayTasks.forEach((item) => {
-			if (isOverlapping(item, dayTasks)) {
-				item.isOverlapping = true;
-			} else {
-				item.isOverlapping = false;
-			}
+			item.isOverlapping = isOverlapping(item, dayTasks);
 		});
 	});
 
@@ -86,10 +84,8 @@ function Day({ dayDate, setWeekDefocus }) {
 		const newStartDate = new Date(dayDate);
 		const newEndDate = new Date(dayDate);
 
-		newStartDate.setHours(dateToSet.getHours());
-		newStartDate.setMinutes(dateToSet.getMinutes());
-		newEndDate.setHours(dateToSet.getHours() + defaultTask.timeLength);
-		newEndDate.setMinutes(newStartDate.getMinutes());
+		newStartDate.setHours(dateToSet.getHours(), dateToSet.getMinutes());
+		newEndDate.setHours(dateToSet.getHours() + defaultTask.timeLength, newStartDate.getMinutes());
 
 		const emptyNewTask = {
 			key: new Date().getTime().toString(),
@@ -131,12 +127,12 @@ function Day({ dayDate, setWeekDefocus }) {
 	}
 
 	function onDragStartHandler(e, taskProps) {
-		if (bottomDragged !== true) {
+		if (bottom.current.dragged !== true) {
 			const taskIndex = dayTasks.findIndex((item) => item.key === taskProps.key);
 			dayTasks.splice(taskIndex, 1);
-			const clickToTaskStartDif = e.clientY - e.target.getBoundingClientRect().y;
+			const clickToTaskStartDelta = e.clientY - e.target.getBoundingClientRect().y;
 			e.dataTransfer.setData("taskKey", taskProps.key);
-			e.dataTransfer.setData("clickToTaskStartDif", clickToTaskStartDif);
+			e.dataTransfer.setData("clickToTaskStartDelta", clickToTaskStartDelta);
 		}
 	}
 
@@ -145,32 +141,38 @@ function Day({ dayDate, setWeekDefocus }) {
 	}
 
 	function onDropHandler(e) {
-		if (bottomDragged !== true) {
+		if (bottom.current.dragged !== true) {
 			e.preventDefault();
-			const dropedTaskIndex = taskData.findIndex((item) => {
-				return item.key.toString() === e.dataTransfer.getData("taskKey");
-			});
-			const dropedTask = taskData[dropedTaskIndex];
+			const dropedTask =
+				taskData[
+					taskData.findIndex((item) => {
+						return item.key.toString() === e.dataTransfer.getData("taskKey");
+					})
+				];
 			const newTask = { ...dropedTask };
 
+			// task in new position needs to have the same length
 			const taskHoursTimeDifference = newTask.endDate.getHours() - newTask.startDate.getHours();
 			const taskMinutesTimeDifferance =
 				newTask.endDate.getMinutes() - newTask.startDate.getMinutes();
 
-			const clickToTaskStartDif = e.dataTransfer.getData("clickToTaskStartDif");
+			// position the task according to where it was clicked on the task at the start of the drag
+			const clickToTaskStartDelta = e.dataTransfer.getData("clickToTaskStartDelta");
 
 			newTask.startDate.setTime(dayDate.getTime());
 			newTask.startDate.setHours(
-				getTaskTimeFromEvent(dayRef, e, clickToTaskStartDif).hours,
-				getTaskTimeFromEvent(dayRef, e, clickToTaskStartDif).minutes
+				getTaskTimeFromEvent(dayRef, e, clickToTaskStartDelta).hours,
+				getTaskTimeFromEvent(dayRef, e, clickToTaskStartDelta).minutes
 			);
 			newTask.startDate = roundDateToFive(newTask.startDate);
+
 			newTask.endDate.setTime(dayDate.getTime());
 			newTask.endDate.setHours(
 				newTask.startDate.getHours() + taskHoursTimeDifference,
 				newTask.startDate.getMinutes() + taskMinutesTimeDifferance
 			);
 			newTask.endDate = roundDateToFive(newTask.endDate);
+
 			replaceTasks(dropedTask.key, newTask);
 		}
 	}
@@ -181,37 +183,43 @@ function Day({ dayDate, setWeekDefocus }) {
 	}
 
 	function sizeDragStartHandler(e, taskKey) {
-		bottomDragged = true;
-		bottomDragStartPos = e.clientY;
-		resizedTask =
+		bottom.current.dragged = true;
+		bottom.current.dragStartPos = e.clientY;
+		resizedTask.current =
 			taskData[
 				taskData.findIndex((item) => {
 					return item.key === taskKey;
 				})
 			];
-		bottomDragStartOfTaskSet = resizedTask.endDate.getTime();
+		bottom.current.dragStartOfTaskSet = resizedTask.current.endDate.getTime();
 	}
 
 	function sizeDragHandler(e, taskKey) {
-		let newPos = bottomDragStartOfTaskSet + (e.clientY - bottomDragStartPos) * timePixelsToMin;
-		let taskSizeNotNegative = resizedTask.endDate.getTime() > resizedTask.startDate.getTime();
+		let newPos =
+			bottom.current.dragStartOfTaskSet +
+			(e.clientY - bottom.current.dragStartPos) * timePixelsToMin;
+		let taskSizeNotNegative =
+			resizedTask.current.endDate.getTime() > resizedTask.current.startDate.getTime();
 		if (taskSizeNotNegative) {
 			if (!noDragTimer && taskSizeNotNegative) {
-				resizedTask.endDate.setTime(newPos);
+				resizedTask.current.endDate.setTime(newPos);
 				setNoDragTimer(true);
 			}
 		}
 	}
 
-	function sizeDragEndHandler(e, taskKey) {
-		let dragDiffrance = e.clientY - bottomDragStartPos;
-		const dragTo = bottomDragStartOfTaskSet + dragDiffrance * 60000;
-		let taskSizeNotNegative = resizedTask.endDate.getTime() > resizedTask.startDate.getTime();
-		resizedTask.endDate.setTime(roundDateToFive(new Date(dragTo)));
+	function sizeDragEndHandler(e) {
+		let dragDiffrance = e.clientY - bottom.current.dragStartPos;
+		const dragTo = bottom.current.dragStartOfTaskSet + dragDiffrance * 60000;
+		let taskSizeNotNegative =
+			resizedTask.current.endDate.getTime() > resizedTask.current.startDate.getTime();
+		resizedTask.current.endDate.setTime(roundDateToFive(new Date(dragTo)));
 		if (!taskSizeNotNegative) {
-			resizedTask.endDate.setTime(resizedTask.startDate.getTime() + minTaskLength * 3 * 60000);
+			resizedTask.current.endDate.setTime(
+				resizedTask.current.startDate.getTime() + minTaskLength * 3 * 60000
+			);
 		}
-		bottomDragged = false;
+		bottom.current.dragged = false;
 	}
 
 	const dayTitle = (

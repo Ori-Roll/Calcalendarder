@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { getInitTasks, getTodayDate } from "./components/helpers";
-
+import React, { useState } from "react";
+import {
+	getInitTasks,
+	getTodayDate,
+	defaultDayStartHour,
+	repositionTask,
+} from "./components/helpers";
 const AppContext = React.createContext();
 
 function AppContextProvider(props) {
@@ -11,6 +15,11 @@ function AppContextProvider(props) {
 	const [focusDate, setFocusDate] = useState(getTodayDate());
 
 	function setNewTask(newTask) {
+		// 	task has to start at defaultDayStartHour
+		if (newTask.startDate.getHours() < defaultDayStartHour) {
+			repositionTask(newTask, defaultDayStartHour);
+		}
+
 		// taskData needs to be ordered by date of tasks:
 		setTaskData((prevData) => {
 			const newData = [...prevData, newTask];
@@ -38,7 +47,6 @@ function AppContextProvider(props) {
 	function replaceTasks(oldTaskKey, newTask) {
 		removeTaskWithKey(oldTaskKey);
 		setNewTask(newTask);
-		console.log("adsgfasdgfasdg");
 	}
 
 	return (
