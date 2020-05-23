@@ -333,11 +333,11 @@
 	grid-template-columns: 0.2fr 0.2fr 3fr 3fr 0.8fr;
 	grid-template-rows: 0.6fr 0.6fr 0.3fr 0.3fr 0.45fr;
 	grid-template-areas:
-		"task-form-bottom-color	 .	task-form-title      	task-form-title       	task-form-title"
-		"task-form-bottom-color	 .	task-form-discription	task-form-discription 	task-form-discription"
-		"task-form-bottom-color	 .	task-form-time-lable	task-form-time        	task-form-color"
-		"task-form-bottom-color	 .	task-form-end-lable  	task-form-time-end    	task-form-color"
-		"task-form-bottom-color	 .	task-form-delete		task-form-cancel       	task-form-submit";
+		"task-form-side-color	 .	task-form-title      	task-form-title       	task-form-title"
+		"task-form-side-color	 .	task-form-discription	task-form-discription 	task-form-discription"
+		"task-form-side-color	 .	task-form-time-lable	task-form-time        	task-form-color"
+		"task-form-side-color	 .	task-form-end-lable  	task-form-time-end    	task-form-color"
+		"task-form-side-color	 .	task-form-delete		task-form-cancel       	task-form-submit";
 }
 
 @keyframes form-pop-in {
@@ -507,8 +507,8 @@
 	height: 45px;
 }
 
-.task-form-bottom-color {
-	grid-area: task-form-bottom-color;
+.task-form-side-color {
+	grid-area: task-form-side-color;
 	background-color: rgb(75, 75, 145);
 	background-size: contain;
 }

@@ -24,15 +24,11 @@ function TaskForm({
 }) {
 	const [taskStartTime, setTaskStartTime] = useState(initialTask.startDate);
 	const [taskEndTime, setTaskEndTime] = useState(initialTask.endDate);
-	/* const [startTimeDisplay, setStartTimeDisplay] = useState("08:00");
-	const [endTimeDisplay, setEndTimeDisplay] = useState("10:00"); */
 
 	const [taskTitle, setTaskTitle] = useState(initialTask.title);
 	const [taskDescription, setTaskDescription] = useState(initialTask.description);
 	const [taskColor, setTaskColor] = useState(isNew ? defaultTaskColor : initialTask.color);
 	const [colorPickerIsOn, setColorPickerIsOn] = useState(false);
-
-	/* const startDate = new Date(taskStartTime); */
 
 	const taskTitleRef = useRef();
 
@@ -116,14 +112,6 @@ function TaskForm({
 
 	useEffect(() => {
 		taskTitleRef.current.focus();
-		/* function setTimeDisplay(setDisplayFunc, sourceDate) {
-			setDisplayFunc(
-				sourceDate.getHours().toString().padStart(2, 0) +
-					":" +
-					sourceDate.getMinutes().toString().padStart(2, 0)
-			);
-		} */
-
 		setTaskStartTime(roundDateToFive(taskStartTime));
 		setTaskEndTime(roundDateToFive(taskEndTime));
 	}, []);
@@ -178,20 +166,6 @@ function TaskForm({
 				disabledMinutes={(h) => minAfterEndTime(h)}
 				onChange={(momentObj) => timeChangeHandler(setTaskStartTime, momentObj)}
 			/>
-			{/* <input
-				type='time'
-				id='task-time'
-				name='task-time'
-				className='task-form-time'
-				style={{ color: taskColor }}
-				min='07:00'
-				max='21:00'
-				autoComplete='true'
-				value={startTimeDisplay}
-				step={300}
-				onChange={(e) => {
-					inputChangeHandler(e, setStartTimeDisplay);
-				}}></input> */}
 
 			<label
 				type='label'
@@ -214,18 +188,6 @@ function TaskForm({
 				hideDisabledOptions={true}
 				onChange={(momentObj) => timeChangeHandler(setTaskEndTime, momentObj)}
 			/>
-			{/* <input
-				type='time'
-				id='task-time-end'
-				name='task-time-end'
-				className='task-form-time-end'
-				style={{ color: taskColor }}
-				min='07:00'
-				max='21:00'
-				value={endTimeDisplay}
-				onChange={(e) => {
-					inputChangeHandler(e, setEndTimeDisplay);
-				}}></input> */}
 
 			<div
 				onClick={toggleColorPicker}
@@ -264,7 +226,7 @@ function TaskForm({
 			{colorPickerIsOn && (
 				<ColorPicker setTaskColor={setTaskColor} toggleColorPicker={toggleColorPicker} />
 			)}
-			<div style={{ backgroundColor: taskColor }} className='task-form-bottom-color'></div>
+			<div className='task-form-side-color' style={{ backgroundColor: taskColor }}></div>
 		</form>
 	);
 }

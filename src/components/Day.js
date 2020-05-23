@@ -165,6 +165,7 @@ function Day({ dayDate, setWeekDefocus }) {
 			});
 			const dropedTask = taskData[dropedTaskIndex];
 			const newTask = { ...dropedTask };
+
 			const taskHoursTimeDifference = newTask.endDate.getHours() - newTask.startDate.getHours();
 			const taskMinutesTimeDifferance =
 				newTask.endDate.getMinutes() - newTask.startDate.getMinutes();
@@ -172,13 +173,16 @@ function Day({ dayDate, setWeekDefocus }) {
 			const clickToTaskStartDif = e.dataTransfer.getData("clickToTaskStartDif");
 
 			newTask.startDate.setTime(dayDate.getTime());
-			newTask.startDate.setHours(getTaskTimeFromEvent(dayRef, e, clickToTaskStartDif).hours);
-			newTask.startDate.setMinutes(getTaskTimeFromEvent(dayRef, e, clickToTaskStartDif).minutes);
+			newTask.startDate.setHours(
+				getTaskTimeFromEvent(dayRef, e, clickToTaskStartDif).hours,
+				getTaskTimeFromEvent(dayRef, e, clickToTaskStartDif).minutes
+			);
 			newTask.startDate = roundDateToFive(newTask.startDate);
-
 			newTask.endDate.setTime(dayDate.getTime());
-			newTask.endDate.setHours(newTask.startDate.getHours() + taskHoursTimeDifference);
-			newTask.endDate.setMinutes(newTask.startDate.getMinutes() + taskMinutesTimeDifferance);
+			newTask.endDate.setHours(
+				newTask.startDate.getHours() + taskHoursTimeDifference,
+				newTask.startDate.getMinutes() + taskMinutesTimeDifferance
+			);
 			newTask.endDate = roundDateToFive(newTask.endDate);
 			replaceTasks(dropedTask.key, newTask);
 		}
@@ -188,10 +192,6 @@ function Day({ dayDate, setWeekDefocus }) {
 			setDayTasks(getTasks(dayStartTime, dayEndTime));
 		}
 	}
-
-	/* function skipDragFuncByMin(func, e, minInterval) {
-		func();
-	} */
 
 	function sizeDragStartHandler(e, taskKey) {
 		bottomDragged = true;
@@ -211,12 +211,9 @@ function Day({ dayDate, setWeekDefocus }) {
 		if (taskSizeNotNegative) {
 			if (!noDragTimer && taskSizeNotNegative) {
 				resizedTask.endDate.setTime(newPos);
-				/* setForceResetTasks(true); */
 				setNoDragTimer(true);
 			}
 		}
-
-		/* skipDragFuncByMin(doSizeDrag, e, 5); */
 	}
 
 	function sizeDragEndHandler(e, taskKey) {
@@ -228,7 +225,6 @@ function Day({ dayDate, setWeekDefocus }) {
 			resizedTask.endDate.setTime(resizedTask.startDate.getTime() + minTaskLength * 3 * 60000);
 		}
 		bottomDragged = false;
-		/* setForceResetTasks(false); */
 	}
 
 	const dayTitle = (

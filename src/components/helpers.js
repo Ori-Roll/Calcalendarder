@@ -16,10 +16,11 @@ function getInitTasks() {
 			startDate: new Date(),
 			endDate: new Date(),
 			title: "Hi there!",
-			description: `Click to change.\nOr click and drag somewhere or drag the bottom line to change time.`,
+			description: `Click to change.\nClick and drag to move or drag the bottom line to change length.`,
 			color: "#b81639",
 		},
 	];
+
 	tasks[0].startDate.setHours(12);
 	tasks[0].startDate.setMinutes(0);
 	tasks[0].endDate.setHours(13);
@@ -30,8 +31,7 @@ function getInitTasks() {
 
 function getTodayDate() {
 	const todayDate = new Date();
-	todayDate.setHours(0);
-	todayDate.setMinutes(0);
+	todayDate.setHours(0, 0);
 	return todayDate;
 }
 
