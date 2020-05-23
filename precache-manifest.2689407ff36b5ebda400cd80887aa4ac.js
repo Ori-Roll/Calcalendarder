@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e69b058e6d78a4bf16ed1abded5986fe",
+    "revision": "f06b6f3be1cc370545e4b7892e5292c7",
     "url": "/Calcalendarder/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Calcalendarder/static/css/2.b3e56d76.chunk.css"
   },
   {
-    "revision": "6805c8ea3f0d40cafa35",
-    "url": "/Calcalendarder/static/css/main.3c272635.chunk.css"
+    "revision": "73836c9b3ea0a6db1314",
+    "url": "/Calcalendarder/static/css/main.865823be.chunk.css"
   },
   {
     "revision": "57275d5b69f490e1f64c",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Calcalendarder/static/js/2.3e354b53.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6805c8ea3f0d40cafa35",
-    "url": "/Calcalendarder/static/js/main.55077777.chunk.js"
+    "revision": "73836c9b3ea0a6db1314",
+    "url": "/Calcalendarder/static/js/main.49710bb6.chunk.js"
   },
   {
     "revision": "9d9dba42d5595dbf902a",
