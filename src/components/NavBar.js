@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../appContext.js";
 import { getTodayDate } from "./helpers";
+/* import trashImg from "../images/Trash.jpg"; */
 
 function NavBar() {
 	const { setFocusDate } = useContext(AppContext);

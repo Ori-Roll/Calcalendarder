@@ -25,24 +25,15 @@
 	grid-template-columns: 2fr 50fr 1fr; */
 }
 
-/* .nav-bar h1 {
-	font-family: "Lobster", cursive;
-	font-size: 2.4em;
-	font-weight: 600;
-	color: #ffffff;
-	background-color: #31669b;
-
-	display: inline-block;
-	margin: 11px 0 0px 10px;
-} */
 .nav-bar h1 {
-	font-family: "Lobster", cursive;
-	font-size: 2.4em;
-	font-weight: 600;
-	color: #31669b;
-	/* border: 1px #31669b solid; */
+	/* font-family: "Lobster", cursive; */
+	font-family: "Pacifico", cursive;
+	font-size: 2em;
+	font-weight: 200;
+	color: #1f0d70;
 	display: inline-block;
-	margin: 11px 0 0px 10px;
+	margin: 18px 0 0px 15px;
+	overflow: hidden;
 }
 
 .today-btn {
@@ -315,7 +306,7 @@
 	}
 	.nav-bar h1 {
 		font-size: 1.5em;
-		margin: 22px 0 0 0;
+		margin-top: 22px;
 	}
 }
 
