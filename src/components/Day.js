@@ -222,6 +222,10 @@ function Day({ dayDate, setWeekDefocus }) {
 		bottom.current.dragged = false;
 	}
 
+	function onDragLeaveHandler() {
+		setTimeToolTopIsOn(false);
+	}
+
 	const dayTitle = (
 		<div className='dayTitle' style={titleStyleChange}>
 			<h4>{dayNumber}</h4>
@@ -255,6 +259,7 @@ function Day({ dayDate, setWeekDefocus }) {
 						sizeDragHandler={sizeDragHandler}
 						sizeDragEndHandler={sizeDragEndHandler}
 						onDragEndHandler={onDragEndHandler}
+						onDragLeaveHandler={onDragLeaveHandler}
 					/>
 				))}
 				{timeToolTipIsOn && (

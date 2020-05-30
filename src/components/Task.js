@@ -10,6 +10,7 @@ function Task({
 	sizeDragStartHandler,
 	sizeDragEndHandler,
 	sizeDragHandler,
+	onDragLeaveHandler,
 }) {
 	const theDate = useMemo(() => new Date(taskProps.startDate), [onDragStartHandler]);
 	const endDate = useMemo(() => new Date(taskProps.endDate), [onDragStartHandler]);
@@ -72,6 +73,7 @@ function Task({
 			onClick={taskClickHandler}
 			onDragStart={(e) => onDragStartHandler(e, taskProps)}
 			onDragEnd={(e) => onDragEndHandler(e)}
+			onDragLeave={() => onDragLeaveHandler()}
 			draggable='true'>
 			<p
 				className='task-title'
